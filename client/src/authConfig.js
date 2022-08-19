@@ -1,10 +1,7 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
-
 export const msalConfig = {
     auth: {
-      clientId: process.env.CLIENTID,
-      authority: process.env.AUTHORITY, // This is a URL (e.g. https://login.microsoftonline.com/{your tenant ID})
+      clientId: process.env.REACT_APP_CLIENTID,
+      authority: process.env.REACT_APP_AUTHORITY, // This is a URL (e.g. https://login.microsoftonline.com/{your tenant ID})
       redirectUri: "http://localhost:3000",
     },
     cache: {

@@ -1,4 +1,4 @@
-import React, { useState, Component} from "react";
+import React, { useState} from "react";
 import { useMsal } from "@azure/msal-react";
 import { ProfileData } from "../auth/ProfileData";
 import { callMsGraph } from "../../graph";

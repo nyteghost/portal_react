@@ -41,18 +41,13 @@ import "./styles/App.css";
         <UnauthenticatedTemplate>
           <Header />
           <h5 className="card-title">Please sign-in to see your profile information.</h5>
+          
         </UnauthenticatedTemplate>
         </>
     );
     }
   }
 
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
+
 
 export default App;
