@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import { useMsal } from "@azure/msal-react";
 import { ProfileData } from "../auth/ProfileData";
 import { callMsGraph } from "../../graph";
-import { loginRequest } from "../../authConfig";
+import { loginRequest } from "../auth/authConfig";
 import Button from "react-bootstrap/Button";
 /**
  * Renders the navbar component with a sign-in button if a user is not authenticated

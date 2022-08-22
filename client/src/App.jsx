@@ -8,40 +8,33 @@ import "./styles/App.css";
  */
 
  class App extends Component {
-    state = {
-      data: null
-    };
-  
-    // componentDidMount() {
-    //   this.callBackendAPI()
-    //     .then(res => this.setState({ data: res.express }))
-    //     .catch(err => console.log(err));
+    // constructor(props) {
+    //   super(props);
+    //   this.state = { apiResponse: "" };
     // }
-    //   // fetching the GET route from the Express server which matches the GET route from server.js
-    // callBackendAPI = async () => {
-    //   const response = await fetch('/express_backend');
-    //   const body = await response.json();
-  
-    //   if (response.status !== 200) {
-    //     throw Error(body.message) 
-    //   }
-    //   return body;
-    // };
 
+    // callAPI() {
+    //     fetch("http://localhost:5000/testAPI")
+    //         .then(res => res.text())
+    //         .then(res => this.setState({ apiResponse: res }));
+    // }
+
+    // componentWillMount() {
+    //     this.callAPI();
+    // }
     render() {
       return (
         <>
         <AuthenticatedTemplate>
-        
           <AppRouter />
-
+          {/* <p className="App-intro">{this.state.apiResponse}</p> */}
         </AuthenticatedTemplate>
         
   
         <UnauthenticatedTemplate>
           <Header />
           <h5 className="card-title">Please sign-in to see your profile information.</h5>
-          
+        
         </UnauthenticatedTemplate>
         </>
     );

@@ -1,7 +1,8 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
   
 const K12 = () => {
   return (
+    
     <div
       style={{
         display: 'flex',
@@ -14,5 +15,5 @@ const K12 = () => {
     </div>
   );
 };
-  
+
 export default K12;

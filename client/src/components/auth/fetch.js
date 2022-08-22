@@ -1,9 +1,9 @@
-import { graphConfig } from "./components/auth/authConfig";
-
-/**
- * Attaches a given access token to a Microsoft Graph API call. Returns information about the user
+/*
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License.
  */
-export async function callMsGraph(accessToken) {
+
+export const callApiWithToken = async(accessToken, apiEndpoint) => {
     const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
 
@@ -14,7 +14,7 @@ export async function callMsGraph(accessToken) {
         headers: headers
     };
 
-    return fetch(graphConfig.graphMeEndpoint, options)
+    return fetch(apiEndpoint, options)
         .then(response => response.json())
         .catch(error => console.log(error));
 }

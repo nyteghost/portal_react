@@ -15,6 +15,7 @@ import SearchAssetLoc from "./components/pages/warehouse/searchAssetLoc.jsx"
 import MiscAssign from "./components/pages/warehouse/miscAssignment"
 import ASAPOutbound from "./components/pages/warehouse/asapoutboundlabel"
 import ConsumePeriph from "./components/pages/warehouse/consumePeripherals"
+import Hello  from "./components/pages/Hello"
 
 function AppRouter() {
 return (
@@ -22,6 +23,8 @@ return (
         <Header />
         <Routes>
             <Route exact path='/' element={<PageLayout />}/>
+            <Route path='/components/pages/Hello' element={<Hello />}/>
+
         {/* Returns */}
             <Route path='/components/pages/returns/new' element={<Newreturn />}/>
             <Route path='/components/pages/returns/notag' element={<NoTag />}/>

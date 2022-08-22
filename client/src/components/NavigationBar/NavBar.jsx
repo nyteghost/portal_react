@@ -20,6 +20,7 @@ export function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/components/pages/Hello">Hello API</Nav.Link>
             <NavDropdown title="Returns" id="basic-nav-dropdown">
               <NavDropdown.Item href="/components/pages/returns/new">Create New Return</NavDropdown.Item>
               <NavDropdown.Item href='/components/pages/returns/notag'>Create No Tag Return</NavDropdown.Item>
