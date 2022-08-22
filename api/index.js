@@ -2,8 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const passport = require('passport');
 const config = require('./config.json');
-
+const controllers = require("./controllers");
+const router = express.Router();
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
+const assetLocationsRouter = require('./routes/pl');
 
 const options = {
     identityMetadata: `https://${config.metadata.authority}/${config.credentials.tenantID}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -37,6 +39,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/", (req, res) => {
+    res.json({ message: "ok" });
+  });
+
 // exposed API endpoint
 app.get('/hello',
     passport.authenticate('oauth-bearer', {session: false}),
@@ -53,10 +59,59 @@ app.get('/hello',
     }
 );
 
+app.get('/testAPI',
+    passport.authenticate('oauth-bearer', {session: false}),
+    (req, res) => {
+        console.log('Validated claims: ', req.authInfo);
+
+        // Service relies on the name claim.  
+        res.status(200).json({
+            'Statement': "Did it"
+        });
+    }
+);
+
+// app.get('/getAssetLocation',
+//     passport.authenticate('oauth-bearer', {session: false}),
+//     (req, res) => {
+//         console.log('Validated claims: ', req.authInfo);
+
+//         // Service relies on the name claim.  
+//         res.status(200).json({
+//             'Statement': "Did it"
+//         });
+//     }
+// );
+
+
+// const snapp = express();
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use('/getAssetLocations', assetLocationsRouter);
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    console.error(err.message, err.stack);
+    res.status(statusCode).json({ message: err.message });
+    return;
+  });
+
+
+
+// app.route("/getAssetLocation").get(controllers.getAllAssetLocations).post(controllers.createAssetLocation);
+// router
+//  .route("/:id")
+//  .get(controllers.getAssetLocation)
+//  .put(controllers.updateAssetLocation)
+//  .delete(controllers.deleteTodo);
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
 });
 
-module.exports = app;
+module.exports = app, router;
