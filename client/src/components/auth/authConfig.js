@@ -70,6 +70,9 @@ export const protectedResources = {
         endpoint: "http://localhost:5000/hello",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"], // e.g. api://xxxxxx/access_as_user
     },
+    apiGetAssetLocaiton:{
+        endpoint: "http://localhost:5000/getAssetLocation"
+    }
 };
 
   // Add the endpoints here for Microsoft Graph API services you'd like to use.

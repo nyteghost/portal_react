@@ -1,50 +1,75 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
+import { useEffect, useState } from "react";
 
-const SearchAssetLoc = () => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'Right',
-        height: '100vh'
-      }}
-    >
-      <Form>
-      <Row className="align-items-center">
-        <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput" visuallyHidden>
-            Name
-          </Form.Label>
-          <Form.Control
-            className="mb-2"
-            id="inlineFormInput"
-            placeholder="Asset#/SN#"
-          />
-        </Col> 
-        <Col xs="auto">
-          <Button type="submit" className="mb-2">
-            Submit
-          </Button>
-        </Col>
-      </Row>
-    </Form>
+import { MsalAuthenticationTemplate, useMsal, useAccount } from "@azure/msal-react";
+import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 
+import { loginRequest, protectedResources } from "../../auth/authConfig";
+import { callApiWithToken } from "../../auth/fetch";
+import { HelloData } from "../../../components/DataDisplay";
 
-{/*     
-    <form name="Form" action="/warehouse/assetLocationSearch" id="assetLocSearch-form" method="post">
-        <div class="form-group">
-            <label for="assetLocSearch">Asset#/SN#:</label>
-            <input type="text" name="assetLocSearch" id="assetLocSearch"></input>
-        </div>
-        <button id="submit" class="btn btn-success btn-padding" >Submit</button>
-    </form> */}
-    </div>
-  );
-};
+const HelloContent = () => {
+    /**
+     * useMsal is hook that returns the PublicClientApplication instance, 
+     * an array of all accounts currently signed in and an inProgress value 
+     * that tells you what msal is currently doing. For more, visit: 
+     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/hooks.md
+     */
+    const { instance, accounts, inProgress } = useMsal();
+    const account = useAccount(accounts[0] || {});
+    const [helloData, setHelloData] = useState(null);
+
+    useEffect(() => {
+        if (account && inProgress === "none" && !helloData) {
+            instance.acquireTokenSilent({
+                scopes: protectedResources.apiHello.scopes,
+                account: account
+            }).then((response) => {
+                callApiWithToken(response.accessToken, protectedResources.apiHello.endpoint)
+                    .then(response => setHelloData(response));
+            }).catch((error) => {
+                // in case if silent token acquisition fails, fallback to an interactive method
+                if (error instanceof InteractionRequiredAuthError) {
+                    if (account && inProgress === "none") {
+                        instance.acquireTokenPopup({
+                            scopes: protectedResources.apiHello.scopes,
+                        }).then((response) => {
+                            callApiWithToken(response.accessToken, protectedResources.apiHello.endpoint)
+                                .then(response => setHelloData(response));
+                        }).catch(error => console.log(error));
+                    }
+                }
+            });
+        }
+    }, [account, inProgress, instance]);
   
-export default SearchAssetLoc;
+    return (
+        <>
+            { helloData ? <HelloData helloData={helloData} /> : null }
+        </>
+    );
+};
+
+/**
+ * The `MsalAuthenticationTemplate` component will render its children if a user is authenticated 
+ * or attempt to sign a user in. Just provide it with the interaction type you would like to use 
+ * (redirect or popup) and optionally a [request object](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md)
+ * to be passed to the login API, a component to display while authentication is in progress or a component to display if an error occurs. For more, visit:
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md
+ */
+
+const Hello = () => {
+    const authRequest = {
+        ...loginRequest
+    };
+
+    return (
+        <MsalAuthenticationTemplate 
+            interactionType={InteractionType.Redirect} 
+            authenticationRequest={authRequest}
+        >
+            <HelloContent />
+        </MsalAuthenticationTemplate>
+      )
+};
+
+export default Hello;
