@@ -7,6 +7,8 @@ const router = express.Router();
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 // const assetLocationsRouter = require('./routes/pl');
 
+const assetLocations = require('./controllers/controlhelper');
+
 const options = {
     identityMetadata: `https://${config.metadata.authority}/${config.credentials.tenantID}/${config.metadata.version}/${config.metadata.discovery}`,
     issuer: `https://${config.metadata.authority}/${config.credentials.tenantID}/${config.metadata.version}`,
@@ -71,17 +73,7 @@ app.get('/testAPI',
     }
 );
 
-// app.get('/getAssetLocation',
-//     passport.authenticate('oauth-bearer', {session: false}),
-//     (req, res) => {
-//         console.log('Validated claims: ', req.authInfo);
 
-//         // Service relies on the name claim.  
-//         res.status(200).json({
-//             'Statement': "Did it"
-//         });
-//     }
-// );
 
 
 // const snapp = express();
@@ -91,17 +83,6 @@ app.use(
     extended: true,
   })
 );
-// app.use('/getAssetLocations', assetLocationsRouter);
-// app.use((err, req, res, next) => {
-//     const statusCode = err.statusCode || 500;
-//     console.error(err.message, err.stack);
-//     res.status(statusCode).json({ message: err.message });
-//     return;
-//   });
-
-
-
-const assetLocations = require('./services/pl');
  
 app.get('/getAssetLocations', 
 passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
