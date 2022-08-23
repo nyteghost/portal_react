@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/new.css";
 import { protectedResources } from "./auth/authConfig";
 
 export const ProfileData = (props) => {

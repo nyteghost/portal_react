@@ -3,6 +3,7 @@ import { AuthenticatedTemplate, UnauthenticatedTemplate} from "@azure/msal-react
 import {Header} from "./components/NavigationBar/NavBar"
 import AppRouter from './RouteAssignment'
 import "./styles/App.css";
+
 /**
  * Renders information about the signed-in user or a button to retrieve data about the user
  */

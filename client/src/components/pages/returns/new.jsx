@@ -1,50 +1,24 @@
-import "./styles.css";
-import { useState, useEffect } from "react";
+import "../../../styles/new.css";
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function App() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          `https://jsonplaceholder.typicode.com/posts?_limit=10`
-        );
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          );
-        }
-        let actualData = await response.json();
-        setData(actualData);
-        setError(null);
-      } catch(err) {
-        setError(err.message);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }  
-    }
-    getData()
-  }, [])
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
+  
   return (
-    <div className="App">
-      <h1>New Returns</h1>
-      {loading && <div>A moment please...</div>}
-      {error && (
-        <div>{`There is a problem fetching the post data - ${error}`}</div>
-      )}
-      <ul>
-        {data &&
-          data.map(({ id, title }) => (
-            <li key={id}>
-              <h3>{title}</h3>
-            </li>
-          ))}
-      </ul>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label htmlFor="lateDelivery" className="form-check-label">Late Delivery</label>
+        <input name = "lateCheck" type="checkbox" placeholder="Late Delivery" {...register("Late Delivery", {})} />
+      </div>
+      <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 80})} />
+      <input type="text" placeholder="Tracking Number" {...register("Tracking Number", {required: true, maxLength: 100})} />
+      <input type="text" placeholder="Asset Number" {...register("Asset Number", {required: true})} />
+      <input type="text" placeholder="Serial Number" {...register("Serial Number", {required: true, maxLength: 12})} />
+
+      <input type="submit" />
+    </form>
   );
 }
