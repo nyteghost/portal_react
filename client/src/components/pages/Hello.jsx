@@ -4,7 +4,7 @@ import { MsalAuthenticationTemplate, useMsal, useAccount } from "@azure/msal-rea
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 
 import { loginRequest, protectedResources } from "../auth/authConfig";
-import { callApiWithToken } from "../auth/fetch";
+import { callHelloAPIToken } from "../auth/fetch";
 import { HelloData } from "../../components/DataDisplay";
 
 const HelloContent = () => {
@@ -24,7 +24,7 @@ const HelloContent = () => {
                 scopes: protectedResources.apiHello.scopes,
                 account: account
             }).then((response) => {
-                callApiWithToken(response.accessToken, protectedResources.apiHello.endpoint)
+                callHelloAPIToken(response.accessToken, protectedResources.apiHello.endpoint)
                     .then(response => setHelloData(response));
             }).catch((error) => {
                 // in case if silent token acquisition fails, fallback to an interactive method
@@ -33,7 +33,7 @@ const HelloContent = () => {
                         instance.acquireTokenPopup({
                             scopes: protectedResources.apiHello.scopes,
                         }).then((response) => {
-                            callApiWithToken(response.accessToken, protectedResources.apiHello.endpoint)
+                            callHelloAPIToken(response.accessToken, protectedResources.apiHello.endpoint)
                                 .then(response => setHelloData(response));
                         }).catch(error => console.log(error));
                     }
