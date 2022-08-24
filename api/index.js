@@ -95,16 +95,16 @@ try {
 });
 
 app.get('/getAssetLocation', 
-passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
-try {
-    req.query;
-    console.log(req.query);
-    res.json(await assetLocations.getSingle(req.query));
-} catch (err) {
-    console.error(`Error while getting programming languages `, err.message);
-    next(err);
-}
-});
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+    try {
+        req.query;
+        res.json(await assetLocations.getSingle(req.query));
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        next(err);
+    }
+    });
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;

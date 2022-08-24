@@ -65,8 +65,7 @@ const Hello = () => {
     return (
         <MsalAuthenticationTemplate 
             interactionType={InteractionType.Redirect} 
-            authenticationRequest={authRequest}
-        >
+            authenticationRequest={authRequest}>
             <HelloContent />
         </MsalAuthenticationTemplate>
       )
