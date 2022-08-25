@@ -1,5 +1,6 @@
 
 export const callApiWithToken = async(id,accessToken, apiEndpoint) => {
+    console.error('AssetID received in CallApiWithToken: ' + id)
     const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
   

@@ -11,109 +11,119 @@ import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-brows
 import { AssetLocationData } from "../../components/DataDisplay";
 
 
-// export const  GetData = (props) => {
-//   let id = props.parentToChild
-  
-//   const { instance, accounts, inProgress } = useMsal();
-//   const account = useAccount(accounts[0] || {});
-//   const [fetchData, setData] = useState(null);
-//   const authRequest = {
-//     ...loginRequest
-//   };
-//   useEffect(() => {
-//     if (account && inProgress === "none" && !fetchData) {
-//       console.log("Starting search of assetid: " + id);
-//       instance.acquireTokenSilent({
-//           scopes: protectedResources.apiGetAssetLocation.scopes,
-//           account: account
-//       }).then((response) => {
-//           callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocation.endpoint)
-//               .then(response => setData(response));   
-//       }).catch((error) => {
-//           // in case if silent token acquisition fails, fallback to an interactive method
-//           if (error instanceof InteractionRequiredAuthError) {
-//               if (account && inProgress === "none") {
-//                   instance.acquireTokenPopup({
-//                       scopes: protectedResources.apiGetAssetLocation.scopes,
-//                   }).then((response) => {
-//                       callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocation.endpoint)
-//                           .then(response => setData(response));
-                         
-//                   }).catch(error => console.log(error));
-//               }
-//           }
-//       });
-//     }
-//   },[account, inProgress, instance]);
-  
-  
-  
-//   return (
-//     <div>
-//       { fetchData ? <GetData fetchData={fetchData} /> : null }
-//     </div>
-//   );
-    
-
-// };
-
-
-
 const  GetData = (props) => {
   let id = props.parentToChild
-  
+  console.info("ID Received in GetData: " + id);
   const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] || {});
   const [fetchData, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [count, setCount] = useState(0);
   
+  if (setData){
+    console.info("setData :" + setData)
+  } console.info('No setData yet.')
+
   const authRequest = {
     ...loginRequest
   };
+
   useEffect(() => {
     if (account && inProgress === "none" && !fetchData) {
-      console.log("Starting search of assetid: " + id);
+      console.info("Starting search of assetid: " + id);
+      setCount(count + 1)
+      console.info("Counter for GetData: "+count)
       instance.acquireTokenSilent({
           scopes: protectedResources.apiGetAssetLocationProc.scopes,
           account: account
       }).then((response) => {
-        if (!isLoading){  
-          setIsLoading(true);
           callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
-          .then(response => setData(response));
-        }   
+            .then(response => setData(response)); 
       }).catch((error) => {
           // in case if silent token acquisition fails, fallback to an interactive method
           if (error instanceof InteractionRequiredAuthError) {
+            console.error('error instanceof InteractionRequiredAuthError')
               if (account && inProgress === "none") {
                   instance.acquireTokenPopup({
                       scopes: protectedResources.apiGetAssetLocation.scopes,
                   }).then((response) => {
                       callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
                           .then(response => setData(response));
-                         
                   }).catch(error => console.log(error));
               }
           }
       });
-    }
-  },[fetchData]);
+    } 
+  },[account, inProgress, instance, id]);
   
+  if (fetchData) {console.log("Fetch Data: AssetID-"+ fetchData.data[0][0].assetid)}
   
   
   return (
     <div>
       { fetchData ? <AssetLocationData assetData={fetchData} /> : null }
-      
     </div>
   );
     
-
 };
+
+
+
+
+const DataGet = (props) => {
+  let id = props.parentToChild
+  console.info("ID Received in dataGet: " + id);
+
+  const { instance, accounts, inProgress } = useMsal();
+  const account = useAccount(accounts[0] || {});
+  const [fetchData, setData] = useState(null);
+
+  const authRequest = {
+    ...loginRequest
+  };
+  useEffect(() => {
+    if (account && inProgress === "none"){
+      console.info('Account and inProgress are set to none')
+      
+        console.info("Fetch Data: Empty")
+        instance.acquireTokenSilent({
+          scopes: protectedResources.apiGetAssetLocationProc.scopes,
+          account: account
+        }).then((response) => {
+            callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
+            .then(response => setData(response))
+          }).catch((error) => {
+              // in case if silent token acquisition fails, fallback to an interactive method
+              if (error instanceof InteractionRequiredAuthError) {
+                console.error('error instanceof InteractionRequiredAuthError')
+                  if (account && inProgress === "none") {
+                      instance.acquireTokenPopup({
+                          scopes: protectedResources.apiGetAssetLocation.scopes,
+                      }).then((response) => {
+                          callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
+                              .then(response => setData(response));
+                        }).catch(error => console.log(error));
+                  }
+              } 
+            });
+      
+    } else if (account && inProgress !== "none") {
+      console.info('Account and inProgress are set.')
+      
+    }
+  },[account, inProgress, instance, id]);
+
+  return (
+    <div>
+      { fetchData ? <AssetLocationData assetData={fetchData} /> : null }
+    </div>
+  );
+}
 
 export const Hello = (props) => {
   let id = props.parentToChild
-  console.log(id)
+  console.info(' ')
+  console.info("assetID sent to Hello: "+ id)
   const authRequest = {
       ...loginRequest
   };
@@ -122,7 +132,8 @@ export const Hello = (props) => {
       <MsalAuthenticationTemplate 
           interactionType={InteractionType.Redirect} 
           authenticationRequest={authRequest}>
-          { id ? <GetData parentToChild={id} /> : null }
+          {/* { id ? <GetData parentToChild={id} /> : null } */}
+          { id ? <DataGet parentToChild={id} /> : null }
       </MsalAuthenticationTemplate>
     )
 };

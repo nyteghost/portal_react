@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 import { loginRequest, protectedResources } from "../../auth/authConfig";
 
@@ -18,18 +18,32 @@ const Child = (props) =>{
 }
 
 
-const  App = (props) => {
+const  SearchAssetLoc = (props) => {
   const [sendAssetID, setData] = useState('');
-
-  const parentToChild = (props) => {
-    setData(props);
+  const [count, setCount] = useState(0);
+  
+  const parentToChild = props => {
+    var i;
+    
+    if (!i){setData(props);
+        } else if (i === props){
+          setData('');
+          let i = props
+    }  
   }
+
+  // 👇️ reset to initial state
+  const resetState = () => {
+    setData('');
+  };
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
     parentToChild(data.assetid);
+    setCount(count + 1)
+    console.info('Counter:' + count)
   }
-
+ 
   
   return (
     <>
@@ -47,7 +61,7 @@ const  App = (props) => {
         { sendAssetID ? <Hello parentToChild={sendAssetID} /> : null }
       </div>
     </>
-);
+  );
 }
 
-export default App;
+export default SearchAssetLoc;

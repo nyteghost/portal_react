@@ -16,9 +16,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <MsalProvider instance={msalInstance}>
-      <React.StrictMode>
+
         <App />
-    </React.StrictMode>
+
     </MsalProvider>
 );
 
