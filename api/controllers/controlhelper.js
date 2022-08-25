@@ -28,7 +28,20 @@ async function getSingle(req){
   }
 }
 
+async function getSingleLoc(req){
+  console.log(req)
+  const rows = await db.query(
+    `call gcaassetmgmt_2_0.asset_uspassetlocationlookup (lower('{"Company":"GCA","Argument":"${req.assetid}"}'))`
+  );
+  const data = helper.emptyOrRows(rows);
+  
+  return {
+    data
+  }
+}
+
 module.exports = {
-  getMultiple,
-  getSingle
+    getMultiple
+  , getSingleLoc
+  , getSingle
 }

@@ -74,12 +74,12 @@ const  GetData = (props) => {
     if (account && inProgress === "none" && !fetchData) {
       console.log("Starting search of assetid: " + id);
       instance.acquireTokenSilent({
-          scopes: protectedResources.apiGetAssetLocation.scopes,
+          scopes: protectedResources.apiGetAssetLocationProc.scopes,
           account: account
       }).then((response) => {
         if (!isLoading){  
           setIsLoading(true);
-          callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocation.endpoint)
+          callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
           .then(response => setData(response));
         }   
       }).catch((error) => {
@@ -89,7 +89,7 @@ const  GetData = (props) => {
                   instance.acquireTokenPopup({
                       scopes: protectedResources.apiGetAssetLocation.scopes,
                   }).then((response) => {
-                      callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocation.endpoint)
+                      callApiWithToken(id, response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint)
                           .then(response => setData(response));
                          
                   }).catch(error => console.log(error));

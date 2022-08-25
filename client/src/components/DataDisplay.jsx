@@ -1,5 +1,7 @@
 import "../styles/new.css";
 import { protectedResources } from "./auth/authConfig";
+import Table from "./tables/Table"
+
 
 export const ProfileData = (props) => {
     const tableRows = Object.entries(props.graphData).map((entry, index) => {
@@ -99,22 +101,128 @@ export const HelloData = (props) => {
 //     );
 // }
 
-export const AssetLocationData = (props) => {
-    const results = [];     
+
+
+// export const AssetLocationData = (props) => {
+//     console.log(props)
+//     console.log(props.assetData)
+//     console.log(props.assetData.data)
+//     console.log(props.assetData.data[0])
+//     const results = [];     
    
-    return (
-        <div>
-            {props.assetData.data.map((entry, index) => {
-            return (
-                <div key={index}>
-                <h2>name: {entry.assetid}</h2>
-                <h2>country: {entry.serialnumber}</h2>
-    
-                <hr />
-                </div>
-            );
-            })}
-            {results}
-        </div>
-        );
+//     return (
+//         <div>
+//             {props.assetData.data.map((entry, index) => {
+//             return (
+//                 <div key={index}>
+//                 <h2>Asset ID: {entry.assetid}</h2>
+//                 <h2>Serial Number: {entry.serialnumber}</h2>
+//                 <hr />
+//                 </div>
+//             );
+//             })}
+//             {results}
+//         </div>
+//         );
+// }
+// export const AssetLocationData = (props) => {
+//     console.log(props)
+//     console.log(props.assetData)
+//     console.log(props.assetData.data)
+//     console.log(props.assetData.data[0])
+//     const results = [];     
+   
+//     return (
+//         <div className="App">
+//       <h1>Employee Table</h1>
+//       <table>
+//         <thead>
+//         <tr>
+//           <th>Name</th>
+//           <th>Age</th>
+//           <th>Gender</th>
+//           <th>Designation</th>
+//         </tr>
+//         </thead>
+//         <tbody>
+//           <tr>
+//             <td>Robert</td>
+//             <td>23</td>
+//             <td>Male</td>
+//             <td>Full Stack(React + Java) Developer</td>
+//           </tr>
+//           <tr>
+//             <td>Michal</td>
+//             <td>24</td>
+//             <td>Male</td>
+//             <td>Full Stack Engineer</td>
+//           </tr>
+//           <tr>
+//             <td>Morgan</td>
+//             <td>24</td>
+//             <td>Female</td>
+//             <td>React Developer</td>
+//           </tr>
+//           <tr>
+//             <td>Tom</td>
+//             <td>26</td>
+//             <td>Male</td>
+//             <td>Front End Developer</td>
+//           </tr>
+//           <tr>
+//             <td>Steve</td>
+//             <td>27</td>
+//             <td>Female</td>
+//             <td>UI/UX Designer</td>
+//           </tr>
+//           </tbody>
+//       </table>
+//     </div>
+//   );
+// }
+
+export const AssetLocationData = (props) => {
+    // let y = JSON.stringify(props.assetData)
+    // console.log(typeof(y))
+    // console.log(y)
+    let data = Array.from(props.assetData.data);
+    console.log(data)
+    DynamicTable(data)
 }
+
+function DynamicTable(TableData){
+    // get table column
+     const column = Object.keys(TableData[0]);
+     // get table heading data
+     const ThData =()=>{
+        
+         return column.map((data)=>{
+             return <th key={data}>{data}</th>
+         })
+     }
+    // get table row data
+    const tdData =() =>{
+       
+         return TableData.map((data)=>{
+           return(
+               <tr>
+                    {
+                       column.map((v)=>{
+                           return <td>{data[v]}</td>
+                       })
+                    }
+               </tr>
+           )
+         })
+    }
+      return (
+          <table className="table">
+            <thead>
+             <tr>{ThData()}</tr>
+            </thead>
+            <tbody>
+            {tdData()}
+            </tbody>
+           </table>
+      )
+    }

@@ -7,6 +7,12 @@ const router = express.Router();
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 // const assetLocationsRouter = require('./routes/pl');
 
+
+/*
+SQL Procs found in controllers -> controlhelper
+Remove < passport.authenticate('oauth-bearer', {session: false}), > to test without MS Authorization
+*/
+
 const assetLocations = require('./controllers/controlhelper');
 
 const options = {
@@ -74,8 +80,6 @@ app.get('/testAPI',
 );
 
 
-
-
 // const snapp = express();
 app.use(express.json());
 app.use(
@@ -85,26 +89,42 @@ app.use(
 );
  
 app.get('/getAssetLocations', 
-passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
-try {
-    res.json(await assetLocations.getMultiple(req.query.page));
-} catch (err) {
-    console.error(`Error while getting programming languages `, err.message);
-    next(err);
-}
-});
+    passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
+        try {
+            res.json(await assetLocations.getMultiple(req.query.page));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.get('/getAssetLocation', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
-    try {
-        req.query;
-        res.json(await assetLocations.getSingle(req.query));
-    } catch (err) {
-        console.error(`Error while getting programming languages `, err.message);
-        next(err);
+        try {
+            req.query;
+            res.json(await assetLocations.getSingle(req.query));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
     }
-    });
+);
+
+app.get('/getAssetLoc', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.query;
+            res.json(await assetLocations.getSingleLoc(req.query));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
@@ -114,12 +134,6 @@ app.use((err, req, res, next) => {
   });
 
 
-// app.route("/getAssetLocation").get(controllers.getAllAssetLocations).post(controllers.createAssetLocation);
-// router
-//  .route("/:id")
-//  .get(controllers.getAssetLocation)
-//  .put(controllers.updateAssetLocation)
-//  .delete(controllers.deleteTodo);
 
 const port = process.env.PORT || 5000;
 

@@ -18,7 +18,7 @@ root.render(
     <MsalProvider instance={msalInstance}>
       <React.StrictMode>
         <App />
-    </React.StrictMode>,
+    </React.StrictMode>
     </MsalProvider>
 );
 

@@ -50,6 +50,5 @@ export function Header() {
     </Navbar>
 
 </>
-
   );
 }
