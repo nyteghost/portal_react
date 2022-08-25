@@ -2,7 +2,7 @@ import React from 'react';
 import "../styles/new.css";
 import { protectedResources } from "./auth/authConfig";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, SxProps} from "@mui/material"
-
+import Box from '@mui/material/Box'
 export const ProfileData = (props) => {
     const tableRows = Object.entries(props.graphData).map((entry, index) => {
         return (<tr key={index}>
@@ -76,51 +76,53 @@ export const AssetLocationData = (props) => {
         width: "max-content",
         marginLeft: "auto",
         marginRight: "auto",
-        marginTop: 4,
+        marginTop: "auto",
         borderRadius: 2,
         maxHeight: 500
       };
     return (  
-        <TableContainer 
-        component={Paper}
-        sx={tableContainerSx}
-        >  
-          <Table  stickyHeader={true}>  
-            <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>  
-              <TableRow>  
-                <TableCell align="right">Asset ID</TableCell>  
-                <TableCell align="right">Device Location</TableCell>
-                <TableCell align="right">Serial Number</TableCell>
-                <TableCell align="right">Model Number</TableCell>
-                <TableCell align="right">WH Status</TableCell>  
-                <TableCell  align="right">Device Location Time</TableCell>  
-              </TableRow>  
-            </TableHead> 
-            <TableBody
-                sx={{
-                    "& tr:nth-of-type(2n+1)": {
-                        backgroundColor: "grey.100",
-                    },
-                }}
+        <Box sx={{ '& button': { m: 1 } }}>
+            <TableContainer 
+            component={Paper}
+            sx={tableContainerSx}
             >  
-              {  
-                props.assetData.data[0].map((p, index) => { 
-                    return <TableRow 
-                        key={index}
-                    
-                    >  
-                    <TableCell align="right">{p.assetid}</TableCell>  
-                    <TableCell align="right">{p.devicelocation}</TableCell>  
-                    <TableCell align="right">{p.serialnumber}</TableCell>  
-                    <TableCell align="right">{p.model_number}</TableCell>  
-                    <TableCell align="right">{p.wh_status}</TableCell>  
-                    <TableCell align="right">{p.devicelocationtime}</TableCell>  
-                  </TableRow>  
-                })  
-              } 
-            </TableBody> 
-          </Table>  
-        </TableContainer>  
+            <Table  stickyHeader={true}>  
+                <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>  
+                <TableRow>  
+                    <TableCell align="right">Asset ID</TableCell>  
+                    <TableCell align="right">Device Location</TableCell>
+                    <TableCell align="right">Serial Number</TableCell>
+                    <TableCell align="right">Model Number</TableCell>
+                    <TableCell align="right">WH Status</TableCell>  
+                    <TableCell  align="right">Device Location Time</TableCell>  
+                </TableRow>  
+                </TableHead> 
+                <TableBody
+                    sx={{
+                        "& tr:nth-of-type(2n+1)": {
+                            backgroundColor: "grey.100",
+                        },
+                    }}
+                >  
+                {  
+                    props.assetData.data[0].map((p, index) => { 
+                        return <TableRow 
+                            key={index}
+                        
+                        >  
+                        <TableCell align="right">{p.assetid}</TableCell>  
+                        <TableCell align="right">{p.devicelocation}</TableCell>  
+                        <TableCell align="right">{p.serialnumber}</TableCell>  
+                        <TableCell align="right">{p.model_number}</TableCell>  
+                        <TableCell align="right">{p.wh_status}</TableCell>  
+                        <TableCell align="right">{p.devicelocationtime}</TableCell>  
+                    </TableRow>  
+                    })  
+                } 
+                </TableBody> 
+            </Table>  
+            </TableContainer>  
+        </Box>
       );  
 }
 

@@ -3,20 +3,9 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
 import { useState} from "react";
-
-import { loginRequest, protectedResources } from "../../auth/authConfig";
-
-import {Hello, GetData} from "../../tables/getData"
-
-
-const Child = (props) =>{
-  return(
-    <div>
-      the data passed down is {props.parentToChild}
-    </div>
-  )
-}
-
+import {Hello} from "../../tables/getData"
+import Box from '@mui/material/Box'
+import "./warehouse.css";
 
 const  SearchAssetLoc = (props) => {
   const [sendAssetID, setData] = useState('');
@@ -48,13 +37,15 @@ const  SearchAssetLoc = (props) => {
   return (
     <>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ErrorMessage errors={errors} name="singleErrorInput" />
-          <input type="text" placeholder="Asset Number/Serial Number" {...register("assetid", {required: true, maxLength: 80})} />
-          <Button type="submit" color="primary" variant="outlined">
-            Submit
-          </Button>
-        </form>
+        <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ErrorMessage errors={errors} name="singleErrorInput" />
+            <input type="text" placeholder="Asset Number/Serial Number" {...register("assetid", {required: true, maxLength: 80})} />
+            <Button size="small" type="submit" color="primary" variant="round">
+              Submit
+            </Button>
+          </form>
+        </Box>
       </div>
       
       <div>

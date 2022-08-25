@@ -38,18 +38,7 @@ input[type="text"] {
   font-size: 14px;
 }
 
-button[type="submit"],
-input[type="submit"] {
-  background: #0880a5;
-  color: white;
-  text-transform: uppercase;
-  border: none;
-  margin-top: 40px;
-  padding: 20px;
-  font-size: 16px;
-  font-weight: 100;
-  letter-spacing: 10px;
-}
+
 
 button[type="submit"]:hover,
 input[type="submit"]:hover {
