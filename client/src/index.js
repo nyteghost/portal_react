@@ -8,7 +8,9 @@ import "./styles/main.css"
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./components/auth/authConfig";
-
+import { Provider } from 'react-redux'
+import store from './store/store'
+import {Header} from "./components/NavigationBar/NavBar"
 
 
 
@@ -17,9 +19,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <MsalProvider instance={msalInstance}>
+        <Provider store={store}>
+            
+            <App />
+           
 
-        <App />
-
+        </Provider>
     </MsalProvider>
 );
 

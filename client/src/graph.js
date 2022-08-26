@@ -18,3 +18,5 @@ export async function callMsGraph(accessToken) {
         .then(response => response.json())
         .catch(error => console.log(error));
 }
+
+

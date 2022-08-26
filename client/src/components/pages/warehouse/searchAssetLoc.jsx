@@ -1,11 +1,12 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
 import { useState} from "react";
-import {Hello} from "../../tables/getData"
+// import {Hello} from "../../tables/getData"
 import Box from '@mui/material/Box'
 import "../../../styles/warehouse.css";
+import GetAssetLocation from "../../auth/api/asset"
+
 
 const  SearchAssetLoc = (props) => {
   const [sendAssetID, setData] = useState('');
@@ -49,7 +50,8 @@ const  SearchAssetLoc = (props) => {
       </div>
       
       <div>
-        { sendAssetID ? <Hello parentToChild={sendAssetID} /> : null }
+        { sendAssetID ? <GetAssetLocation assetID={sendAssetID} /> : null }
+        
       </div>
     </>
   );
