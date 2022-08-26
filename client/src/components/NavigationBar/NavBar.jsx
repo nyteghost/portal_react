@@ -5,6 +5,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../auth/SignInButton";
 import { SignOutButton } from "../auth/SignOutButton";
+import React, { useState } from 'react';
+
+
+import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from "@mui/material";
+
+
+
 
 
 export function Header() {
@@ -18,7 +25,7 @@ export function Header() {
         <Navbar.Brand href="/">Azure Database</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+          <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/components/pages/Hello">Hello API</Nav.Link>
             <NavDropdown title="Returns" id="basic-nav-dropdown">
@@ -43,7 +50,7 @@ export function Header() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/5.2">Not GCA</NavDropdown.Item>
             </NavDropdown>
-            </Nav>
+          </Nav>
         </Navbar.Collapse>
         { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
         </Container>

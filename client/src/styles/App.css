@@ -1,14 +1,14 @@
 .App {
   text-align: center;
   color: var(--text-primary);
-  background-color: var(--background);
+  background-color: #333;
   font-size: large;
   font-weight: bold;
   padding: 20px;
   height: calc(100vh - 40px);
   transition: all .5s;
 }
-
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -55,4 +55,4 @@ button {
   border: 2px var(--text-primary) solid;
   transition: all .5s;
 }
-
+ */

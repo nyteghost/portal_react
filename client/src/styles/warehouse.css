@@ -9,4 +9,6 @@ input[type="submit"] {
   font-size: 14px;
   font-weight: 100;
   letter-spacing: 10px;
+  align-items: center;
 }
+

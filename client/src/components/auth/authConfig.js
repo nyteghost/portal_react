@@ -77,6 +77,10 @@ export const protectedResources = {
     apiGetAssetLocationProc:{
         endpoint: "http://localhost:5000/getAssetLoc?assetid=",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
+    apiGetWhoProccedForDay:{
+        endpoint: "http://localhost:5000/getProccessedForDay",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     }
 };
 

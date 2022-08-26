@@ -7,7 +7,7 @@ import K12 from "./components/pages/returns/k12";
 import Search from "./components/pages/returns/search"
 import NoTag from "./components/pages/returns/notag"
 
-import OpAssignment from "./components/pages/warehouse/opassignment"
+import OpAssignment from "./components/pages/warehouse/opassignment.jsx"
 import Etched from "./components/pages/warehouse/etched"
 import AssetLabel from "./components/pages/warehouse/assetLabel"
 import Assetlocation from "./components/pages/warehouse/assetlocation"
@@ -20,7 +20,7 @@ import Hello  from "./components/pages/Hello"
 function AppRouter() {
 return (
     <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
             <Route exact path='/' element={<PageLayout />}/>
             <Route path='/components/pages/Hello' element={<Hello />}/>

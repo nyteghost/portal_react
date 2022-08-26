@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { useState} from "react";
 import {Hello} from "../../tables/getData"
 import Box from '@mui/material/Box'
-import "./warehouse.css";
+import "../../../styles/warehouse.css";
 
 const  SearchAssetLoc = (props) => {
   const [sendAssetID, setData] = useState('');
