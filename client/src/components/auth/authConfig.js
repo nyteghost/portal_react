@@ -1,8 +1,3 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License.
- */
-
 import { LogLevel } from "@azure/msal-browser";
 
 /**
@@ -46,6 +41,11 @@ export const msalConfig = {
         }
     }
 };
+
+// Authentication Parameters
+const authenticationParameters = {
+    scopes: ['User.Read'],
+  };
 
 /**
  * Scopes you add here will be prompted for user consent during sign-in.

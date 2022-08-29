@@ -48,7 +48,6 @@ import Box from '@mui/material/Box'
                     props.assetData.data[0].map((p, index) => { 
                         return <TableRow 
                             key={index}
-                        
                         >  
                         <TableCell align="right">{p.assetid}</TableCell>  
                         <TableCell align="right">{p.devicelocation}</TableCell>  

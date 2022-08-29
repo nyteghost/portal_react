@@ -66,6 +66,7 @@ exports.getAllAssetLocations = (req, res, next) => {
       }
     );
    };
+   
   
   
    

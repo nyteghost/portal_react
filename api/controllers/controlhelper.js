@@ -1,5 +1,5 @@
 const db = require('../services/db');
-const helper = require('../helper');
+const helper = require('./helper');
 const config = require('../services/config');
 
 async function getMultiple(page = 1){
@@ -34,11 +34,14 @@ async function getSingleLoc(req){
     `call gcaassetmgmt_2_0.asset_uspassetlocationlookup (lower('{"Company":"GCA","Argument":"${req.assetid}"}'))`
   );
   const data = helper.emptyOrRows(rows);
-  
+  console.log(data)
   return {
     data
   }
 }
+
+
+
 
 module.exports = {
     getMultiple

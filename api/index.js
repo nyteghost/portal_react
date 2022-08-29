@@ -14,6 +14,7 @@ Remove < passport.authenticate('oauth-bearer', {session: false}), > to test with
 */
 
 const assetLocations = require('./controllers/controlhelper');
+const warehouseController = require('./controllers/warehouse');
 
 const options = {
     identityMetadata: `https://${config.metadata.authority}/${config.credentials.tenantID}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -125,6 +126,18 @@ app.get('/getAssetLoc',
     }
 );
 
+app.get('/getProccessedForDay', 
+    // passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.query;
+            res.json(await warehouseController.getProccessedForDay(req.query.page));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
