@@ -48,8 +48,6 @@ function ProtectedComponent(props) {
     const { instance, inProgress, accounts } = useMsal();
     const [apiData, setApiData] = useState(null);
 
-    if (props.assetid)
-    
     useEffect(() => {
         if (!apiData && inProgress === InteractionStatus.None) {
             const accessTokenRequest = {
@@ -62,7 +60,7 @@ function ProtectedComponent(props) {
                 // Acquire token silent success
                 let accessToken = accessTokenResponse.accessToken;
                 // Call your API with token
-                callApi(accessToken, url).then((response) => {
+                callApi(accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID).then((response) => {
                 setApiData(response);
                 });
             })
@@ -74,7 +72,7 @@ function ProtectedComponent(props) {
                     // Acquire token interactive success
                     let accessToken = accessTokenResponse.accessToken;
                     // Call your API with token
-                    callApi(accessToken, url).then((response) => {
+                    callApi(accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID).then((response) => {
                         setApiData(response);
                     });
                     })

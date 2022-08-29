@@ -6,7 +6,7 @@ import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-brows
 import axios from 'axios';
 
 
-export async function ApiCall (accessToken,url) {
+export async function callApi (accessToken,url) {
     // const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
    
@@ -18,16 +18,16 @@ export async function ApiCall (accessToken,url) {
         }
     }
     return axios (url, config)
-    .then(data => console.log(data.data))
+    .then(data => data.data)
     .catch(error => console.log(error))
 };
 
 
-function GetAssetLocation(props) {
+function ProtectedComponent(props) {
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
 
     const { instance, accounts, inProgress } = useMsal();
-    const [fetchData, setData] = useState(null);
+    const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
     
     const authRequest = {
@@ -41,45 +41,56 @@ function GetAssetLocation(props) {
         console.log()
     }
 
+    const accessTokenRequest = {
+        scopes: loginRequest.scopes,
+        account: account
+    };
+
     useEffect(() => {
-        if (accounts && inProgress === "none" && !fetchData) {
-            instance.acquireTokenSilent({
-                scopes: protectedResources.apiGetAssetLocationProc.scopes,
+        if (accounts && inProgress === "none" && !apiData) {
+            instance
+            .acquireTokenSilent({
+                scopes: loginRequest.scopes,
                 account: account
-            }).then((response) => { 
-                ApiCall(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
-                .then(response => setData(response));
-            }).catch((error) => {
+            })
+            .then((response) => { 
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                .then(response => setApiData(response));
+            })
+            .catch((error) => {
                 // in case if silent token acquisition fails, fallback to an interactive method
                 if (error instanceof InteractionRequiredAuthError) {
                     if (account && inProgress === "none") {
                         instance.acquireTokenPopup({
                             scopes: protectedResources.apiGetAssetLocationProc.scopes,
-                        }).then((response) => {
-                            ApiCall(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
-                                .then(response => setData(response));
-                        }).catch(error => console.log(error));
+                        })
+                        .then((response) => {
+                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                                .then(response => setApiData(response));
+                        })
+                        .catch(error => console.log(error));
                     }
                 }
             });
-        } else if (fetchData) {
+        } else if (apiData) {
             instance.acquireTokenSilent({
-                scopes: protectedResources.apiGetAssetLocationProc.scopes,
+                scopes: loginRequest.scopes,
                 account: account
-            }).then((response) => {
-                ApiCall(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
-                    .then(response => setData(response))
+            })
+            .then((response) => {
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                    .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
     },[accounts, inProgress, instance, props.assetID]);
     return (
         <div>
-            { fetchData ? <AssetLocationData assetData={fetchData} /> : null }
+            { apiData ? <AssetLocationData assetData={apiData} /> : null }
         </div>
     );
 };
 
-export default GetAssetLocation
+export default ProtectedComponent
 
 
 // export async function callApiWithToken(accessToken, url){

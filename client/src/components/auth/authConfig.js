@@ -54,7 +54,7 @@ const authenticationParameters = {
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-    scopes: []
+    scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
 };
 
 /**
