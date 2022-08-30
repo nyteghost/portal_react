@@ -6,8 +6,6 @@ import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-brows
 import axios from 'axios';
 
 let apiReturn;
-
-
 export async function callApi (accessToken,url,userData) {
     const bearer = `Bearer ${accessToken}`;
     const config = {
@@ -80,7 +78,7 @@ function ProtectedComponent(props) {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.formData]);
+    },[accounts, inProgress, instance, props.formData.count]);
      
     
     if (apiData === null){

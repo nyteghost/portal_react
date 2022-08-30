@@ -13,7 +13,7 @@ import "../../../styles/warehouse.css";
 import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import ProtectedComponent from "../../auth/api/returns"
+import ProtectedComponent from "../../auth/api/warehouseops"
 
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -53,9 +53,10 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 export default function CustomizedSelects() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [operation, setOps] = useState('');
-  const [inventory, setAge] = useState('');
+  const [inventory, setInventory] = useState('');
   const [sendData, setData] = useState('');
-  
+  const [count, setCount] = useState(0);
+
   const parentToChild = props => {
     var i; 
     if (!i){setData(props);
@@ -65,8 +66,13 @@ export default function CustomizedSelects() {
     }  
   }
 
+  
   const onSubmit = data => {
-    console.log(data);
+    data = JSON.parse(JSON.stringify(data));
+    data.operationtype = operation
+    data.assignedcontact = inventory
+    setCount(count + 1)
+    data.submit = count
     parentToChild(data);
   };
   
@@ -75,7 +81,7 @@ export default function CustomizedSelects() {
     setOps(event.target.value);
   };
   const inventoryHandleChange = (event) => {
-    setAge(event.target.value);
+    setInventory(event.target.value);
   };
 
   return (
@@ -104,8 +110,6 @@ export default function CustomizedSelects() {
             </Select>
           </FormControl>
     
-        
-        
           <FormControl fullWidth size="small">
             <InputLabel id="simple-select-label">Status</InputLabel>
             <Select
@@ -133,8 +137,8 @@ export default function CustomizedSelects() {
               <MenuItem value={"Awaiting Etching"}>Awaiting Etching</MenuItem>
             </Select>
           </FormControl>
-          <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Asset Number" {...register("AssetNumber", {required: true, maxLength: 100})} />
+          <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} />
+          <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} />
           <Box textAlign='center'>
             <Button type="submit" color="primary" variant="contained" >
               Submit

@@ -8,6 +8,8 @@ import Box from '@mui/material/Box'
 
 const  App = () => {
   const [sendData, setData] = useState('');
+  const [count, setCount] = useState(0);
+
   const parentToChild = props => {
     var i;
     
@@ -18,9 +20,11 @@ const  App = () => {
     }  
   }
   
-  
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
+    data = JSON.parse(JSON.stringify(data));
+    setCount(count + 1)
+    data.submit = count
     parentToChild(data);
   };
   

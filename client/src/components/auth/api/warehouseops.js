@@ -15,6 +15,7 @@ export async function callApi (accessToken,url,userData) {
         headers: {"Authorization" : bearer
         }
     }
+    
     return axios 
     .post(url, userData ,config)
     .then(response => apiReturn = response)
@@ -23,18 +24,21 @@ export async function callApi (accessToken,url,userData) {
 
 
 function ProtectedComponent(props) {
+
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
-    const [apiStatus, setApiStatus] = useState(null);
     const account = useAccount(accounts[0] || {});
-    
+    const dbValue = localStorage.getItem("database");
     
     const authRequest = {
         ...loginRequest,
-            // account: accounts[0]
     };
     
+    props = JSON.parse(JSON.stringify(props));
+    props.formData.worker = account.name
+    props.formData.company = dbValue
+
     useEffect(() => {
         if (accounts && inProgress === "none" && !apiData) {
             instance
@@ -43,7 +47,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostNewReturn.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -56,7 +60,7 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -69,11 +73,12 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostNewReturn.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.formData]);
+        console.log(props.formData)
+    },[accounts, inProgress, instance, props.formData.submit]);
      
     
     if (apiData === null){
@@ -82,6 +87,14 @@ function ProtectedComponent(props) {
                 <h1>Nothing!</h1>
             </div>
         )
+    } else if (apiData.data.data.affectedRows === 0) {
+    
+        return (
+            <div>
+            <h1>Error in Submission</h1>
+            </div>
+            
+        );
     } else if (apiData.data.data.affectedRows === 1) {
     
         return (

@@ -17,14 +17,18 @@ async function getProccessedForDay(){
   
 
 async function opAssignment(req){
-    console.log('Made newReturn request')
-    console.log(req)
+    console.log('Made warehouseops request')
+    delete req.submit
+    let stringedJSON = JSON.stringify(req)
+    
+    console.log(stringedJSON)
 
+    
     const rows = await db.query(
-      `call dbo_uspupdatewarehouseopscan(lower('${req}'))`
+      `call dbo_uspupdatewarehouseopscan(lower('${stringedJSON}'))`
     );
     const data = helper.emptyOrRows(rows);
-
+    console.log(data)
     return {
       data
     }

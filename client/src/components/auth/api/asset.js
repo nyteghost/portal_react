@@ -17,9 +17,9 @@ export async function callApi (accessToken, url, userData) {
         headers: {"Authorization" : bearer
         }
     }
-    let assetID = userData.assetID
+    let assetID = userData.assetid
     let company = userData.Company
-
+   
     url = url+`${company}/${assetID}`
     return axios (url, config)
     .then(data => data)
@@ -34,25 +34,19 @@ function ProtectedComponent(props) {
     const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
-
+    
     const authRequest = {
         ...loginRequest,
             // account: accounts[0]
     };
 
-    if (props.assetID){
-        console.log()
-    } else {
-        console.log()
-    }
-
     const accessTokenRequest = {
         scopes: loginRequest.scopes,
         account: account
     };
-
+    
     useEffect(() => {
-        props = JSON.parse(JSON.stringify(props));
+        props = JSON.parse(JSON.stringify(props.data));
         props.Worker = account.name
         props.Company = dbValue
         if (accounts && inProgress === "none" && !apiData) {
@@ -90,7 +84,7 @@ function ProtectedComponent(props) {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.assetID, dbValue]);
+    },[accounts, inProgress, instance, props, dbValue]);
     return (
         <div>
             { apiData ? <AssetLocationData assetData={apiData} /> : null }

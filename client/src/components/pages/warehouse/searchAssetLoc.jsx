@@ -29,8 +29,11 @@ const  SearchAssetLoc = (props) => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
-    parentToChild(data.assetid);
+    data = JSON.parse(JSON.stringify(data));
+    
     setCount(count + 1)
+    data.submit = count
+    parentToChild(data);
     console.info('Counter:' + count)
   }
  
@@ -50,8 +53,7 @@ const  SearchAssetLoc = (props) => {
       </div>
       
       <div>
-        { sendAssetID ? <GetAssetLocation assetID={sendAssetID} /> : null }
-        
+        { sendAssetID ? <GetAssetLocation data={sendAssetID} /> : null }
       </div>
     </>
   );
