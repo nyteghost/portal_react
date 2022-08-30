@@ -11,12 +11,45 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import "../../../styles/warehouse.css";
 import { borderRadius } from '@mui/system';
+import InputBase from '@mui/material/InputBase';
+import { styled } from '@mui/material/styles';
 
 
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3),
+  },
+  '& .MuiInputBase-input': {
+    borderRadius: 10,
+    position: 'relative',
+    backgroundColor: "white",
+    border: '2px solid #5e77a2',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 10,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}));
 
 
-
-const  App = () => {
+export default function CustomizedSelects() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [operation, setOps] = React.useState('');
   const [inventory, setAge] = React.useState('');
@@ -34,15 +67,13 @@ const  App = () => {
 
   return (
     <Box sx={{ 
-      minWidth: 120,
       margin: 4, 
       border: '1px'
-      }}>
+      }}
+      
+      >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{ 
-          margin: 2, 
-          border: '1px'
-          }}> 
+        
           <FormControl fullWidth size="small">
             <InputLabel id="simple-select-label">Operation</InputLabel>
             <Select
@@ -51,20 +82,16 @@ const  App = () => {
               value={operation}
               label="OperationSelection"
               onChange={operationsHandleChange}
-              sx={{ backgroundColor:'white' , borderRadius:3 }}
-              size="small"
+              input={<BootstrapInput />}
             >
               <MenuItem value={'Daily Processing'}>Daily Processing</MenuItem>
               <MenuItem value={'Inventory'}>Inventory</MenuItem>
               
             </Select>
           </FormControl>
-        </Box>
+    
         
-        <Box sx={{ 
-          margin: 2, 
-          border: '1px',
-          }}> 
+        
           <FormControl fullWidth size="small">
             <InputLabel id="simple-select-label">Status</InputLabel>
             <Select
@@ -73,8 +100,7 @@ const  App = () => {
               value={inventory}
               label="InventorySelection"
               onChange={inventoryHandleChange}
-              sx={{ backgroundColor:'white' , borderRadius:3, align:'center'}}
-              size="small"
+              input={<BootstrapInput />}
             >
               <MenuItem value={"Ready for Packaging"}>Ready for Packaging</MenuItem>
               <MenuItem value={"Initial Filter"}>Initial Filter</MenuItem>
@@ -93,17 +119,16 @@ const  App = () => {
               <MenuItem value={"Awaiting Etching"}>Awaiting Etching</MenuItem>
             </Select>
           </FormControl>
-        </Box>
-        
-            <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 100})} />
-            <input type="text" placeholder="Asset Number" {...register("AssetNumber", {required: true, maxLength: 100})} />
-            <Button type="submit" color="primary" variant="contained">
+          <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 100})} />
+          <input type="text" placeholder="Asset Number" {...register("AssetNumber", {required: true, maxLength: 100})} />
+          <Box textAlign='center'>
+            <Button type="submit" color="primary" variant="contained" >
               Submit
             </Button>
+          </Box>
       </form>
     </Box>
    
   );
 }
 
-export default App;

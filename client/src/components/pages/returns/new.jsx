@@ -26,7 +26,7 @@ const  App = () => {
   
   return (
     <>
-     <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
+     <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
           <div>

@@ -10,8 +10,8 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 
 const list = [
   { key: "GCA", value: "GCA" },
-  { key: "Blue", value: "blue" },
-  { key: "Green", value: "green" }
+  { key: "Not GCA", value: "Not GCA" },
+  { key: "", value: "" }
 ];
 
 
@@ -24,8 +24,8 @@ export function Header() {
   
   const handleSelect = (key, event) => {
     setSelected({ key, value: event.target.value });
-    localStorage.setItem("database", value)
-    // setValue(assert)
+    localStorage.setItem("database", key)
+    
   };
 
   
@@ -34,12 +34,7 @@ export function Header() {
   //   setValue(assert)
   // }
   
-  function handleChange (event) {
-    console.log(event);
-    this.setState({ inputValue: event.target.value });
-    this.props.onChange(event);
-  };
-  
+
  
 
 
@@ -86,8 +81,7 @@ export function Header() {
                 );
               })}
             </DropdownButton>
-            
-
+      
           </Nav>
         </Navbar.Collapse>
         { isAuthenticated ? <SignOutButton /> : <SignInButton /> }

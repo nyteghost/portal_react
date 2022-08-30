@@ -15,6 +15,23 @@ async function getProccessedForDay(){
     }
   }
   
+
+async function opAssignment(req){
+    console.log('Made newReturn request')
+    console.log(req)
+
+    const rows = await db.query(
+      `call dbo_uspupdatewarehouseopscan(lower('${stringedJSON}'))`
+    );
+    const data = helper.emptyOrRows(rows);
+    
+  
+    return {
+      data
+    }
+  }
+  
+
 module.exports = {
     getProccessedForDay
 }
