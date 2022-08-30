@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
     
         return (
             <>
-                <h5><center>Welcome to the Database of the FUTURE!</center></h5>
+                <h5><center>Welcome to the Portal.</center></h5>
                 <br />
                 <br />
                 <center><ProfileContent /></center>

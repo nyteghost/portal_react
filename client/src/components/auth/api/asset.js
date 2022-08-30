@@ -1,12 +1,12 @@
 import {protectedResources, loginRequest} from "../authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-import AssetLocationData from "./DataDisplay"
+import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
 
-export async function callApi (accessToken,url) {
+export async function callApi (accessToken, url, userData) {
     // const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
    
@@ -17,19 +17,24 @@ export async function callApi (accessToken,url) {
         headers: {"Authorization" : bearer
         }
     }
+    let assetID = userData.assetID
+    let company = userData.Company
+
+    url = url+`${company}/${assetID}`
     return axios (url, config)
-    .then(data => data.data)
+    .then(data => data)
     .catch(error => console.log(error))
 };
 
 
+
 function ProtectedComponent(props) {
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
-
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
-    
+    const dbValue = localStorage.getItem("database");
+
     const authRequest = {
         ...loginRequest,
             // account: accounts[0]
@@ -47,6 +52,9 @@ function ProtectedComponent(props) {
     };
 
     useEffect(() => {
+        props = JSON.parse(JSON.stringify(props));
+        props.Worker = account.name
+        props.Company = dbValue
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -54,7 +62,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
                 .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -65,7 +73,7 @@ function ProtectedComponent(props) {
                             scopes: protectedResources.apiGetAssetLocationProc.scopes,
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -78,11 +86,11 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint+props.assetID)
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.assetID]);
+    },[accounts, inProgress, instance, props.assetID, dbValue]);
     return (
         <div>
             { apiData ? <AssetLocationData assetData={apiData} /> : null }

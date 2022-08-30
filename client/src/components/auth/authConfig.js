@@ -75,7 +75,7 @@ export const protectedResources = {
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetAssetLocationProc:{
-        endpoint: "http://localhost:5000/getAssetLoc?assetid=",
+        endpoint: "http://localhost:5000/getAssetLoc/",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetWhoProccedForDay:{
@@ -84,6 +84,11 @@ export const protectedResources = {
     },
     apiPostNewReturn:{
         endpoint: "http://localhost:5000/postNewReturn",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    }
+    ,
+    apiPostWarehouseOps:{
+        endpoint: "http://localhost:5000/postWarehouseOps",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     }
 };

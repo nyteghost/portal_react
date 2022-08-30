@@ -13,6 +13,7 @@ import "../../../styles/warehouse.css";
 import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
+import ProtectedComponent from "../../auth/api/returns"
 
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
@@ -51,12 +52,24 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 export default function CustomizedSelects() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [operation, setOps] = React.useState('');
-  const [inventory, setAge] = React.useState('');
+  const [operation, setOps] = useState('');
+  const [inventory, setAge] = useState('');
+  const [sendData, setData] = useState('');
   
+  const parentToChild = props => {
+    var i; 
+    if (!i){setData(props);
+        } else if (i === props){
+          setData('');
+          let i = props
+    }  
+  }
+
   const onSubmit = data => {
     console.log(data);
+    parentToChild(data);
   };
+  
   
   const operationsHandleChange = (event) => {
     setOps(event.target.value);
@@ -66,6 +79,7 @@ export default function CustomizedSelects() {
   };
 
   return (
+    <>
     <Box sx={{ 
       margin: 4, 
       border: '1px'
@@ -128,7 +142,10 @@ export default function CustomizedSelects() {
           </Box>
       </form>
     </Box>
-   
+    <div>
+      { sendData ? <ProtectedComponent formData={sendData} /> : null }
+    </div>
+  </>
   );
 }
 

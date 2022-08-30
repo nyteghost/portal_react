@@ -47,7 +47,7 @@ passport.use(bearerStrategy);
 // enable CORS (in production, modify as to allow only designated origins)
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Authorization, Origin, X-Requested-With, Content-Type, Accept, XMLHttpRequest');
     next();
 });
 
@@ -104,12 +104,12 @@ app.get('/getAssetLocations',
 );
 
 
-app.get('/getAssetLoc', 
+app.get('/getAssetLoc/:Company/:AssetID', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
-            req.query;
-            res.json(await assetController.getSingleLoc(req.query));
+            req.params;
+            res.json(await assetController.getSingleLoc(req.params));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);

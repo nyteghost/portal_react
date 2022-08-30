@@ -1,7 +1,7 @@
 import {protectedResources, loginRequest} from "../authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-import AssetLocationData from "./DataDisplay"
+import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 

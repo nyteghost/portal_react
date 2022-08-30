@@ -8,9 +8,9 @@ import Box from '@mui/material/Box'
 
 const  App = () => {
   const [sendData, setData] = useState('');
+  
   const parentToChild = props => {
-    var i;
-    
+    var i; 
     if (!i){setData(props);
         } else if (i === props){
           setData('');

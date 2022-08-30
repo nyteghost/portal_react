@@ -1,7 +1,7 @@
 import {protectedResources, loginRequest} from "../authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-import AssetLocationData from "./DataDisplay"
+import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
@@ -40,8 +40,8 @@ function ProtectedComponent(props) {
     
     useEffect(() => {
         props = JSON.parse(JSON.stringify(props));
-        props.formData.worker = account.name
-        props.formData.company = dbValue
+        props.formData.Worker = account.name
+        props.formData.Company = dbValue
         console.log(props)
         if (accounts && inProgress === "none" && !apiData) {
             instance

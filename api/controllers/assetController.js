@@ -16,19 +16,19 @@ async function getAllLoc(page = 1){
       data,
       meta
     }
-  }
+}
 
 
 async function getSingleLoc(req){
-    console.log(req)
     const rows = await db.query(
-      `call gcaassetmgmt_2_0.asset_uspassetlocationlookup (lower('{"Company":"GCA","Argument":"${req.assetid}"}'))`
+      `call dbo_uspassetlocationlookup (lower('{"Company":"${req.Company}","Argument":"${req.AssetID}"}'))`
     );
     const data = helper.emptyOrRows(rows);
+      
     return {
       data
     }
-  }
+}
   
 
   module.exports = {

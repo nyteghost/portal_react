@@ -13,7 +13,7 @@ async function getProccessedForDay(){
     return {
       data
     }
-  }
+}
   
 
 async function opAssignment(req){
@@ -24,12 +24,11 @@ async function opAssignment(req){
       `call dbo_uspupdatewarehouseopscan(lower('${req}'))`
     );
     const data = helper.emptyOrRows(rows);
-    
-  
+
     return {
       data
     }
-  }
+}
   
 
 module.exports = {
