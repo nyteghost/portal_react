@@ -21,7 +21,7 @@ async function opAssignment(req){
     console.log(req)
 
     const rows = await db.query(
-      `call dbo_uspupdatewarehouseopscan(lower('${stringedJSON}'))`
+      `call dbo_uspupdatewarehouseopscan(lower('${req}'))`
     );
     const data = helper.emptyOrRows(rows);
     
@@ -33,6 +33,7 @@ async function opAssignment(req){
   
 
 module.exports = {
-    getProccessedForDay
+    getProccessedForDay,
+    opAssignment
 }
 

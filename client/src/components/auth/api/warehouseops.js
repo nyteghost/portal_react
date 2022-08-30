@@ -5,9 +5,9 @@ import AssetLocationData from "./DataDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
+
+
 let apiReturn;
-
-
 export async function callApi (accessToken,url,userData) {
     const bearer = `Bearer ${accessToken}`;
     const config = {
@@ -28,10 +28,7 @@ function ProtectedComponent(props) {
     const [apiData, setApiData] = useState(null);
     const [apiStatus, setApiStatus] = useState(null);
     const account = useAccount(accounts[0] || {});
-    const dbValue = localStorage.getItem("database");
-
     
-
     
     const authRequest = {
         ...loginRequest,
@@ -39,10 +36,6 @@ function ProtectedComponent(props) {
     };
     
     useEffect(() => {
-        props = JSON.parse(JSON.stringify(props));
-        props.formData.worker = account.name
-        props.formData.company = dbValue
-        console.log(props)
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({

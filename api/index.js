@@ -148,7 +148,7 @@ app.post('/postNewReturn',
     }
 );
 
-app.post('/postNewAssignment', 
+app.post('/postWarehouseOps', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
