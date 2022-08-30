@@ -65,7 +65,7 @@ const AssetLocationData = (props) => {
   catch(error){
     return ( 
     <div>
-      <h1>No asset located.</h1>
+      <h1></h1>No asset located.
     </div>  
   )}
 };

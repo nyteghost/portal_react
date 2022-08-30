@@ -14,7 +14,7 @@ import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/warehouseops"
-
+import ProtectedComponentWhTable from "../../tables/warehouseOpsTable"
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -84,6 +84,22 @@ export default function CustomizedSelects() {
     setInventory(event.target.value);
   };
 
+
+  const DepotReason = () => {
+    if (inventory !== 'Depot Repair') return null;
+  
+    return (
+      <div className="full tr">
+         <input type="text" placeholder="Depot Reason" {...register("depotreas", {required: true, maxLength: 100})} />
+      </div>
+    );
+  };
+
+  if(inventory === 'Depot Repair') {
+    console.log('YES')
+  }
+
+
   return (
     <>
     <Box sx={{ 
@@ -139,6 +155,8 @@ export default function CustomizedSelects() {
           </FormControl>
           <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} />
           <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} />
+          <DepotReason />
+        
           <Box textAlign='center'>
             <Button type="submit" color="primary" variant="contained" >
               Submit
@@ -149,7 +167,12 @@ export default function CustomizedSelects() {
     <div>
       { sendData ? <ProtectedComponent formData={sendData} /> : null }
     </div>
+  
+    <div><ProtectedComponentWhTable /></div>
+  
   </>
+  
   );
+  
 }
 
