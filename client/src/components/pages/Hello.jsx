@@ -4,7 +4,7 @@ import { MsalAuthenticationTemplate, useMsal, useAccount } from "@azure/msal-rea
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 
 import { loginRequest, protectedResources } from "../auth/authConfig";
-import { callHelloAPIToken } from "../auth/fetch";
+import { callHelloAPIToken } from "../auth/api/fetch";
 import { HelloData } from "../../components/DataDisplay";
 
 const HelloContent = () => {

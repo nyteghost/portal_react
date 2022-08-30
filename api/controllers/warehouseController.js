@@ -18,3 +18,4 @@ async function getProccessedForDay(){
 module.exports = {
     getProccessedForDay
 }
+

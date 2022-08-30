@@ -5,6 +5,7 @@ const config = require('./config.json');
 const controllers = require("./controllers");
 const router = express.Router();
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
+const bodyParser = require('body-parser');
 // const assetLocationsRouter = require('./routes/pl');
 
 
@@ -14,7 +15,9 @@ Remove < passport.authenticate('oauth-bearer', {session: false}), > to test with
 */
 
 const assetLocations = require('./controllers/controlhelper');
-const warehouseController = require('./controllers/warehouse');
+const assetController = require('./controllers/assetController');
+const returnController = require('./controllers/returnController.js');
+const warehouseController = require('./controllers/warehouseController');
 
 const options = {
     identityMetadata: `https://${config.metadata.authority}/${config.credentials.tenantID}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -92,7 +95,7 @@ app.use(
 app.get('/getAssetLocations', 
     passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
         try {
-            res.json(await assetLocations.getMultiple(req.query.page));
+            res.json(await assetController.getAllLoc(req.query.page));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);
@@ -100,25 +103,13 @@ app.get('/getAssetLocations',
     }
 );
 
-app.get('/getAssetLocation', 
-    passport.authenticate('oauth-bearer', {session: false}), 
-    async function(req, res, next) {
-        try {
-            req.query;
-            res.json(await assetLocations.getSingle(req.query));
-        } catch (err) {
-            console.error(`Error while getting programming languages `, err.message);
-            next(err);
-        }
-    }
-);
 
 app.get('/getAssetLoc', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
             req.query;
-            res.json(await assetLocations.getSingleLoc(req.query));
+            res.json(await assetController.getSingleLoc(req.query));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);
@@ -138,6 +129,25 @@ app.get('/getProccessedForDay',
         }
     }
 );
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+app.post('/postNewReturn', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.body;
+            res.json(await returnController.newReturn(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
