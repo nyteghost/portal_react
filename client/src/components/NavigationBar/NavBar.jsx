@@ -5,23 +5,49 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useIsAuthenticated } from "@azure/msal-react";
 import { SignInButton } from "../auth/SignInButton";
 import { SignOutButton } from "../auth/SignOutButton";
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { DropdownButton, Dropdown } from "react-bootstrap";
 
-
-import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from "@mui/material";
-
-
-
+const list = [
+  { key: "GCA", value: "GCA" },
+  { key: "Blue", value: "blue" },
+  { key: "Green", value: "green" }
+];
 
 
 export function Header() {
   const isAuthenticated = useIsAuthenticated();
+  const [value,setValue]=useState('');
+  const dbValue = localStorage.getItem("database");
+  
+  const [selected, setSelected] = useState({});
+  
+  const handleSelect = (key, event) => {
+    setSelected({ key, value: event.target.value });
+    localStorage.setItem("database", value)
+    // setValue(assert)
+  };
+
+  
+  // const handleSelect=(assert)=>{
+  //   localStorage.setItem("database", value)
+  //   setValue(assert)
+  // }
+  
+  function handleChange (event) {
+    console.log(event);
+    this.setState({ inputValue: event.target.value });
+    this.props.onChange(event);
+  };
+  
+ 
+
 
   return (
+    
     <>
     <Navbar bg="primary" variant="dark">
         <Container>
-        {/* <button onClick={switchTheme}>Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme </button> */}
         <Navbar.Brand href="/">Azure Database</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -45,11 +71,23 @@ export function Header() {
               <NavDropdown.Item href="/components/pages/warehouse/asapoutboundlabel">ASAP Outbound Labels</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/consumePeripherals">Consume Peripherals</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Database" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/5.1">GCA</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/5.2">Not GCA</NavDropdown.Item>
-            </NavDropdown>
+            <DropdownButton
+              id="dropdown-basic-button"
+              variant="info"
+              className="floatRight"
+              onSelect={handleSelect}
+              title={selected?.key || list[0].key}
+            >
+              {list.map((item, index) => {
+                return (
+                  <Dropdown.Item key={index} eventKey={item.key}>
+                    {item.value}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+            
+
           </Nav>
         </Navbar.Collapse>
         { isAuthenticated ? <SignOutButton /> : <SignInButton /> }

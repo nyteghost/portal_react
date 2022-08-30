@@ -81,14 +81,14 @@ function ProtectedComponent(props) {
     if (apiData === null){
         return(
             <div>
-                Nothing!
+                <h1>Nothing!</h1>
             </div>
         )
     } else if (apiData.data.data.affectedRows === 1) {
     
         return (
             <div>
-                Submitted
+            <h1>Submitted</h1>
             </div>
             
         );
