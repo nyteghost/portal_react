@@ -28,18 +28,7 @@ export function Header() {
     
   };
 
-  
-  // const handleSelect=(assert)=>{
-  //   localStorage.setItem("database", value)
-  //   setValue(assert)
-  // }
-  
-
- 
-
-
   return (
-    
     <>
     <Navbar bg="primary" variant="dark">
         <Container>
@@ -71,11 +60,13 @@ export function Header() {
               variant="info"
               className="floatRight"
               onSelect={handleSelect}
-              title={selected?.key || list[0].key}
+              title={dbValue || selected?.key || list[0].key}
             >
               {list.map((item, index) => {
                 return (
-                  <Dropdown.Item key={index} eventKey={item.key}>
+                  <Dropdown.Item 
+                  key={index} eventKey={item.key}
+                  >
                     {item.value}
                   </Dropdown.Item>
                 );

@@ -148,6 +148,19 @@ app.post('/postNewReturn',
     }
 );
 
+app.post('/postK12Return', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.body;
+            res.json(await returnController.k12Return(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
 app.post('/postWarehouseOps', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {

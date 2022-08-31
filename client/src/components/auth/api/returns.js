@@ -5,7 +5,7 @@ import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
-let apiReturn;
+
 export async function callApi (accessToken,url,userData) {
     const bearer = `Bearer ${accessToken}`;
     const config = {
@@ -14,9 +14,26 @@ export async function callApi (accessToken,url,userData) {
         }
     }
     return axios 
-    .post(url, userData ,config)
-    .then(response => apiReturn = response)
-    .catch(error => console.log(error))
+    .post(url, userData , config)
+    .then(response => response)
+    .catch(function (error) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+    })
 };
 
 
@@ -27,7 +44,7 @@ function ProtectedComponent(props) {
     const [apiStatus, setApiStatus] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
-
+    
     
 
     
@@ -64,7 +81,7 @@ function ProtectedComponent(props) {
                             callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint, props.formData)
                                 .then(response => setApiData(response));
                         })
-                        .catch(error => console.log(error));
+                        
                     }
                 }
             });
@@ -79,24 +96,35 @@ function ProtectedComponent(props) {
                     .catch(error => console.log(error))
         })};
     },[accounts, inProgress, instance, props.formData.count]);
-     
-    
-    if (apiData === null){
-        return(
-            <div>
-                <h1>Nothing!</h1>
-            </div>
-        )
-    } else if (apiData.data.data.affectedRows === 1) {
-    
-        return (
-            <div>
-            <h1>Submitted</h1>
-            </div>
+
+    if (apiData !== null && apiData !== undefined) {
+        console.log("apiData: " + apiData)
+            if (apiData.data.data.affectedRows === 0) {
+                return(
+                    <div>
+                        <h1>Not submitted!</h1>
+                    </div>
+                )
+            } else if (apiData.data.data.affectedRows === 1) {
             
-        );
-    };
-};
+                return (
+                    <div>
+                    <h1>Submitted</h1>
+                    </div>
+                    
+                );
+            };
+    } else {
+        console.log(apiData)
+        return(
+        <div>
+            <h1>Error</h1>
+        </div>
+        )
+    }
+       
+}
+
 
 export default ProtectedComponent
 
