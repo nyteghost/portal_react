@@ -27,6 +27,7 @@ const DeleayComponent = () => {
   }
 
 export async function callApi (accessToken,url,userData) {
+    console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -85,7 +86,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostNewReturn.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -98,7 +99,7 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiPostNewReturn.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
                                 .then(response => setApiData(response));
                         })
                         
@@ -111,7 +112,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostNewReturn.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
@@ -135,7 +136,6 @@ function ProtectedComponent(props) {
                 );
             };
     } else {
-        console.log(apiData)
         return(
         <div>
             <DeleayComponent/>

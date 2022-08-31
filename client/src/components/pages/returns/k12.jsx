@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
-import NewReturn from "../../auth/api/returns"
+import K12Return from "../../auth/api/k12return"
 
 const  App = () => {
   const [sendData, setData] = useState('');
@@ -21,35 +21,28 @@ const  App = () => {
   }
   
   const onSubmit = data => {
-    data = JSON.parse(JSON.stringify(data));
     setCount(count + 1)
     data.submit = count
     parentToChild(data);
   };
   
+  
   return (
     <>
-     <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
+      <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
         <form onSubmit={handleSubmit(onSubmit)}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
-          <div>
-            <label name="lateDelivery" className="form-check-label">Late Delivery</label>
-            <input name = "lateCheck" type="checkbox" placeholder="Late Delivery" {...register("LateDelivery", {})} />
-          </div>
-          <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 80})} />
           <input type="text" placeholder="Tracking Number" {...register("TrackingNumber", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Asset Number" {...register("AssetNumber", {required: true})} />
-          <input type="text" placeholder="Serial Number" {...register("SerialNumber", {required: true, maxLength: 12})} />
+          <input type="text" placeholder="Description" {...register("SerialNumber", {required: true, maxLength: 80})} />
           <Button type="submit" color="primary" variant="contained">
             Submit
           </Button>
         </form>
       </Box>
       <div>
-        { sendData ? <NewReturn formData={sendData} /> : null }
+      { sendData ? <K12Return formData={sendData} /> : null }
       </div>
-    
-  </>
+    </>
   );
 }
 
