@@ -1,18 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { useState, Suspense} from "react";
-import { ErrorMessage } from '@hookform/error-message';
+import { useState} from "react";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel';
-import { Menu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import "../../../styles/warehouse.css";
-import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/warehouseops"
+
+
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -125,7 +124,7 @@ export default function CustomizedSelects() {
                 <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
             </div>
         )
-    } if (labelType === 'New Staff Kit'){
+    } else if (labelType === 'New Staff Kit'){
         return(
             <>
             <div>
@@ -152,7 +151,21 @@ export default function CustomizedSelects() {
             </div>
             </>
         )
-    }   
+    }  else if (labelType === 'Display'){
+        return(
+            <>
+            <div>
+                 Select any peripherials that are missing<br />
+                <input name = "diskDrive" type="checkbox" placeholder="diskDrive>" {...register("Disk drive", {})} />
+                <label name="diskDrive" className="form-check-label">Disk Drive</label>
+            </div>
+            <div>
+                <input name = "brownBox" type="checkbox" placeholder="brownBox" {...register("brownBox", {})} />
+                <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
+            </div>
+            </>
+        )
+    } 
     
   };
 

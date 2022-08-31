@@ -5,10 +5,16 @@ input[type="submit"] {
   text-transform: uppercase;
   border: none;
   margin-top: 40px;
-  padding: 10px;
-  font-size: 14px;
+  margin-bottom: 40px;
+  padding: 13px;
+  font-size: 20px;
   font-weight: 100;
-  letter-spacing: 10px;
+  letter-spacing: 2px;
   align-items: center;
 }
 
+
+
+.form-check-label {
+  margin-left: 7px;
+}
