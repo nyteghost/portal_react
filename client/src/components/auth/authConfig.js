@@ -89,12 +89,16 @@ export const protectedResources = {
     apiPostK12Return:{
         endpoint: "http://localhost:5000/postK12Return",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
-    }
-    ,
+    },
     apiPostWarehouseOps:{
         endpoint: "http://localhost:5000/postWarehouseOps",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
+    apiPostEtched:{
+        endpoint: "http://localhost:5000/postEtched",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     }
+    
 };
 
   // Add the endpoints here for Microsoft Graph API services you'd like to use.

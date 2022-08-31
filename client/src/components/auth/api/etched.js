@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
-const DeleayComponent = () => {
+const DelayComponent = () => {
     const [show, setShow] = useState(false)
   
     useEffect(() => {
@@ -85,7 +85,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostEtched.endpoint, props.formData)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -98,7 +98,7 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiPostEtched.endpoint, props.formData)
                                 .then(response => setApiData(response));
                         })
                         
@@ -111,7 +111,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostK12Return.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostEtched.endpoint, props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
@@ -119,17 +119,20 @@ function ProtectedComponent(props) {
 
     if (apiData !== null && apiData !== undefined) {
         console.log("apiData: " + apiData)
-            if (apiData.data.data.affectedRows === 0) {
+        console.log(apiData)    
+        if (apiData.data.data.affectedRows === 0) {
                 return(
                     <div>
                         <h1>Not submitted!</h1>
                     </div>
                 )
-            } else if (apiData.data.data.affectedRows === 1) {
+            } else if (apiData.status === 200) {
             
                 return (
                     <div>
-                    <h1>Submitted</h1>
+                        <h1>
+                            {String(apiData.data.data[0][0].result)}
+                        </h1>
                     </div>
                     
                 );
@@ -137,7 +140,7 @@ function ProtectedComponent(props) {
     } else {
         return(
         <div>
-            <DeleayComponent/>
+            <DelayComponent/>
         </div>
         )
     }

@@ -80,7 +80,7 @@ function ProtectedComponent(props) {
         console.log(props.formData)
     },[accounts, inProgress, instance, props.formData.submit]);
      
-    
+    console.log(apiData)
     if (apiData === null){
         return(
             <div>

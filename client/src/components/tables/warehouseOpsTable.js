@@ -1,9 +1,8 @@
-import React, { Component } from 'react' 
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material"
 import {protectedResources, loginRequest} from "../auth/authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
 import Box from '@mui/material/Box'
 
@@ -26,12 +25,8 @@ export async function callApi (accessToken, url) {
 };
 
 
-
-
 const WarehouseOpsTable = (props) => { 
-    
- 
-    
+
     const tableContainerSx = {
         border: "10px solid rgba(128,128,128,0.4)",
         width: "max-content",
@@ -42,58 +37,52 @@ const WarehouseOpsTable = (props) => {
         maxHeight: 700
     };
 
-
-    console.log('Beginning of Creation of Table')
-    
     try{
-        
-        console.log(props.data.data.data[0])
-            return (  
-                <>  
-                    {/* <h1>Total Count for Today {String(props.data.data.data[0].length)}.</h1> */}
-                
-                    <Box sx={{ '& button': { m: 1 } }}>
-                        <TableContainer 
-                        component={Paper}
-                        sx={tableContainerSx}
+        return (  
+            <>  
+                {/* <h1>Total Count for Today {String(props.data.data.data[0].length)}.</h1> */}
+                <Box sx={{ '& button': { m: 1 } }}>
+                    <TableContainer 
+                    component={Paper}
+                    sx={tableContainerSx}
+                    >  
+                    { !props.data.length !== 0 ? <h1>Total Count for Today {String(props.data.data.data[0].length)}.</h1> : <h1>Loading</h1> }
+                    <Table  stickyHeader={true}
+                    >  
+                        <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>  
+                        <TableRow>  
+                                
+                            <TableCell align="center">Device Type</TableCell>
+                            <TableCell align="center">Asset Number</TableCell>
+                            <TableCell align="center">Serial Number</TableCell>
+                            <TableCell align="center">Location</TableCell>  
+                        </TableRow>  
+                        </TableHead> 
+                        <TableBody
+                            sx={{
+                                "& tr:nth-of-type(2n+1)": {
+                                    backgroundColor: "grey.100",
+                                },
+                            }}
                         >  
-                        <h1>Total Count for Today {String(props.data.data.data[0].length)}.</h1>
-                        <Table  stickyHeader={true}
-                        >  
-                            <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>  
-                            <TableRow>  
-                                 
-                                <TableCell align="center">Device Type</TableCell>
-                                <TableCell align="center">Asset Number</TableCell>
-                                <TableCell align="center">Serial Number</TableCell>
-                                <TableCell align="center">Location</TableCell>  
-                            </TableRow>  
-                            </TableHead> 
-                            <TableBody
-                                sx={{
-                                    "& tr:nth-of-type(2n+1)": {
-                                        backgroundColor: "grey.100",
-                                    },
-                                }}
-                            >  
-                            {  
-                                props.data.data.data[0].reverse().map((p, index) => { 
-                                    return <TableRow 
-                                        key={index}
+                        {  
+                            props.data.data.data[0].reverse().map((p, index) => { 
+                                return <TableRow 
+                                    key={index}
 
-                                    >  
-                                     
-                                    <TableCell align="right">{p.devicetype}</TableCell> 
-                                    <TableCell align="right">{p.assetid}</TableCell>  
-                                    <TableCell align="right">{p.serial}</TableCell>  
-                                    <TableCell align="right">{p.location}</TableCell>  
-                                </TableRow>  
-                                })  
-                            } 
-                            </TableBody> 
-                        </Table>  
-                        </TableContainer>  
-                    </Box>
+                                >  
+                                    
+                                <TableCell align="right">{p.devicetype}</TableCell> 
+                                <TableCell align="right">{p.assetid}</TableCell>  
+                                <TableCell align="right">{p.serial}</TableCell>  
+                                <TableCell align="right">{p.location}</TableCell>  
+                            </TableRow>  
+                            })  
+                        } 
+                        </TableBody> 
+                    </Table>  
+                    </TableContainer>  
+                </Box>
                 </>
             );  
         }
@@ -101,10 +90,10 @@ const WarehouseOpsTable = (props) => {
       }    
 
 
-function ProtectedComponentWhTable() {
+function ProtectedComponentWhTable(count) {
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
-    const [apiData, setApiData] = useState(null);
+    const [apiData, setApiData] = useState([]);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
     
@@ -119,7 +108,6 @@ function ProtectedComponentWhTable() {
     };
     
     useEffect(() => {
-
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -155,10 +143,10 @@ function ProtectedComponentWhTable() {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, dbValue]);
+    },[accounts, inProgress, instance, dbValue, count]);
     return (
         <div>
-            <WarehouseOpsTable data={apiData} />
+            { apiData ? <WarehouseOpsTable data={apiData} /> : null }
         </div>
     );
 };

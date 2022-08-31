@@ -1,6 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useState} from "react";
+import { useState, Suspense} from "react";
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
@@ -168,7 +167,7 @@ export default function CustomizedSelects() {
       { sendData ? <ProtectedComponent formData={sendData} /> : null }
     </div>
   
-    <div><ProtectedComponentWhTable /></div>
+    <div><ProtectedComponentWhTable refresh={count}/></div>
   
   </>
   
