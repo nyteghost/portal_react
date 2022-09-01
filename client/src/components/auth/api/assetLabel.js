@@ -80,29 +80,29 @@ function ProtectedComponent(props) {
     },[accounts, inProgress, instance, props.formData.submit]);
      
     console.log(apiData)
-    // if (apiData === null){
-    //     return(
-    //         <div>
-    //             <h1>Nothing!</h1>
-    //         </div>
-    //     )
-    // } else if (apiData.data.data.affectedRows === 0) {
+    if (apiData === null){
+        return(
+            <div>
+                <h1>Nothing!</h1>
+            </div>
+        )
+    } else if (apiData.data.data.affectedRows === 0) {
     
-    //     return (
-    //         <div>
-    //         <h1>Error in Submission</h1>
-    //         </div>
+        return (
+            <div>
+            <h1>Error in Submission</h1>
+            </div>
             
-    //     );
-    // } else if (apiData.data.data.affectedRows === 1) {
+        );
+    } else if (apiData.data.data.affectedRows === 1) {
     
-    //     return (
-    //         <div>
-    //         <h1>Submitted</h1>
-    //         </div>
+        return (
+            <div>
+            <h1>Submitted</h1>
+            </div>
             
-    //     );
-    // };
+        );
+    };
 };
 
 export default ProtectedComponent
