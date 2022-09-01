@@ -10,7 +10,6 @@ import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./components/auth/authConfig";
 import { Provider } from 'react-redux'
 import store from './store/store'
-import {Header} from "./components/NavigationBar/NavBar"
 
 
 

@@ -134,13 +134,25 @@ app.get('/getProccessedForDay',
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-app.post('/postNewReturn', 
+app.post('/postAssetLabel', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
             req.body;
-            res.json(await returnController.newReturn(req.body));
+            res.json(await warehouseController.assignAssetToPacked(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
+app.post('/postEtched', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.body;
+            res.json(await warehouseController.markEtched(req.body));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);
@@ -161,12 +173,12 @@ app.post('/postK12Return',
     }
 );
 
-app.post('/postEtched', 
+app.post('/postNewReturn', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
             req.body;
-            res.json(await warehouseController.markEtched(req.body));
+            res.json(await returnController.newReturn(req.body));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);

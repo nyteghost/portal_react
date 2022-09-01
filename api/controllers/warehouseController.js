@@ -51,10 +51,27 @@ async function markEtched(req){
     }
 }
 
+async function assignAssetToPacked(req){
+  console.log('Made assignAssetToPacked request')
+  delete req.submit
+  let stringedJSON = JSON.stringify(req)
+  console.log(stringedJSON)
+
+  const rows = await db.query(
+    `call dbo_uspportpackass(lower('${stringedJSON}'))`
+  );
+  const data = helper.emptyOrRows(rows);
+  console.log(data)
+  return {
+    data
+  }
+}
 
 module.exports = {
+    assignAssetToPacked,
     getProccessedForDay,
-    opAssignment,
-    markEtched
+    markEtched,
+    opAssignment
+    
 }
 

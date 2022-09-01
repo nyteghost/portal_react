@@ -18,3 +18,23 @@ input[type="submit"] {
 .form-check-label {
   margin-left: 7px;
 }
+
+h1 {
+  color: rgb(255, 255, 255);
+  background-color: #333;
+}
+
+input[type="text"] {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 20px 15px;
+  margin-top: 17px !important;
+  margin-bottom: 10px !important;
+  font-size: 18px;
+  background-color: white;
+  color:black;
+}

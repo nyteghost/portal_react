@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
 import Box from '@mui/material/Box'
+import "../../styles/warehouse.css";
 
 
 export async function callApi (accessToken, url) {

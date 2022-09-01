@@ -31,6 +31,7 @@ async function getSingleLoc(req){
 }
   
 
+
   module.exports = {
     getAllLoc
     ,getSingleLoc

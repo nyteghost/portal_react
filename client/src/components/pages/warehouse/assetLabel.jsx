@@ -9,21 +9,23 @@ import Select from '@mui/material/Select';
 import "../../../styles/warehouse.css";
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import ProtectedComponent from "../../auth/api/warehouseops"
+import { TextField } from '@mui/material';
+import ProtectedComponent from "../../auth/api/assetLabel"
 
 
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
   '& .MuiInputBase-input': {
     borderRadius: 10,
     position: 'relative',
     backgroundColor: "white",
     border: '2px solid #5e77a2',
+    margin: 5,
     fontSize: 16,
-    padding: '10px 26px 10px 12px',
+    padding: '5px 20px 5px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
     fontFamily: [
@@ -43,201 +45,254 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       borderColor: '#80bdff',
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
     },
+
   },
 }));
 
 
 export default function CustomizedSelects() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [operation, setOps] = useState('');
-  const [labelType, setLabelType] = useState('');
-  const [sendData, setData] = useState('');
-  const [count, setCount] = useState(0);
+    let initialArray = '';
+    const { register, handleSubmit, reset, resetField, formState: { errors } } = useForm();
+    const [labelType, setLabelType] = useState('');
+    const [sendData, setData] = useState('');
+    const [count, setCount] = useState(0);
+    const [location, setLocation] = useState('');
+    const [assetID, setAssetID] = useState('');
+    const [missingPeriph, setMissingPeriph] = useState('');
 
-  const parentToChild = props => {
-    var i; 
-    if (!i){setData(props);
-        } else if (i === props){
-          setData('');
-          let i = props
-    }  
-  }
-
-  
-  const onSubmit = data => {
-    data = JSON.parse(JSON.stringify(data));
-    data.operationtype = operation
-    data.assignedcontact = labelType
-    setCount(count + 1)
-    data.submit = count
-    // parentToChild(data);
-    console.log(data)
-  };
-  
-  
-  const labelHandleChange = (event) => {
-    setLabelType(event.target.value);
-  };
-
-
-  const MissingPeriphs = () => {
-    console.log(labelType)
-    if (labelType === 'Dell Replacement Student Kit' || labelType === 'Len Replacement Student Kit' || labelType === 'Replacement Staff Kit'){
-
-        return (
-            
-            <div>
-                Select any peripherials that are missing<br />
-                <input name = "usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
-                <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
-            </div>
-        );
-    } else if (labelType === 'Dell New Student Kit' || labelType === 'Len New Student Kit'){
-        return (
-            <>
-            <div>
-            Select any peripherials that are missing<br />
-                <input name = "mouse" type="checkbox" placeholder="Mouse>" {...register("Mouse", {})} />
-                <label name="mouse" className="form-check-label">Mouse</label>
-                
-            </div>
-            <div>
-                <input name = "headset" type="checkbox" placeholder="Headset" {...register("Headset", {})} />
-                <label name="headset" className="form-check-label">Headset</label>
-            </div>
-            <div>
-                <input name = "Sleeve" type="checkbox" placeholder="Sleeve" {...register("Sleeve", {})} />
-                <label name="Sleeve" className="form-check-label">Sleeve</label>
-            </div>
-            <div>
-                <input name = "usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
-                <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
-            </div>
-            </>
-            
-        );
-    } else if (labelType === 'ST-2000 Printer' || labelType === 'ST-4000 Printer' || labelType === 'ST-C2100 Printer'){
-        return(
-            <div>
-                Select any peripherials that are missing<br />
-                <input name = "brownBox" type="checkbox" placeholder="brownBox" {...register("brownBox", {})} />
-                <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
-            </div>
-        )
-    } else if (labelType === 'New Staff Kit'){
-        return(
-            <>
-            <div>
-                 Select any peripherials that are missing<br />
-                <input name = "mouse" type="checkbox" placeholder="Mouse>" {...register("Mouse", {})} />
-                <label name="mouse" className="form-check-label">Mouse</label>
-                
-            </div>
-            <div>
-                <input name = "headset" type="checkbox" placeholder="Headset" {...register("Headset", {})} />
-                <label name="headset" className="form-check-label">Headset</label>
-            </div>
-            <div>
-                <input name = "Sleeve" type="checkbox" placeholder="Sleeve" {...register("Sleeve", {})} />
-                <label name="Sleeve" className="form-check-label">Sleeve</label>
-            </div>
-            <div>
-                <input name = "usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
-                <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
-            </div>
-            <div>
-                <input name = "diskDrive" type="checkbox" placeholder="Disk Drive" {...register("Disk Drive", {})} />
-                <label name="diskDrive" className="form-check-label">Disk Drive</label>
-            </div>
-            </>
-        )
-    }  else if (labelType === 'Display'){
-        return(
-            <>
-            <div>
-                 Select any peripherials that are missing<br />
-                <input name = "diskDrive" type="checkbox" placeholder="diskDrive>" {...register("Disk drive", {})} />
-                <label name="diskDrive" className="form-check-label">Disk Drive</label>
-            </div>
-            <div>
-                <input name = "brownBox" type="checkbox" placeholder="brownBox" {...register("brownBox", {})} />
-                <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
-            </div>
-            </>
-        )
-    } 
     
-  };
-
-  const StaffKitSelected = () => {
-    if (labelType === 'New Staff Kit'){
-        return(
-            <input type="text" placeholder="Staff Name" {...register("staffUsername", {required: true, maxLength: 100})} />
-        )
+    
+    const parentToChild = props => {
+        var i; 
+        if (!i){setData(props);
+            } else if (i === props){
+            setData('');
+            let i = props
+        }  
     }
-  };
 
-  return (
-    <>
-    <Box sx={{ 
-      margin: 4, 
-      border: '1px'
-      }}
-      
-      >
-      <form onSubmit={handleSubmit(onSubmit)}>
-      
 
-          <FormControl fullWidth size="small">
-            <InputLabel id="simple-select-label">Label Type</InputLabel>
-            <Select
-              labelId="Label-selection-label"
-              id="Label-selection"
-              value={labelType}
-              label="LabelSelection"
-              onChange={labelHandleChange}
-              input={<BootstrapInput />}
-            >
-              <MenuItem value={"Dell Replacement Student Kit"}>Dell Replacement Student Kit</MenuItem>
-              <MenuItem value={"Len Replacement Student Kit"}>Len Replacement Student Kit</MenuItem>
-              <MenuItem value={"Dell New Student Kit"}>Dell New Student Kit</MenuItem>
-              <MenuItem value={"Len New Student Kit"}>Len New Student Kit</MenuItem>
-              <MenuItem value={"ST-2000 Printer"}>ST-2000 Printer</MenuItem>
-              <MenuItem value={"ST-4000 Printer"}>ST-4000 Printer</MenuItem>
-              <MenuItem value={"ST-C2100 Printer"}>ST-C2100 Printer</MenuItem>
-              <MenuItem value={"Replacement Staff Kit"}>Replacement Staff Kit</MenuItem>
-              <MenuItem value={"New Staff Kit"}>New Staff Kit</MenuItem>
-              <MenuItem value={"Replacement SPED Windows Kit"}>Replacement SPED Windows Kit</MenuItem>
-              <MenuItem value={"New SPED Student Windows Kit"}>New SPED Student Windows Kit</MenuItem>
-              <MenuItem value={"New SPED Student Chromebook Kit"}>New SPED Student Chromebook Kit</MenuItem>
-              <MenuItem value={"Replacement SPED Chromebook Kit"}>Replacement SPED Chromebook Kit</MenuItem>
-              <MenuItem value={"CTAE Kit"}>CTAE Kit</MenuItem>
-              <MenuItem value={"Replacement Student Windows Kit"}>Replacement Student Windows Kit</MenuItem>
-              <MenuItem value={"New Student Windows Kit"}>New Student Windows Kit</MenuItem>
-              <MenuItem value={"Zoomy"}>Zoomy</MenuItem>
-              <MenuItem value={"Display"}>Display</MenuItem>
-              <MenuItem value={"Hotspot"}>Hotspot</MenuItem>
-            </Select>
-          </FormControl>
-          <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} />
-          <MissingPeriphs />
-          <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} />
-          <StaffKitSelected />
-          <Box textAlign='center'>
-            <Button type="submit" color="primary" variant="contained" >
-              Submit
-            </Button>
-          </Box>
-      </form>
-    </Box>
-   
-    {/* <div>
-            { sendData ? <ProtectedComponent formData={sendData} /> : null }
-          </div> */}
-  
-  </>
-  
-  );
-  
+    function jsonCheck(data){
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                if(data[key]=== true){
+                initialArray = initialArray + key
+                delete data[key]
+                } else if (data[key] === false) {
+                    delete data[key]
+                }
+            }
+        }
+    }
+    
+    const onSubmit = data => {
+        data = JSON.parse(JSON.stringify(data));
+        console.log(data)
+        jsonCheck(data)
+        data.ltype = labelType;
+        data.location = location;
+        data.assetid = assetID;
+        data.suffix = initialArray
+        setCount(count + 1);
+        data.submit = count;
+        parentToChild(data);
+        console.log(data)
+    };
+    
+    const resetCheckBoxes = ()=> {
+        resetField("USB-C Charger");
+        resetField("m");
+        resetField("h");
+        resetField("s");
+        resetField("dd");
+        // resetField("brownBox");
+        resetField("staffUsername");
+
+    }
+
+    const labelHandleChange = (event) => {
+        resetCheckBoxes();
+        setLabelType(event.target.value); 
+    };
+
+    const locationHandleChange = (event) => {
+        setLocation(event.target.value); 
+    };
+    const assetIDHandleChange = (event) => {
+        setAssetID(event.target.value); 
+    };
+
+    const MissingPeriphs = () => {
+        if (labelType === 'Dell Replacement Student Kit' || labelType === 'Len Replacement Student Kit' || labelType === 'Replacement Staff Kit'){
+            return (
+                <div>
+                    Select any peripherials that are missing<br />
+                    <input name ="usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
+                    <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
+                </div>
+            );
+        } else if (labelType === 'Dell New Student Kit' || labelType === 'Len New Student Kit'){
+            return (
+                <>
+                <div>
+                    Select any peripherials that are missing<br />
+                    <input name ="mouse" type="checkbox" placeholder="Mouse" {...register("m", {})} />
+                    <label name="mouse" className="form-check-label">Mouse</label>
+                </div>
+                <div>
+                    <input name ="headset" type="checkbox" placeholder="Headset" {...register("h", {})} />
+                    <label name="headset" className="form-check-label">Headset</label>
+                </div>
+                <div>
+                    <input name ="Sleeve" type="checkbox" placeholder="Sleeve" {...register("s", {})} />
+                    <label name="Sleeve" className="form-check-label">Sleeve</label>
+                </div>
+                <div>
+                    <input name ="usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
+                    <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
+                </div>
+                </>
+                
+            );
+        // } else if (labelType === 'ST-2000 Printer' || labelType === 'ST-4000 Printer' || labelType === 'ST-C2100 Printer'){
+        //     return(
+        //         <div>
+        //             Select any peripherials that are missing<br />
+        //             <input name ="brownBox" type="checkbox" placeholder="brownBox" {...register("brownBox", {})} />
+        //             <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
+        //         </div>
+        //     )
+        } else if (labelType === 'New Staff Kit'){
+            return(
+                <>
+                <div>
+                    Select any peripherials that are missing<br />
+                    <input name ="mouse" type="checkbox" placeholder="Mouse>" {...register("m", {})} />
+                    <label name="mouse" className="form-check-label">Mouse</label>
+                    
+                </div>
+                <div>
+                    <input name ="headset" type="checkbox" placeholder="Headset" {...register("h", {})} />
+                    <label name="headset" className="form-check-label">Headset</label>
+                </div>
+                <div>
+                    <input name ="Sleeve" type="checkbox" placeholder="Sleeve" {...register("s", {})} />
+                    <label name="Sleeve" className="form-check-label">Sleeve</label>
+                </div>
+                <div>
+                    <input name ="usbcCharger" type="checkbox" placeholder="USB-C Charger" {...register("USB-C Charger", {})} />
+                    <label name="usbcCharger" className="form-check-label">USB-C Charger</label>
+                </div>
+                <div>
+                    <input name ="diskDrive" type="checkbox" placeholder="Disk Drive" {...register("dd", {})} />
+                    <label name="diskDrive" className="form-check-label">Disk Drive</label>
+                </div>
+                </>
+            )
+        }  else if (labelType === 'Display'){
+            return(
+                <>
+                <div>
+                    Select any peripherials that are missing<br />
+                    <input name ="diskDrive" type="checkbox" placeholder="diskDrive>" {...register("dd", {})} />
+                    <label name="diskDrive" className="form-check-label">Disk Drive</label>
+                </div>
+                {/* <div>
+                    <input name ="brownBox" type="checkbox" placeholder="brownBox" {...register("brownBox", {})} />
+                    <label name="brownBox" className="form-check-label">Repackaged in brown box</label>
+                </div> */}
+                </>
+            )
+        } 
+        
+    };
+
+    const StaffKitSelected = () => {
+        if (labelType === 'New Staff Kit'){
+            return(
+                <input type="text" placeholder="Staff Name" {...register("staffUsername", {required: true, maxLength: 100})} />
+            )
+        }
+    };
+
+    return (
+        <>
+        <Box sx={{ 
+        margin: 4, 
+        border: '1px'
+        }}
+        
+        >
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl fullWidth size="small">
+                <InputLabel id="simple-select-label">Label Type</InputLabel>
+                <Select
+                labelId="Label-selection-label"
+                id="Label-selection"
+                value={labelType}
+                label="LabelSelection"
+                onChange={labelHandleChange}
+                input={<BootstrapInput />}
+                
+                >
+                <MenuItem value={"Dell Replacement Student Kit"}>Dell Replacement Student Kit</MenuItem>
+                <MenuItem value={"Len Replacement Student Kit"}>Len Replacement Student Kit</MenuItem>
+                <MenuItem value={"Dell New Student Kit"}>Dell New Student Kit</MenuItem>
+                <MenuItem value={"Len New Student Kit"}>Len New Student Kit</MenuItem>
+                <MenuItem value={"ST-2000 Printer"}>ST-2000 Printer</MenuItem>
+                <MenuItem value={"ST-4000 Printer"}>ST-4000 Printer</MenuItem>
+                <MenuItem value={"ST-C2100 Printer"}>ST-C2100 Printer</MenuItem>
+                <MenuItem value={"Replacement Staff Kit"}>Replacement Staff Kit</MenuItem>
+                <MenuItem value={"New Staff Kit"}>New Staff Kit</MenuItem>
+                <MenuItem value={"Replacement SPED Windows Kit"}>Replacement SPED Windows Kit</MenuItem>
+                <MenuItem value={"New SPED Student Windows Kit"}>New SPED Student Windows Kit</MenuItem>
+                <MenuItem value={"New SPED Student Chromebook Kit"}>New SPED Student Chromebook Kit</MenuItem>
+                <MenuItem value={"Replacement SPED Chromebook Kit"}>Replacement SPED Chromebook Kit</MenuItem>
+                <MenuItem value={"CTAE Kit"}>CTAE Kit</MenuItem>
+                <MenuItem value={"Replacement Student Windows Kit"}>Replacement Student Windows Kit</MenuItem>
+                <MenuItem value={"New Student Windows Kit"}>New Student Windows Kit</MenuItem>
+                <MenuItem value={"Zoomy"}>Zoomy</MenuItem>
+                <MenuItem value={"Display"}>Display</MenuItem>
+                <MenuItem value={"Hotspot"}>Hotspot</MenuItem>
+                </Select>
+            
+                {/* <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} /> */}
+                <TextField
+                    required
+                    fullWidth
+                    id="outlined-required"
+                    label="Location"
+                    variant="filled"
+                    onChange={locationHandleChange}
+                />
+                <MissingPeriphs />
+                {/* <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} /> */}
+                <TextField
+                    required
+                    fullWidth
+                    id="outlined-required"
+                    label="Asset ID"
+                    variant="filled"
+                    onChange={assetIDHandleChange}
+                    
+                />
+                <StaffKitSelected />
+                <Box textAlign='center'>
+                <Button type="submit" color="primary" variant="contained" >
+                Submit
+                </Button>
+            </Box>
+            </FormControl>
+        </form>
+        </Box>
+    
+        <div>
+                { sendData ? <ProtectedComponent formData={sendData} /> : null }
+            </div>
+    
+    </>
+    
+    );
+    
 }
 
