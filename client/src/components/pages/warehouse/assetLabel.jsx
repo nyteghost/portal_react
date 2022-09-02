@@ -13,7 +13,6 @@ import { TextField } from '@mui/material';
 import ProtectedComponent from "../../auth/api/assetLabel"
 
 
-
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(1),
@@ -87,7 +86,7 @@ export default function CustomizedSelects() {
     
     const onSubmit = data => {
         data = JSON.parse(JSON.stringify(data));
-        console.log(data)
+        // console.log(data)
         jsonCheck(data)
         data.ltype = labelType;
         data.location = location;
@@ -96,7 +95,7 @@ export default function CustomizedSelects() {
         setCount(count + 1);
         data.submit = count;
         parentToChild(data);
-        console.log(data)
+        // console.log(data)
     };
     
     const resetCheckBoxes = ()=> {
@@ -285,11 +284,11 @@ export default function CustomizedSelects() {
             </FormControl>
         </form>
         </Box>
-    
+        <Box textAlign='center'>
         <div>
-                { sendData ? <ProtectedComponent formData={sendData} /> : null }
-            </div>
-    
+            { sendData ? <ProtectedComponent formData={sendData} /> : null }
+        </div>
+        </Box>
     </>
     
     );

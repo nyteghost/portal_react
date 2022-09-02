@@ -3,6 +3,7 @@ import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
+import PrintAssetLabel from "../../../features/createAssetLabel";
 
 
 
@@ -76,10 +77,10 @@ function ProtectedComponent(props) {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-        console.log(props.formData)
+        // console.log(props.formData)
     },[accounts, inProgress, instance, props.formData.submit]);
      
-    console.log(apiData)
+    // console.log(apiData)
     if (apiData === null){
         return(
             <div>
@@ -98,7 +99,8 @@ function ProtectedComponent(props) {
     
         return (
             <div>
-            <h1>Submitted</h1>
+            { apiData ? <PrintAssetLabel assetData={apiData} /> : null }
+
             </div>
             
         );
