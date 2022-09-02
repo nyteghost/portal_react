@@ -3,7 +3,7 @@ import {useState, useRef, forwardRef, useEffect} from 'react'
 import "../styles/warehouse.css";
 import Box from '@mui/material/Box'
 import ReactToPrint from 'react-to-print';
-import { ComponentToPrint } from './ComponentToPrint';
+import PrintConfig from './PrintConfig';
 
 
 const customStyles = {
@@ -18,22 +18,8 @@ const customStyles = {
     },
   };
 
+  
 
-
-const PrintConfig = (props) => {
-    const componentRef = useRef(props);
-
-    return (
-      <div>
-        <ReactToPrint
-            trigger={() => <button>Print this out!</button>}
-            content={() => componentRef.current}
-        />
-        <ComponentToPrint ref={componentRef} />
-
-      </div>
-    );
-};
 
 export default function PrintAssetLabel(props) {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -44,7 +30,6 @@ export default function PrintAssetLabel(props) {
     function openModal() {
       setIsOpen(true);
       toggleModal(props)
-
     }
   
     function afterOpenModal() {
@@ -67,10 +52,9 @@ export default function PrintAssetLabel(props) {
         }
       }
 
-
     return (
       <div>
-        <button onClick={openModal}>Open QR</button>
+        <button id = "openModal" onClick={openModal}>Open QR</button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -87,5 +71,6 @@ export default function PrintAssetLabel(props) {
       </div>
     );
   }
+  
 
 

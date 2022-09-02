@@ -17,12 +17,11 @@ export const ComponentToPrint = forwardRef((props, ref) => {
               { ltype ? <p1>GCA-{ltype} </p1> : null }
               { missingPeriph ? <p1>{missingPeriph}</p1> : null }
               { assetid ? <div><p1>{assetid}</p1></div> : null }
-          
-
           <br/>
           <img src={qrImage}/>
           <br/><br/>
           </div>
       </Box>
+      
   );
 });
