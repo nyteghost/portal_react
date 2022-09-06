@@ -3,7 +3,6 @@ const helper = require('./helper');
 const config = require('../services/config');
 
 
-
 async function assignAssetToPacked(req){
   console.log('Made  request')
   delete req.submit
@@ -20,7 +19,6 @@ async function assignAssetToPacked(req){
     req
   }
 };
-
 
 async function getProccessedForDay(){
     const rows = await db.query(
@@ -49,22 +47,32 @@ async function markEtched(req){
   }
 };
 
-async function opAssignment(req){
-    console.log('Made warehouseops request')
-    delete req.submit
-    let stringedJSON = JSON.stringify(req)
-    
-    console.log(stringedJSON)
-
-    
+async function miscAssignment(req){
+  delete req.submit;
+  let stringedJSON = JSON.stringify(req);
+  console.log(stringedJSON);
+  console.log(req.type)
+  if(req.type == 'asapPickup'){
+    console.log('Made asapPickup request')
     const rows = await db.query(
-      `call dbo_uspupdatewarehouseopscan(lower('${stringedJSON}'))`
+      `call isolatedsafety.dbo_uspasap_pickup (lower('${stringedJSON}'))`
     );
     const data = helper.emptyOrRows(rows);
-    console.log(data)
+    console.log(rows);
     return {
       data
-    }
+    };
+  } else { 
+    console.log('Made miscAssignUpdate request')
+    const rows = await db.query(
+      `call isolatedsafety.dbo_uspportalmiscassignupdate (lower('${stringedJSON}'))`
+    );
+    const data = helper.emptyOrRows(rows);
+    console.log(rows);
+    return {
+      data
+    };
+  };
 };
 
 async function newAssetLocation(req){
@@ -85,11 +93,26 @@ async function newAssetLocation(req){
   }
 };
 
+async function opAssignment(req){
+  console.log('Made warehouseops request')
+  delete req.submit
+  let stringedJSON = JSON.stringify(req)
+  console.log(stringedJSON)
+  const rows = await db.query(
+    `call dbo_uspupdatewarehouseopscan(lower('${stringedJSON}'))`
+  );
+  const data = helper.emptyOrRows(rows);
+  console.log(data)
+  return {
+    data
+  }
+};
 
 module.exports = {
     assignAssetToPacked,
     getProccessedForDay,
     markEtched,
+    miscAssignment,
     opAssignment,
     newAssetLocation
     

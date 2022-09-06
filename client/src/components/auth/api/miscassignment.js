@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
 
-const DeleayComponent = () => {
+const DelayComponent = () => {
     const [show, setShow] = useState(false)
   
     useEffect(() => {
@@ -53,17 +53,12 @@ export async function callApi (accessToken,url,userData) {
     })
 };
 
-
 function ProtectedComponent(props) {
-    // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
+    console.log(props.formData.submit)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
-    const [apiStatus, setApiStatus] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
-    
-    
-
     
     const authRequest = {
         ...loginRequest,
@@ -74,7 +69,6 @@ function ProtectedComponent(props) {
         props = JSON.parse(JSON.stringify(props));
         props.formData.Worker = account.name
         props.formData.Company = dbValue
-        console.log(props)
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -82,7 +76,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostNewAssetLocation.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostMiscAssignment.endpoint, props.formData)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -95,10 +89,9 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiPostNewAssetLocation.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiPostMiscAssignment.endpoint, props.formData)
                                 .then(response => setApiData(response));
-                        })
-                        
+                        })   
                     }
                 }
             });
@@ -108,11 +101,11 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostNewAssetLocation.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostMiscAssignment.endpoint, props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.formData.count]);
+    },[accounts, inProgress, instance, props.formData.submit]);
 
     if (apiData !== null && apiData !== undefined) {
         console.log("apiData: " + apiData)
@@ -135,7 +128,7 @@ function ProtectedComponent(props) {
         console.log(apiData)
         return(
         <div>
-            <DeleayComponent/>
+            <DelayComponent/>
         </div>
         )
     }

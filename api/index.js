@@ -171,6 +171,19 @@ app.post('/postK12Return',
     }
 );
 
+app.post('/postMiscAssignment', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.body;
+            res.json(await warehouseController.miscAssignment(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
 app.post('/postNewAssetLocation', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {

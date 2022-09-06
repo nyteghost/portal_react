@@ -1,19 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useState, Suspense} from "react";
-import { ErrorMessage } from '@hookform/error-message';
+import { useState} from "react";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel';
-import { Menu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import "../../../styles/warehouse.css";
-import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import ProtectedComponent from "../../auth/api/warehouseops"
-import ProtectedComponentWhTable from "../../tables/warehouseOpsTable"
+import ProtectedComponent from "../../auth/api/miscassignment"
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -51,7 +47,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 export default function CustomizedSelects() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [operation, setOps] = useState('');
   const [type, setType] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
@@ -68,7 +63,7 @@ export default function CustomizedSelects() {
   
   const onSubmit = data => {
     data = JSON.parse(JSON.stringify(data));
-    data.assignedcontact = type
+    data.type = type
     setCount(count + 1)
     data.submit = count
     parentToChild(data);
@@ -87,11 +82,6 @@ export default function CustomizedSelects() {
       </div>
     );
   };
-
-  if(type === 'asapPickup') {
-    console.log('YES')
-  }
-
 
   return (
     <>
@@ -116,8 +106,8 @@ export default function CustomizedSelects() {
             <MenuItem value={'asapPickup'}>ASAP Pickup</MenuItem>
         </Select>
         </FormControl>
-          <input type="text" placeholder="Contact" {...register("physicallocation", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Tracking/Reason" {...register("physicallocation", {required: true, maxLength: 100})} />
+          <input type="text" placeholder="Contact" {...register("contact", {required: true, maxLength: 100})} />
+          <input type="text" placeholder="Tracking/Reason" {...register("tracking", {required: true, maxLength: 100})} />
           <input type="text" placeholder="Asset" {...register("assetid", {required: true, maxLength: 100})} />
         < ShowDriver />
         <Box textAlign='center'>
@@ -128,10 +118,9 @@ export default function CustomizedSelects() {
       </form>
     </Box>
     <div>
-      {/* { sendData ? <ProtectedComponent formData={sendData} /> : null } */}
+      { sendData ? <ProtectedComponent formData={sendData} /> : null }
     </div>
   
-    {/* <div><ProtectedComponentWhTable refresh={count}/></div> */}
   
   </>
   

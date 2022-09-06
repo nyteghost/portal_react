@@ -94,6 +94,10 @@ export const protectedResources = {
         endpoint: "http://localhost:5000/postK12Return",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
+    apiPostMiscAssignment:{
+        endpoint: "http://localhost:5000/postMiscAssignment",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
     apiPostNewAssetLocation:{
         endpoint: "http://localhost:5000/postNewAssetLocation",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]

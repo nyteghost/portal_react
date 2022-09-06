@@ -105,3 +105,23 @@ label {
   padding: 0;
   text-align: center;
 }
+
+.navbar-brand{
+padding-left: 10px;
+}
+
+.signButton{
+  padding-right: 10px;
+}
+
+.signOutBtn{
+  all: initial;
+}
+
+.navbar-toggler{
+  margin-left: 10px
+}
+.btn-danger{
+  margin-left:auto;
+  margin-right: 0;
+}

@@ -115,7 +115,7 @@ function ProtectedComponent(props) {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.formData.count]);
+    },[accounts, inProgress, instance, props.formData.submit]);
 
     if (apiData !== null && apiData !== undefined) {
         console.log("apiData: " + apiData)

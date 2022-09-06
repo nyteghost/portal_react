@@ -17,10 +17,10 @@ const list = [
 
 
 export function Header() {
+  const [expanded, setExpanded] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const [value,setValue]=useState('');
   const dbValue = localStorage.getItem("database");
-  
   const [selected, setSelected] = useState({});
   
   const handleSelect = (key, event) => {
@@ -28,15 +28,13 @@ export function Header() {
     localStorage.setItem("database", key)
     
   };
-
   return (
     <>
-    <Container>
+    <Container fluid>
       <Navbar expand="lg" bg="primary" variant="dark">
-        <Navbar.Brand href="/">Azure Database</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="m-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/components/pages/Hello">Hello API</Nav.Link>
             <NavDropdown title="Returns" id="basic-nav-dropdown">
@@ -74,8 +72,9 @@ export function Header() {
               })}
             </DropdownButton>
           </Nav>
+          <div className='signButton'>{ isAuthenticated ? <SignOutButton /> : <SignInButton /> }</div>
         </Navbar.Collapse>
-        { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
+       
       </Navbar>
     </Container>
 </>
