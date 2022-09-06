@@ -230,7 +230,8 @@ export default function CustomizedSelects() {
                     [`&.${inputLabelClasses.shrink}`]: {
                       // set the color of the label when shrinked (usually when the TextField is focused)
                       color: "orange",
-                      marginTop:2
+                      marginTop:2,
+                      marginLeft: -.5
                     }
                   }}
                 >Label Type</InputLabel>
