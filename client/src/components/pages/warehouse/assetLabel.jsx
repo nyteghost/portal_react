@@ -11,11 +11,12 @@ import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import ProtectedComponent from "../../auth/api/assetLabel"
+import { inputLabelClasses } from "@mui/material/InputLabel";
 
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   '& .MuiInputBase-input': {
     borderRadius: 10,
@@ -224,7 +225,15 @@ export default function CustomizedSelects() {
         >
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl fullWidth size="small">
-                <InputLabel id="simple-select-label">Label Type</InputLabel>
+                <InputLabel id="simple-select-label"
+                sx={{
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      // set the color of the label when shrinked (usually when the TextField is focused)
+                      color: "orange",
+                      marginTop:2
+                    }
+                  }}
+                >Label Type</InputLabel>
                 <Select
                 labelId="Label-selection-label"
                 id="Label-selection"
@@ -263,6 +272,18 @@ export default function CustomizedSelects() {
                     label="Location"
                     variant="filled"
                     onChange={locationHandleChange}
+                    InputLabelProps={{
+                        sx: {
+                          // set the color of the label when not shrinked
+                          color: "",
+                          [`&.${inputLabelClasses.shrink}`]: {
+                            // set the color of the label when shrinked (usually when the TextField is focused)
+                            color: "orange",
+                            marginTop: -.9
+                          }
+                        }
+                      }}
+                    
                 />
                 <MissingPeriphs />
                 {/* <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} /> */}
@@ -273,6 +294,17 @@ export default function CustomizedSelects() {
                     label="Asset ID"
                     variant="filled"
                     onChange={assetIDHandleChange}
+                    InputLabelProps={{
+                        sx: {
+                          // set the color of the label when not shrinked
+                          color: "",
+                          [`&.${inputLabelClasses.shrink}`]: {
+                            // set the color of the label when shrinked (usually when the TextField is focused)
+                            color: "orange",
+                            marginTop: -.9
+                          }
+                        }
+                      }}
                     
                 />
                 <StaffKitSelected />

@@ -10,6 +10,10 @@ import "../../../styles/warehouse.css";
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/miscassignment"
+import { inputLabelClasses } from "@mui/material/InputLabel";
+
+
+
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -45,11 +49,16 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 
+
+
+
+
 export default function CustomizedSelects() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [type, setType] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
+  const[expandedLabel, setExpandedLabel] = useState('');
 
   const parentToChild = props => {
     var i; 
@@ -74,6 +83,20 @@ export default function CustomizedSelects() {
     setType(event.target.value);
   };
 
+  const StatValue = styled('div')(
+    ({ theme }) => `
+    color: ${theme.palette.text.primary};
+    font-size: 34px;
+    font-weight: ${theme.typography.fontWeightMedium};
+  `,
+  );
+
+  const styles = {
+    InputLabelProps : {
+        color: "white"
+    }
+}
+
   const ShowDriver = () => {
     if (type !== 'asapPickup') return null;
     return (
@@ -93,7 +116,17 @@ export default function CustomizedSelects() {
       >
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth size="small">
-        <InputLabel id="simple-select-label">Type</InputLabel>
+        <InputLabel 
+          
+          sx={{
+            [`&.${inputLabelClasses.shrink}`]: {
+              // set the color of the label when shrinked (usually when the TextField is focused)
+              color: "orange",
+              marginTop:2
+            }
+          }}
+          
+        id="simple-select-label">Type</InputLabel>
         <Select
             labelId="type-select-label"
             id="type-select"
@@ -128,3 +161,16 @@ export default function CustomizedSelects() {
   
 }
 
+// MuiInputLabel: {
+//   styleOverrides: {
+//     root: {
+//       fontSize: '0.95rem',
+//     },
+//     shrink: {
+//       transform: 'translate(14px, -8px) scale(1) !important',
+//     },
+//     outlined: {
+//       transform: 'translate(14px, 16px) scale(1)',
+//     },
+//   },
+// },

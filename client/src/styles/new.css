@@ -119,8 +119,17 @@ padding-left: 10px;
 }
 
 .navbar-toggler{
+  margin-right: 10px
+}
+
+.nav-link{
   margin-left: 10px
 }
+
+.btn.btn-info{
+  margin-left: 10px
+}
+
 .btn-danger{
   margin-left:auto;
   margin-right: 0;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "./authConfig";
+import { loginRequest } from "../auth/authConfig";
 import Button from "react-bootstrap/Button";
 
 function handleLogin(instance) {

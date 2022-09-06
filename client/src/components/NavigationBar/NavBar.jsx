@@ -3,11 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useIsAuthenticated } from "@azure/msal-react";
-import { SignInButton } from "../auth/SignInButton";
-import { SignOutButton } from "../auth/SignOutButton";
+import { SignInButton } from "./SignInButton";
+import { SignOutButton } from "./SignOutButton";
 import { useState } from 'react';
 import { DropdownButton, Dropdown } from "react-bootstrap";
-
+import logo from '../img/logo.png'
 const list = [
   { key: "Please Select Database", value: "Please Select Database" },
   { key: "GCA", value: "GCA" },
@@ -32,6 +32,7 @@ export function Header() {
     <>
     <Container fluid>
       <Navbar expand="lg" bg="primary" variant="dark">
+        <Navbar.Brand href="/"><img src={logo}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto">

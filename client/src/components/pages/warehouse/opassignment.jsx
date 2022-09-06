@@ -14,6 +14,8 @@ import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/warehouseops"
 import ProtectedComponentWhTable from "../../tables/warehouseOpsTable"
+import { inputLabelClasses } from "@mui/material/InputLabel";
+
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -110,7 +112,15 @@ export default function CustomizedSelects() {
       <form onSubmit={handleSubmit(onSubmit)}>
         
           <FormControl fullWidth size="small">
-            <InputLabel id="simple-select-label">Operation</InputLabel>
+            <InputLabel id="simple-select-label"
+            sx={{
+              [`&.${inputLabelClasses.shrink}`]: {
+                // set the color of the label when shrinked (usually when the TextField is focused)
+                color: "orange",
+                marginTop:2
+              }
+            }}
+            >Operation</InputLabel>
             <Select
               labelId="operation-select-label"
               id="operation-select"
@@ -126,7 +136,15 @@ export default function CustomizedSelects() {
           </FormControl>
     
           <FormControl fullWidth size="small">
-            <InputLabel id="simple-select-label">Status</InputLabel>
+            <InputLabel id="simple-select-label"
+            sx={{
+              [`&.${inputLabelClasses.shrink}`]: {
+                // set the color of the label when shrinked (usually when the TextField is focused)
+                color: "orange",
+                marginTop:2
+              }
+            }}
+            >Status</InputLabel>
             <Select
               labelId="Inventory-selection-label"
               id="Inventory-selection"
