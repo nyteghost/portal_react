@@ -55,6 +55,8 @@ export default function PrintAssetLabel(props) {
     return (
       <div>
         <button id = "openModal" onClick={openModal}>Open QR</button>
+        {/* {setTimeout(() => {  document.getElementById("openModal").click() }, 1000)} */}
+
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}

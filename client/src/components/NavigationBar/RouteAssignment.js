@@ -1,21 +1,20 @@
-import { PageLayout } from "./components/pages/PageLayout";
+import { PageLayout } from "../pages/PageLayout";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import "./styles/new.css";
 // import {Header} from "./components/NavigationBar/NavBar"
-import Newreturn from "./components/pages/returns/new"
-import K12 from "./components/pages/returns/k12";
-import Search from "./components/pages/returns/search"
-import NoTag from "./components/pages/returns/notag"
+import Newreturn from "../pages/returns/new"
+import K12 from "../pages/returns/k12";
+import Search from "../pages/returns/search"
+import NoTag from "../pages/returns/notag"
 
-import OpAssignment from "./components/pages/warehouse/opassignment.jsx"
-import Etched from "./components/pages/warehouse/etched"
-import AssetLabel from "./components/pages/warehouse/assetLabel"
-import Assetlocation from "./components/pages/warehouse/assetlocation"
-import SearchAssetLoc from "./components/pages/warehouse/searchAssetLoc.jsx"
-import MiscAssign from "./components/pages/warehouse/miscAssignment"
-import ASAPOutbound from "./components/pages/warehouse/asapoutboundlabel"
-import ConsumePeriph from "./components/pages/warehouse/consumePeripherals"
-import Hello  from "./components/pages/Hello"
+import OpAssignment from "../pages/warehouse/opassignment.jsx"
+import Etched from "../pages/warehouse/etched"
+import AssetLabel from "../pages/warehouse/assetLabel"
+import Assetlocation from "../pages/warehouse/assetlocation"
+import SearchAssetLoc from "../pages/warehouse/searchAssetLoc.jsx"
+import MiscAssign from "../pages/warehouse/miscAssignment"
+import ASAPOutbound from "../pages/warehouse/asapoutboundlabel"
+import ConsumePeriph from "../pages/warehouse/consumePeripherals"
+import Hello  from "../pages/Hello"
 
 function AppRouter() {
 return (
@@ -24,7 +23,6 @@ return (
         <Routes>
             <Route exact path='/' element={<PageLayout />}/>
             <Route path='/components/pages/Hello' element={<Hello />}/>
-
         {/* Returns */}
             <Route path='/components/pages/returns/new' element={<Newreturn />}/>
             <Route path='/components/pages/returns/notag' element={<NoTag />}/>

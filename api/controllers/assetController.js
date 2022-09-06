@@ -3,7 +3,6 @@ const helper = require('./helper');
 const config = require('../services/config');
 
 
-
 async function getAllLoc(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
@@ -16,8 +15,7 @@ async function getAllLoc(page = 1){
       data,
       meta
     }
-}
-
+};
 
 async function getSingleLoc(req){
     const rows = await db.query(
@@ -28,12 +26,9 @@ async function getSingleLoc(req){
     return {
       data
     }
-}
+};
   
-
-
-  module.exports = {
-    getAllLoc
-    ,getSingleLoc
-
-}
+module.exports = {
+  getAllLoc,
+  getSingleLoc
+};

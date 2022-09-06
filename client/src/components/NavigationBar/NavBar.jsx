@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { DropdownButton, Dropdown } from "react-bootstrap";
 
 const list = [
+  { key: "Please Select Database", value: "Please Select Database" },
   { key: "GCA", value: "GCA" },
   { key: "Not GCA", value: "Not GCA" },
   { key: "", value: "" }
@@ -30,8 +31,8 @@ export function Header() {
 
   return (
     <>
-    <Navbar bg="primary" variant="dark">
-        <Container>
+    <Container>
+      <Navbar expand="lg" bg="primary" variant="dark">
         <Navbar.Brand href="/">Azure Database</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -46,7 +47,7 @@ export function Header() {
               <NavDropdown.Item href="/components/pages/returns/search">Search</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Warehouse" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/components\pages\warehouse\opassignment">Operation Assignment</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/warehouse/opassignment">Operation Assignment</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/etched">Mark Etched</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/assetLabel">Asset Label</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/assetlocation">Asset Location</NavDropdown.Item>
@@ -72,13 +73,11 @@ export function Header() {
                 );
               })}
             </DropdownButton>
-      
           </Nav>
         </Navbar.Collapse>
         { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
-        </Container>
-    </Navbar>
-
+      </Navbar>
+    </Container>
 </>
   );
 }
