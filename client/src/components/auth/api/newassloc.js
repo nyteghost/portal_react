@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
 
-const DeleayComponent = () => {
+const DelayComponent = () => {
     const [show, setShow] = useState(false)
   
     useEffect(() => {
@@ -75,7 +75,7 @@ function ProtectedComponent(props) {
         props = JSON.parse(JSON.stringify(props));
         props.formData.Worker = account.name
         props.formData.Company = dbValue
-        console.log(props)
+        // console.log(props)
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -116,7 +116,7 @@ function ProtectedComponent(props) {
     },[accounts, inProgress, instance, props.formData.count]);
 
     if (apiData !== null && apiData !== undefined) {
-        console.log("apiData: " + apiData)
+        // console.log("apiData: " + apiData)
             if (apiData.data.data.affectedRows === 0) {
                 return(
                     <div>
@@ -136,7 +136,7 @@ function ProtectedComponent(props) {
         console.log(apiData)
         return(
         <div>
-            <DeleayComponent/>
+            <DelayComponent/>
         </div>
         )
     }

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 export async function callApi (accessToken, url, userData) {
+    console.log(userData)
     // const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
    
@@ -17,11 +18,7 @@ export async function callApi (accessToken, url, userData) {
         headers: {"Authorization" : bearer
         }
     }
-    let assetID = userData.assetid
-    let company = userData.Company
-   
-    url = url+`${company}/${assetID}`
-    return axios (url, config)
+    return axios (url+`${userData.Company}/${userData.assetID}`, config)
     .then(data => data)
     .catch(error => console.log(error))
 };
@@ -46,9 +43,9 @@ function ProtectedComponent(props) {
     };
     
     useEffect(() => {
-        props = JSON.parse(JSON.stringify(props.data));
-        props.Worker = account.name
-        props.Company = dbValue
+        props = JSON.parse(JSON.stringify(props));
+        props.formData.Worker = account.name
+        props.formData.Company = dbValue
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -56,7 +53,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
                 .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -67,7 +64,7 @@ function ProtectedComponent(props) {
                             scopes: protectedResources.apiGetAssetLocationProc.scopes,
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
+                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -80,11 +77,11 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props)
+                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props, dbValue]);
+    },[accounts, inProgress, instance, props.formData.submit]);
     return (
         <div>
             { apiData ? <AssetLocationData assetData={apiData} /> : null }

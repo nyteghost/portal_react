@@ -6,41 +6,44 @@ import { useState} from "react";
 import Box from '@mui/material/Box'
 import "../../../styles/warehouse.css";
 import GetAssetLocation from "../../auth/api/asset"
+import { TextField } from '@mui/material';
+import { inputLabelClasses } from "@mui/material/InputLabel";
+import {useRef} from 'react';
 
 
 const  SearchAssetLoc = (props) => {
-  const [sendAssetID, setData] = useState('');
+  const assetIDRef = useRef();
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
-  
+  const [assetID, setAssetID] = useState('');
+
   const parentToChild = props => {
-    var i;
-    
+    var i; 
     if (!i){setData(props);
         } else if (i === props){
           setData('');
           let i = props
     }  
   }
-
-  // 👇️ reset to initial state
-  const resetState = () => {
-    setData('');
+  
+  const assetNumberHandleChange = (event) => {
+    setAssetID(event.target.value) 
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
+    setCount(count + 1);
     data = JSON.parse(JSON.stringify(data));
-    
-    setCount(count + 1)
-    data.submit = count
+    data.submit = count;
+    data.assetID = assetIDRef.current.value;
     parentToChild(data);
-    console.info('Counter:' + count)
   }
  
   
   return (
     <>
-      <div>
+      {/* <div>
         <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <ErrorMessage errors={errors} name="singleErrorInput" />
@@ -54,7 +57,41 @@ const  SearchAssetLoc = (props) => {
       
       <div>
         { sendAssetID ? <GetAssetLocation data={sendAssetID} /> : null }
+      </div> */}
+    
+    
+    
+      <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <ErrorMessage errors={errors} name="singleErrorInput" />
+          <TextField
+            required
+            fullWidth
+            id="outlined-required"
+            label="Asset Number"
+            variant="filled"
+            inputRef={assetIDRef}
+            InputLabelProps={{
+                sx: {
+                  // set the color of the label when not shrinked
+                  color: "",
+                  [`&.${inputLabelClasses.shrink}`]: {
+                    // set the color of the label when shrinked (usually when the TextField is focused)
+                    color: "orange",
+                    marginTop: -.9
+                  }
+                }
+            }}      
+          />
+          <Button size="small" type="submit" color="primary" variant="round">
+            Submit
+          </Button>
+        </form>
+      </Box>
+      <div>
+        { sendData ? <GetAssetLocation formData={sendData} /> : null }
       </div>
+
     </>
   );
 }

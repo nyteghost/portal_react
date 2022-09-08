@@ -24,6 +24,7 @@ const DelayComponent = () => {
   };
 
 export async function callApi (accessToken,url,userData) {
+    console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -54,7 +55,6 @@ export async function callApi (accessToken,url,userData) {
 };
 
 function ProtectedComponent(props) {
-    console.log(props.formData.submit)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
@@ -106,24 +106,23 @@ function ProtectedComponent(props) {
                     .catch(error => console.log(error))
         })};
     },[accounts, inProgress, instance, props.formData.submit]);
-
+    console.log(apiData)
     if (apiData !== null && apiData !== undefined) {
-        console.log("apiData: " + apiData)
-            if (apiData.data.data.affectedRows === 0) {
-                return(
-                    <div>
-                        <h1>Not submitted!</h1>
-                    </div>
-                )
-            } else if (apiData.data.data.affectedRows === 1) {
-            
-                return (
-                    <div>
-                    <h1>Submitted</h1>
-                    </div>
-                    
-                );
-            };
+        if (apiData.data.data.affectedRows === 0) {
+            return(
+                <div>
+                    <h1>Not submitted!</h1>
+                </div>
+            )
+        } else if (apiData.data.data.affectedRows === 1) {
+        
+            return (
+                <div>
+                <h1>Submitted</h1>
+                </div>
+                
+            );
+        };
     } else {
         console.log(apiData)
         return(
@@ -135,25 +134,4 @@ function ProtectedComponent(props) {
        
 }
 
-
 export default ProtectedComponent
-
-
-// export async function callApiWithToken(accessToken, url){
-//     // console.error('AssetID received in CallApiWithToken: ' + id)
-//     const headers = new Headers();
-//     const bearer = `Bearer ${accessToken}`;
-  
-//     headers.append("Authorization", bearer);
-  
-//     const options = {
-//         method: "GET",
-//         headers: headers
-//     };
-    
-//     return fetch(url, options)
-//         .then(response => response.json())
-//         .catch(error => console.log(error));
-//   }
-
-  
