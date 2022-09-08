@@ -58,7 +58,6 @@ export default function CustomizedSelects() {
     const [count, setCount] = useState(0);
     const [location, setLocation] = useState('');
     const [assetID, setAssetID] = useState('');
-    const [missingPeriph, setMissingPeriph] = useState('');
 
     
     

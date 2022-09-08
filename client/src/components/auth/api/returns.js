@@ -5,7 +5,7 @@ import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 
-const DeleayComponent = () => {
+const DelayComponent = () => {
     const [show, setShow] = useState(false)
   
     useEffect(() => {
@@ -27,6 +27,7 @@ const DeleayComponent = () => {
   }
 
 export async function callApi (accessToken,url,userData) {
+    // console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -77,7 +78,6 @@ function ProtectedComponent(props) {
         props = JSON.parse(JSON.stringify(props));
         props.formData.Worker = account.name
         props.formData.Company = dbValue
-        console.log(props)
         if (accounts && inProgress === "none" && !apiData) {
             instance
             .acquireTokenSilent({
@@ -118,7 +118,7 @@ function ProtectedComponent(props) {
     },[accounts, inProgress, instance, props.formData.submit]);
 
     if (apiData !== null && apiData !== undefined) {
-        console.log("apiData: " + apiData)
+        // console.log("apiData: " + apiData)
             if (apiData.data.data.affectedRows === 0) {
                 return(
                     <div>
@@ -135,10 +135,10 @@ function ProtectedComponent(props) {
                 );
             };
     } else {
-        console.log(apiData)
+        // console.log(apiData)
         return(
         <div>
-            <DeleayComponent/>
+            <DelayComponent/>
         </div>
         )
     }

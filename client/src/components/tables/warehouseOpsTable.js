@@ -26,8 +26,9 @@ export async function callApi (accessToken, url) {
 };
 
 
-const WarehouseOpsTable = (props) => { 
 
+const WarehouseOpsTable = (props) => { 
+    // console.log(props)
     const tableContainerSx = {
         border: "10px solid rgba(128,128,128,0.4)",
         width: "max-content",
@@ -47,7 +48,7 @@ const WarehouseOpsTable = (props) => {
                     component={Paper}
                     sx={tableContainerSx}
                     >  
-                    { !props.data.length !== 0 ? <h1>Total Count for Today {String(props.data.data.data[0].length)}.</h1> : <h1>Loading</h1> }
+                    { !props.props.response.data.returnData[0].length !== 0 ? <h1>Total Count for Today {String(props.props.response.data.returnData[0].length)}.</h1> : <h1>Loading</h1> }
                     <Table  stickyHeader={true}
                     >  
                         <TableHead sx={{ "& .MuiTableCell-stickyHeader": {backgroundColor: "primary.main"} }}>  
@@ -67,7 +68,7 @@ const WarehouseOpsTable = (props) => {
                             }}
                         >  
                         {  
-                            props.data.data.data[0].reverse().map((p, index) => { 
+                            props.props.response.data.returnData[0].map((p, index) => { 
                                 return <TableRow 
                                     key={index}
 
@@ -87,72 +88,75 @@ const WarehouseOpsTable = (props) => {
                 </>
             );  
         }
-        catch (e) { console.error(e); }
+        catch (e) {  }
       }    
 
 
-function ProtectedComponentWhTable(count) {
-    // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
-    const { instance, accounts, inProgress } = useMsal();
-    const [apiData, setApiData] = useState([]);
-    const account = useAccount(accounts[0] || {});
-    const dbValue = localStorage.getItem("database");
+// const ProtectedComponentWhTable=()=> {
     
-    const authRequest = {
-        ...loginRequest,
-            // account: accounts[0]
-    };
+   
+//     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
+//     const { instance, accounts, inProgress } = useMsal();
+//     const [apiData, setApiData] = useState([]);
+//     const account = useAccount(accounts[0] || {});
+//     const dbValue = localStorage.getItem("database");
+//     const [theCount, setCount] = useState(0)
+//     const authRequest = {
+//         ...loginRequest,
+//             // account: accounts[0]
+//     };
 
-    const accessTokenRequest = {
-        scopes: loginRequest.scopes,
-        account: account
-    };
+//     const accessTokenRequest = {
+//         scopes: loginRequest.scopes,
+//         account: account
+//     };
     
-    useEffect(() => {
-        if (accounts && inProgress === "none" && !apiData) {
-            instance
-            .acquireTokenSilent({
-                scopes: loginRequest.scopes,
-                account: account
-            })
-            .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
-                .then(response => setApiData(response));
-            })
-            .catch((error) => {
-                // in case if silent token acquisition fails, fallback to an interactive method
-                if (error instanceof InteractionRequiredAuthError) {
-                    if (account && inProgress === "none") {
-                        instance.acquireTokenPopup({
-                            scopes: protectedResources.apiGetWhoProccedForDay.scopes,
-                        })
-                        .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
-                                .then(response => setApiData(response));
-                        })
-                        .catch(error => console.log(error));
-                    }
-                }
-            });
-        } else if (apiData) {
-            instance.acquireTokenSilent({
-                scopes: loginRequest.scopes,
-                account: account
-            })
-            .then((response) => {
-                callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
-                    .then(response => setApiData(response))
-                    .catch(error => console.log(error))
-        })};
-    },[accounts, inProgress, instance, dbValue, count]);
-    return (
-        <div>
-            { apiData ? <WarehouseOpsTable data={apiData} /> : null }
-        </div>
-    );
-};
+//     useEffect(() => {
+//         if (accounts && inProgress === "none" && !apiData) {
+//             instance
+//             .acquireTokenSilent({
+//                 scopes: loginRequest.scopes,
+//                 account: account
+//             })
+//             .then((response) => { 
+//                 callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
+//                 .then(response => setApiData(response));
+//             })
+//             .catch((error) => {
+//                 // in case if silent token acquisition fails, fallback to an interactive method
+//                 if (error instanceof InteractionRequiredAuthError) {
+//                     if (account && inProgress === "none") {
+//                         instance.acquireTokenPopup({
+//                             scopes: protectedResources.apiGetWhoProccedForDay.scopes,
+//                         })
+//                         .then((response) => {
+//                             callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
+//                                 .then(response => setApiData(response));
+//                         })
+//                         .catch(error => console.log(error));
+//                     }
+//                 }
+//             });
+//         } else if (apiData) {
+//             instance.acquireTokenSilent({
+//                 scopes: loginRequest.scopes,
+//                 account: account
+//             })
+//             .then((response) => {
+//                 callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint)
+//                     .then(response => setApiData(response))
+//                     .catch(error => console.log(error))
+//         })};
+//     },[]);
+    
+//     return (
+//         <div>
+//             { apiData ? <WarehouseOpsTable data={apiData} /> : null }
+//         </div>
+//     );
+// };
 
-export default ProtectedComponentWhTable
+export default WarehouseOpsTable
 
 
 

@@ -13,6 +13,7 @@ import { borderRadius } from '@mui/system';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/warehouseops"
+
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from '@mui/material';
 
@@ -106,10 +107,7 @@ export default function CustomizedSelects() {
     setDepotReason(event.target.value)
   };
 
-  // reload = () => {
-  //   //RELOAD COMPONENT
-  //   this.componentDidMount();
-  // };
+  
   
   useEffect(() => {
     if(disabled === true){  
@@ -117,6 +115,8 @@ export default function CustomizedSelects() {
     }
     console.log(sendData)
   },[count]);
+
+
 
   return (
     <>
@@ -127,6 +127,7 @@ export default function CustomizedSelects() {
       
       >
       <form onSubmit={handleSubmit(onSubmit)}>
+        
           <FormControl fullWidth size="small">
             <InputLabel id="simple-select-label"
             sx={{
@@ -256,6 +257,7 @@ export default function CustomizedSelects() {
           </Box>
       </form>
       <div>{ sendData ? <ProtectedComponent formData={sendData} /> : null }</div>
+      
     </Box>
 
   </>

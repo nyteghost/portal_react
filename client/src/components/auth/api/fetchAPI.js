@@ -6,58 +6,25 @@ import axios from 'axios';
 import WarehouseOpsTable from "../../tables/warehouseOpsTable"
 
 
-
-let apiReturn;
-export async function callApi (accessToken,url,userData) {
-    const bearer = `Bearer ${accessToken}`;
-    const config = {
-        method: "POST",
-        headers: {"Authorization" : bearer
-        }
-    }
-    
-    return axios 
-    .post(url, userData ,config)
-    .then(response => apiReturn = response)
-    .catch(function (error) {
-        if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            return(
-                error.response
-            )
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-          }
-          console.log(error.config);
-    })
-};
-
 export function ApiVerify(api){
-    const [apiData,setAPIData] = useState();
-    // console.log(apiData)
+    const [tableData,setTableData] = useState();
+    
+    console.log(tableData)
     useEffect(() => {
-        if(!apiData) {  
-            setAPIData(api)
-        } else if(apiData){setAPIData(api)}
+        if(!tableData) {  
+            setTableData(api)
+        } else if(tableData){setTableData(api)}
     },[api.response.data.returnData[0][0].time])
-    if (apiData !== undefined){
-        if (apiData.response.status === 200){
+    console.log(tableData)
+    if (tableData !== undefined){
+        if (tableData.response.status === 200){
+            console.log(tableData.response.data.data.affectedRows)
             return (
-                    <div><WarehouseOpsTable props={apiData}/></div>
+                    <div><WarehouseOpsTable props={tableData}/></div>
                 );
             }} 
         //     else {
-        //     let errorMessage = apiData.response.data.message
+        //     let errorMessage = tableData.response.data.message
         //     return(
         //         <div style={{textAlign: 'center', fontSize: 30, border: 1,position:'relative'}}>Error: {errorMessage}</div>
         //     )
@@ -65,12 +32,49 @@ export function ApiVerify(api){
     };
 
 function ProtectedComponent(props) {
-
-    // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
-    const [apiData, setApiData] = useState(null);
+    const [tableData, setTableData] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
+
+    
+    async function callApi (accessToken,url,userData) {
+        const bearer = `Bearer ${accessToken}`;
+        const config = {
+            method: "POST",
+            headers: {"Authorization" : bearer
+            }
+        }
+        
+        return axios 
+        .post(url, userData , config)
+        .then(response => response)
+        .catch(function (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                return(
+                    error.response
+                )
+              } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+              console.log(error.config);
+        })
+    };
+
+
+    // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
+    
     
     const authRequest = {
         ...loginRequest,
@@ -81,7 +85,7 @@ function ProtectedComponent(props) {
     props.formData.company = dbValue
 
     useEffect(() => {
-        if (accounts && inProgress === "none" && !apiData) {
+        if (accounts && inProgress === "none" && !tableData) {
             instance
             .acquireTokenSilent({
                 scopes: loginRequest.scopes,
@@ -89,7 +93,7 @@ function ProtectedComponent(props) {
             })
             .then((response) => { 
                 callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
-                    .then(response => setApiData(response));
+                    .then(response => setTableData(response));
             })
             .catch((error) => {
                 // in case if silent token acquisition fails, fallback to an interactive method
@@ -102,33 +106,33 @@ function ProtectedComponent(props) {
                         })
                         .then((response) => {
                             callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
-                                .then(response => setApiData(response));
+                                .then(response => setTableData(response));
                         })
                         .catch(error => console.log(error));
                     }
                 }
             });
-        } else if (inProgress === "none" && apiData) {
+        } else if (inProgress === "none" && tableData) {
             instance.acquireTokenSilent({
                 scopes: loginRequest.scopes,
                 account: account
             })
             .then((response) => {
                 callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
-                    .then(response => setApiData(response))
+                    .then(response => setTableData(response))
                     .catch(error => console.log(error))
         })};
         // console.log(props.formData)
 
     },[props.formData.submit]);
      
-    // console.log(apiData)
+    console.log(tableData)
     
-    return(
-        <div>
-            { apiData ? <ApiVerify response={apiData} /> : null }
-        </div>
-    )
+    // return(
+    //     <div>
+    //         { tableData ? <ApiVerify response={tableData} /> : null }
+    //     </div>
+    // )
     
 };
 

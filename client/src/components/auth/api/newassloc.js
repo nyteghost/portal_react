@@ -55,6 +55,7 @@ export async function callApi (accessToken,url,userData) {
 
 
 function ProtectedComponent(props) {
+    
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);

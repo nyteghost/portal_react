@@ -103,8 +103,13 @@ async function opAssignment(req){
   );
   const data = helper.emptyOrRows(rows);
   console.log(data)
+  const rowsReturn = await db.query(
+    `call dbo_uspwhopprocessedforday('Null','GCA')`
+  );
+  const returnData = helper.emptyOrRows(rowsReturn);
   return {
-    data
+    data,
+    returnData
   }
 };
 

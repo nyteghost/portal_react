@@ -19,10 +19,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <MsalProvider instance={msalInstance}>
         <Provider store={store}>
-            
             <App />
-           
-
         </Provider>
     </MsalProvider>
 );
