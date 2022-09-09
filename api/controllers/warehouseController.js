@@ -86,10 +86,14 @@ async function newAssetLocation(req){
   );
   console.log(rows)
   const data = helper.emptyOrRows(rows);
-  // console.log(data)
+  const rows2 = await db.query(
+    `call isolatedsafety.dbo_uspselectallscans('${req.Worker}');`
+  );
+  const returnScans = helper.emptyOrRows(rows2);
   return {
     data,
-    req
+    req,
+    returnScans,
   }
 };
 

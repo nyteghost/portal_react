@@ -1,7 +1,7 @@
 import {protectedResources, loginRequest} from "../authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-// import AssetLocationData from "../../tables/assetLocDisplay"
+import ReturnScanTable from "../../tables/returnScansTable"
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
 
@@ -125,7 +125,7 @@ function ProtectedComponent(props) {
             } else if (apiData.data.data.affectedRows === 1) {
                 return (
                     <div>
-                    <h1>Submitted</h1>
+                        { apiData ? <ReturnScanTable apiData={apiData} /> : null }
                     </div>
                     
                 );

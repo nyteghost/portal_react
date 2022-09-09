@@ -20,7 +20,7 @@ const AssetLocTable = (props) => {
                   <TableCell style={{paddingRight:"60px"}} align="right" >Department</TableCell>  
                 </TableRow>  
               </TableHead> 
-              {/* <TableBody>  
+              <TableBody>  
                 {  
                   this.state.ProductData.map((p, index) => { 
                     return <TableRow key={index}>  
@@ -37,7 +37,7 @@ const AssetLocTable = (props) => {
                     </TableRow>  
                   })  
                 } 
-              </TableBody>  */}
+              </TableBody> 
             </Table>  
           </TableContainer>  
         );  
