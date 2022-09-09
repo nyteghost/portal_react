@@ -8,9 +8,9 @@ import NoTag from "../pages/returns/notag"
 
 import OpAssignment from "../pages/warehouse/opassignment.jsx"
 import Etched from "../pages/warehouse/etched"
-import AssetLabel from "../pages/warehouse/assetLabel"
-import Assetlocation from "../pages/warehouse/assetlocation"
-import SearchAssetLoc from "../pages/warehouse/searchAssetLoc.jsx"
+import AssetLabel from "../pages/assets/assetLabel"
+import Assetlocation from "../pages/assets/assetlocation"
+import SearchAssetLoc from "../pages/assets/searchAssetLoc.jsx"
 import MiscAssign from "../pages/warehouse/miscAssignment"
 import ASAPOutbound from "../pages/warehouse/asapoutboundlabel"
 import ConsumePeriph from "../pages/warehouse/consumePeripherals"
@@ -23,6 +23,10 @@ return (
         <Routes>
             <Route exact path='/' element={<PageLayout />}/>
             <Route path='/components/pages/Hello' element={<Hello />}/>
+        {/* Assets */}
+            <Route path='/components/pages/assets/assetLabel' element={<AssetLabel />}/>
+            <Route path='/components/pages/assets/assetlocation' element={<Assetlocation />}/>
+            <Route path='/components/pages/assets/searchAssetLoc' element={<SearchAssetLoc />}/>
         {/* Returns */}
             <Route path='/components/pages/returns/new' element={<Newreturn />}/>
             <Route path='/components/pages/returns/notag' element={<NoTag />}/>
@@ -31,9 +35,6 @@ return (
         {/* Warehouse */}
             <Route path='/components/pages/warehouse/opassignment' element={<OpAssignment />}/>
             <Route path='/components/pages/warehouse/etched' element={<Etched />}/>
-            <Route path='/components/pages/warehouse/assetLabel' element={<AssetLabel />}/>
-            <Route path='/components/pages/warehouse/assetlocation' element={<Assetlocation />}/>
-            <Route path='/components/pages/warehouse/searchAssetLoc' element={<SearchAssetLoc />}/>
             <Route path='/components/pages/warehouse/miscAssignment' element={<MiscAssign />}/>
             <Route path='/components/pages/warehouse/asapoutboundlabel' element={<ASAPOutbound />}/>
             <Route path='/components/pages/warehouse/consumePeripherals' element={<ConsumePeriph />}/>

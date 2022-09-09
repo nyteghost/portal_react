@@ -37,7 +37,12 @@ export function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/components/pages/Hello">Hello API</Nav.Link>
+            <NavDropdown title="Assets" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/components/pages/assets/assetLabel">Asset Label</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/assets/assetlocation">Asset Location</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/components/pages/assets/searchAssetLoc">Asset Location Search</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Returns" id="basic-nav-dropdown">
               <NavDropdown.Item href="/components/pages/returns/new">Create New Return</NavDropdown.Item>
               <NavDropdown.Item href='/components/pages/returns/notag'>Create No Tag Return</NavDropdown.Item>
@@ -46,14 +51,14 @@ export function Header() {
               <NavDropdown.Item href="/components/pages/returns/search">Search</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Warehouse" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/components/pages/warehouse/opassignment">Operation Assignment</NavDropdown.Item>
-              <NavDropdown.Item href="/components/pages/warehouse/etched">Mark Etched</NavDropdown.Item>
-              <NavDropdown.Item href="/components/pages/warehouse/assetLabel">Asset Label</NavDropdown.Item>
-              <NavDropdown.Item href="/components/pages/warehouse/assetlocation">Asset Location</NavDropdown.Item>
-              <NavDropdown.Item href="/components/pages/warehouse/searchAssetLoc">Asset Location Search</NavDropdown.Item>
-              <NavDropdown.Item href="/components/pages/warehouse/miscAssignment">MISC Assignment</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/asapoutboundlabel">ASAP Outbound Labels</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/consumePeripherals">Consume Peripherals</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/warehouse/etched">Mark Etched</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/warehouse/miscAssignment">MISC Assignment</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/warehouse/opassignment">Operation Assignment</NavDropdown.Item>
+
+              
+              
             </NavDropdown>
             <DropdownButton
               id="dropdown-basic-button"

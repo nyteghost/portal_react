@@ -14,7 +14,9 @@ SQL Procs found in controllers -> controlhelper
 Remove < passport.authenticate('oauth-bearer', {session: false}), > to test without MS Authorization
 */
 
-const assetLocations = require('./controllers/controlhelper');
+// const assetLocations = require('./controllers/controlhelper');
+
+const asapController = require('./controllers/asapController');
 const assetController = require('./controllers/assetController');
 const returnController = require('./controllers/returnController.js');
 const warehouseController = require('./controllers/warehouseController');
@@ -128,6 +130,18 @@ app.get('/getProccessedForDay',
     }
 );
 
+app.get('/getASAPLabel', 
+    // passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.query;
+            res.json(await warehouseController.getProccessedForDay(req.query.page));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

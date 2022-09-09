@@ -7,47 +7,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import "../../../styles/warehouse.css";
-import InputBase from '@mui/material/InputBase';
-import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material';
 import ProtectedComponent from "../../auth/api/assetLabel"
 import { inputLabelClasses } from "@mui/material/InputLabel";
-
-
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  'label + &': {
-    marginTop: theme.spacing(3),
-  },
-  '& .MuiInputBase-input': {
-    borderRadius: 10,
-    position: 'relative',
-    backgroundColor: "white",
-    border: '2px solid #5e77a2',
-    margin: 5,
-    fontSize: 16,
-    padding: '5px 20px 5px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 10,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-
-  },
-}));
+import {BootstrapInput} from "../../../styles/BootStrapInput";
 
 
 export default function CustomizedSelects() {
@@ -61,8 +24,7 @@ export default function CustomizedSelects() {
     const [labelType, setLabelType] = useState('');
     const [sendData, setData] = useState('');
     const [count, setCount] = useState(0);
-    const [location, setLocation] = useState('');
-    const [assetID, setAssetID] = useState('');
+
 
     
     
@@ -266,8 +228,7 @@ export default function CustomizedSelects() {
                     [`&.${inputLabelClasses.shrink}`]: {
                       // set the color of the label when shrinked (usually when the TextField is focused)
                       color: "orange",
-                      marginTop:2,
-                      marginLeft: -.5
+                      marginTop:-.8,
                     }
                   }}
                 >Label Type</InputLabel>
@@ -310,7 +271,7 @@ export default function CustomizedSelects() {
                     variant="filled"
                     inputRef={locationRef}
                     InputLabelProps={{
-                        sx: {
+                        sx: { marginTop: 3,
                           // set the color of the label when not shrinked
                           color: "",
                           [`&.${inputLabelClasses.shrink}`]: {
@@ -332,7 +293,7 @@ export default function CustomizedSelects() {
                     variant="filled"
                     inputRef={assetIDRef}
                     InputLabelProps={{
-                        sx: {
+                        sx: { marginTop: 3,
                           // set the color of the label when not shrinked
                           color: "",
                           [`&.${inputLabelClasses.shrink}`]: {
@@ -342,15 +303,14 @@ export default function CustomizedSelects() {
                           }
                         }
                       }}
-                    
                 />
                 <ContactNameComponent />
                 <Box textAlign='center'>
-                <Button type="submit" color="primary" variant="contained" >
-                Submit
-                </Button>
-            </Box>
-            </FormControl>
+                    <Button type="submit" color="primary" variant="contained" >
+                    Submit
+                    </Button>
+                 </Box>
+                </FormControl>
         </form>
         </Box>
         <Box textAlign='center'>
