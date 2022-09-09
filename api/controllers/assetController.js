@@ -24,7 +24,7 @@ async function getSingleLoc(req){
       `call dbo_uspassetlocationlookup (lower('{"Company":"${req.Company}","Argument":"${req.AssetID}"}'))`
     );
     const data = helper.emptyOrRows(rows);
-      
+    console.log(data)
     return {
       data
     }

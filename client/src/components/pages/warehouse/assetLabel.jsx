@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState} from "react";
+import { useState, useRef} from "react";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel';
@@ -51,6 +51,11 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 
 export default function CustomizedSelects() {
+
+    const locationRef = useRef();
+    const assetIDRef = useRef();
+    const staffRef = useRef();
+
     let initialArray = '';
     const { register, handleSubmit, reset, resetField, formState: { errors } } = useForm();
     const [labelType, setLabelType] = useState('');
@@ -89,8 +94,9 @@ export default function CustomizedSelects() {
         // console.log(data)
         jsonCheck(data)
         data.ltype = labelType;
-        data.location = location;
-        data.assetid = assetID;
+        data.location = locationRef.current.value;
+        data.assetid = assetIDRef.current.value;
+        data.staffUserName = staffRef.current.value;
         data.suffix = initialArray
         setCount(count + 1);
         data.submit = count;
@@ -114,12 +120,12 @@ export default function CustomizedSelects() {
         setLabelType(event.target.value); 
     };
 
-    const locationHandleChange = (event) => {
-        setLocation(event.target.value); 
-    };
-    const assetIDHandleChange = (event) => {
-        setAssetID(event.target.value); 
-    };
+    // const locationHandleChange = (event) => {
+    //     setLocation(event.target.value); 
+    // };
+    // const assetIDHandleChange = (event) => {
+    //     setAssetID(event.target.value); 
+    // };
 
     const MissingPeriphs = () => {
         if (labelType === 'Dell Replacement Student Kit' || labelType === 'Len Replacement Student Kit' || labelType === 'Replacement Staff Kit'){
@@ -206,10 +212,33 @@ export default function CustomizedSelects() {
         
     };
 
-    const StaffKitSelected = () => {
-        if (labelType === 'New Staff Kit'){
+    const ContactNameComponent = () => {
+        // if (labelType === 'New Staff Kit'){
+        //     return(
+        //         <input type="text" placeholder="Staff Name" {...register("staffUsername", {required: true, maxLength: 100})} />
+        //     )
+        // }
+        if (labelType === 'New Staff Kit' || labelType === 'Replacement Staff Kit' || labelType === 'New Student Windows Kit' || labelType === 'Replacement Student Windows Kit'){
             return(
-                <input type="text" placeholder="Staff Name" {...register("staffUsername", {required: true, maxLength: 100})} />
+                <TextField
+                    required
+                    fullWidth
+                    id="outlined-required"
+                    label="Contact Name"
+                    variant="filled"
+                    inputRef={staffRef}
+                    InputLabelProps={{
+                        sx: {
+                            // set the color of the label when not shrinked
+                            color: "",
+                            [`&.${inputLabelClasses.shrink}`]: {
+                            // set the color of the label when shrinked (usually when the TextField is focused)
+                            color: "orange",
+                            marginTop: -.9
+                            }
+                        }
+                        }}         
+                />
             )
         }
     };
@@ -271,7 +300,7 @@ export default function CustomizedSelects() {
                     id="outlined-required"
                     label="Location"
                     variant="filled"
-                    onChange={locationHandleChange}
+                    inputRef={locationRef}
                     InputLabelProps={{
                         sx: {
                           // set the color of the label when not shrinked
@@ -293,7 +322,7 @@ export default function CustomizedSelects() {
                     id="outlined-required"
                     label="Asset ID"
                     variant="filled"
-                    onChange={assetIDHandleChange}
+                    inputRef={assetIDRef}
                     InputLabelProps={{
                         sx: {
                           // set the color of the label when not shrinked
@@ -307,7 +336,7 @@ export default function CustomizedSelects() {
                       }}
                     
                 />
-                <StaffKitSelected />
+                <ContactNameComponent />
                 <Box textAlign='center'>
                 <Button type="submit" color="primary" variant="contained" >
                 Submit

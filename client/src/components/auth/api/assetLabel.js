@@ -9,6 +9,7 @@ import PrintAssetLabel from "../../../features/createAssetLabel";
 
 let apiReturn;
 export async function callApi (accessToken,url,userData) {
+    console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -104,22 +105,19 @@ function ProtectedComponent(props) {
                 <h1>Nothing!</h1>
             </div>
         )
-    } else if (apiData.data.data.affectedRows === 0) {
-    
+    } else if (apiData.data.data.affectedRows !== 0) {
         return (
             <div>
-            <h1>Error in Submission</h1>
+                { apiData ? <PrintAssetLabel assetData={apiData} /> : null }
             </div>
+
             
         );
-    } else if (apiData.data.data.affectedRows === 1) {
-    
+    } else if (apiData.data.data.affectedRows === 0) {
         return (
             <div>
-            { apiData ? <PrintAssetLabel assetData={apiData} /> : null }
-
+                <h1>Error in Submission</h1>
             </div>
-            
         );
     };
 };

@@ -1,5 +1,5 @@
 import "../../../styles/new.css";
-import { useState} from "react";
+import { useState, useRef} from "react";
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import { inputLabelClasses } from "@mui/material/InputLabel";
 
 
 const  App = () => {
+  const assetIDRef = useRef();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
@@ -28,7 +29,7 @@ const  App = () => {
   const onSubmit = data => {
     setCount(count + 1);
     data.submit = count;
-    data.assetid = assetID;
+    data.assetid = assetIDRef.current.value;
     parentToChild(data);
   };
   
@@ -59,7 +60,7 @@ const  App = () => {
                   id="outlined-required"
                   label="Asset Number"
                   variant="filled"
-                  onChange={assetNumberHandleChange}
+                  inputRef={assetIDRef}
                   InputLabelProps={{
                       sx: {
                         // set the color of the label when not shrinked

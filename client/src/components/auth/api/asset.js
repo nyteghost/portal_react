@@ -11,8 +11,6 @@ export async function callApi (accessToken, url, userData) {
     // const headers = new Headers();
     const bearer = `Bearer ${accessToken}`;
    
-    // headers.append("Authorization", bearer);
-    
     const config = {
         method: "GET",
         headers: {"Authorization" : bearer
