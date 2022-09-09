@@ -14,9 +14,9 @@ export const ComponentToPrint = forwardRef((props, ref) => {
       <Box textAlign='center' ref={ref}>
           <div >
               { staffUsername ? <><p1>{staffUsername}</p1><br/></> : null }
-              { ltype ? <p1>GCA-{ltype} </p1> : null }
+              { ltype ? <p1>{ltype} </p1> : null }
               { missingPeriph ? <p1>{missingPeriph}</p1> : null }
-              { assetid ? <div><p1>{assetid}</p1></div> : null }
+              { assetid ? <div><p1>GCA-{assetid}</p1></div> : null }
           <br/>
           <img src={qrImage}/>
           <br/><br/>

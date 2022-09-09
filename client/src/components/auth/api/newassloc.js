@@ -113,8 +113,7 @@ function ProtectedComponent(props) {
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
-    },[accounts, inProgress, instance, props.formData.count]);
-
+    },[accounts, inProgress, instance, props.formData.submit]);
     if (apiData !== null && apiData !== undefined) {
         // console.log("apiData: " + apiData)
             if (apiData.data.data.affectedRows === 0) {
@@ -124,7 +123,6 @@ function ProtectedComponent(props) {
                     </div>
                 )
             } else if (apiData.data.data.affectedRows === 1) {
-            
                 return (
                     <div>
                     <h1>Submitted</h1>
@@ -133,7 +131,6 @@ function ProtectedComponent(props) {
                 );
             };
     } else {
-        console.log(apiData)
         return(
         <div>
             <DelayComponent/>

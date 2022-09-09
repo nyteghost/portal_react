@@ -12,6 +12,8 @@ import {useRef} from 'react';
 
 
 const  App = () => {
+  const formRef = useRef();
+
   const assetIDRef = useRef();
   const locationRef = useRef();
 
@@ -45,6 +47,8 @@ const  App = () => {
     data.location = locationRef.current.value;
     data.assetid = assetIDRef.current.value;
     parentToChild(data);
+    formRef.current.reset(); 
+    locationRef.current.focus();
   };
   
   return (
@@ -70,7 +74,7 @@ const  App = () => {
         { sendData ? <AssetLocation formData={sendData} /> : null }
       </div> */}
       <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
           <div>
             <label name="PartsOrdered" className="form-check-label">Parts Ordered</label>
@@ -82,6 +86,7 @@ const  App = () => {
           <TextField
             required
             fullWidth
+            autoFocus 
             id="outlined-required"
             label="Location"
             variant="filled"

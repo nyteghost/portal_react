@@ -51,10 +51,10 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 
 export default function CustomizedSelects() {
-
-    const locationRef = useRef();
-    const assetIDRef = useRef();
-    const staffRef = useRef();
+    const formRef = useRef();
+    const locationRef = useRef('');
+    const assetIDRef = useRef('');
+    const staffRef = useRef('');
 
     let initialArray = '';
     const { register, handleSubmit, reset, resetField, formState: { errors } } = useForm();
@@ -90,20 +90,28 @@ export default function CustomizedSelects() {
     }
     
     const onSubmit = data => {
+        console.log(formRef)
         data = JSON.parse(JSON.stringify(data));
         // console.log(data)
         jsonCheck(data)
         data.ltype = labelType;
         data.location = locationRef.current.value;
         data.assetid = assetIDRef.current.value;
-        data.staffUserName = staffRef.current.value;
+        data.staffUsername = staffRef.current.value;
         data.suffix = initialArray
         setCount(count + 1);
         data.submit = count;
         parentToChild(data);
-        // console.log(data)
+        setTimeout(() => {  document.getElementById("openModal").click() }, 1000);
+        formRef.current.reset();
     };
     
+    const resetTextField = () =>{
+        locationRef.current.value = '';
+        assetIDRef.current.value = '';
+        staffRef.current.value = '';
+    }
+
     const resetCheckBoxes = ()=> {
         resetField("USB-C Charger");
         resetField("m");
@@ -251,7 +259,7 @@ export default function CustomizedSelects() {
         }}
         
         >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
             <FormControl fullWidth size="small">
                 <InputLabel id="simple-select-label"
                 sx={{
