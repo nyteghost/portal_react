@@ -2,7 +2,7 @@ import "../../../styles/new.css";
 import { useState} from "react";
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-
+import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import NewReturn from "../../auth/api/returns"
@@ -57,52 +57,42 @@ const  App = () => {
 
   return (
     <>
-     {/* <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
+          <form onSubmit={handleSubmit(onSubmit)}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
           <div>
             <label name="lateDelivery" className="form-check-label">Late Delivery</label>
             <input name = "lateCheck" type="checkbox" placeholder="Late Delivery" {...register("LateDelivery", {})} />
           </div>
-          <input type="text" placeholder="Location" {...register("Location", {required: true, maxLength: 80})} />
-          <input type="text" placeholder="Tracking Number" {...register("TrackingNumber", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Asset Number" {...register("AssetNumber", {required: true})} />
-          <input type="text" placeholder="Serial Number" {...register("SerialNumber", {required: true, maxLength: 12})} />
-          <Button type="submit" color="primary" variant="contained"> Submit </Button>
-        </form>
-      </Box>
-      <div>
-        { sendData ? <NewReturn formData={sendData} /> : null }
-      </div>
-       */}
-
-
-      <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <ErrorMessage errors={errors} name="singleErrorInput" />
-        <div>
-          <label name="lateDelivery" className="form-check-label">Late Delivery</label>
-          <input name = "lateCheck" type="checkbox" placeholder="Late Delivery" {...register("LateDelivery", {})} />
-        </div>
-        <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="Location"
-              variant="filled"
-              onChange={locationHandleChange}
-              InputLabelProps={{
-                  sx: {
-                    // set the color of the label when not shrinked
-                    color: "",
-                    [`&.${inputLabelClasses.shrink}`]: {
-                      // set the color of the label when shrinked (usually when the TextField is focused)
-                      color: "orange",
-                      marginTop: -.9
+          <Box p={1}>
+            <TextField
+                  required
+                  fullWidth
+                  id="outlined-required"
+                  label="Location"
+                  variant="filled"
+                  onChange={locationHandleChange}
+                  inputProps={{
+                    style:{
+                      padding: '10px 15px',
                     }
-                  }
-              }}      
-            />
+                  }}
+                  InputLabelProps={{
+                    sx: { marginTop: -.8,
+                      // set the color of the label when not shrinked
+                      color: "",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop: -3
+                        }
+                      }
+                  }}      
+                />
+          </Box>
+
+          <Box p={1}>
             <TextField
               required
               fullWidth
@@ -110,18 +100,26 @@ const  App = () => {
               label="Tracking Number"
               variant="filled"
               onChange={trackingNumberHandleChange}
+              inputProps={{
+                style:{
+                  padding: '10px 15px',
+                }
+              }}
               InputLabelProps={{
-                  sx: {
-                    // set the color of the label when not shrinked
-                    color: "",
-                    [`&.${inputLabelClasses.shrink}`]: {
-                      // set the color of the label when shrinked (usually when the TextField is focused)
-                      color: "orange",
-                      marginTop: -.9
+                sx: { marginTop: -.8,
+                  // set the color of the label when not shrinked
+                  color: "",
+                  [`&.${inputLabelClasses.shrink}`]: {
+                    // set the color of the label when shrinked (usually when the TextField is focused)
+                    color: "orange",
+                    marginTop: -3
                     }
                   }
               }}      
             />
+          </Box>
+
+          <Box p={1}>
             <TextField
               required
               fullWidth
@@ -129,40 +127,55 @@ const  App = () => {
               label="Asset Number"
               variant="filled"
               onChange={assetNumberHandleChange}
+              inputProps={{
+                style:{
+                  padding: '10px 15px',
+                }
+              }}
               InputLabelProps={{
-                  sx: {
+                sx: { marginTop: -.8,
+                  // set the color of the label when not shrinked
+                  color: "",
+                  [`&.${inputLabelClasses.shrink}`]: {
+                    // set the color of the label when shrinked (usually when the TextField is focused)
+                    color: "orange",
+                    marginTop: -3
+                    }
+                  }
+              }}      
+            />
+            </Box>
+            
+            <Box p={1}>
+              <TextField
+                required
+                fullWidth
+                id="outlined-required"
+                label="Serial Number"
+                variant="filled"
+                onChange={serialNumberHandleChange}
+                inputProps={{
+                  style:{
+                    padding: '10px 15px',
+                  }
+                }}
+                InputLabelProps={{
+                  sx: { marginTop: -.8,
                     // set the color of the label when not shrinked
                     color: "",
                     [`&.${inputLabelClasses.shrink}`]: {
                       // set the color of the label when shrinked (usually when the TextField is focused)
                       color: "orange",
-                      marginTop: -.9
+                      marginTop: -3
+                      }
                     }
-                  }
-              }}      
-            />
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="Serial Number"
-              variant="filled"
-              onChange={serialNumberHandleChange}
-              InputLabelProps={{
-                  sx: {
-                    // set the color of the label when not shrinked
-                    color: "",
-                    [`&.${inputLabelClasses.shrink}`]: {
-                      // set the color of the label when shrinked (usually when the TextField is focused)
-                      color: "orange",
-                      marginTop: -.9
-                    }
-                  }
-              }}      
-            />
-            <Button type="submit" color="primary" variant="contained"> Submit </Button>
-        </form>
-      </Box>
+                }}      
+              />
+            </Box>
+              <Button type="submit" color="primary" variant="contained"> Submit </Button>
+          </form>
+        </Box>
+      </Stack>
       <div>
         { sendData ? <NewReturn formData={sendData} /> : null }
       </div>

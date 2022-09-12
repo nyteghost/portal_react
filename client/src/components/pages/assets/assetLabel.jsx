@@ -11,6 +11,7 @@ import { TextField } from '@mui/material';
 import ProtectedComponent from "../../auth/api/assetLabel"
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import {BootstrapInput} from "../../../styles/BootStrapInput";
+import Stack from '@mui/material/Stack'
 
 
 export default function CustomizedSelects() {
@@ -215,111 +216,129 @@ export default function CustomizedSelects() {
 
     return (
         <>
-        <Box sx={{ 
-        margin: 4, 
-        border: '1px',
-        }}
-        
-        >
-        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
-            <FormControl fullWidth size="small">
-                <InputLabel id="simple-select-label"
-                sx={{
-                    [`&.${inputLabelClasses.shrink}`]: {
-                      // set the color of the label when shrinked (usually when the TextField is focused)
-                      color: "orange",
-                      marginTop:-.8,
-                    }
-                  }}
-                >Label Type</InputLabel>
-                <Select
-                labelId="Label-selection-label"
-                id="Label-selection"
-                value={labelType}
-                label="LabelSelection"
-                onChange={labelHandleChange}
-                input={<BootstrapInput />}
-                
-                >
-                <MenuItem value={"Dell Replacement Student Kit"}>Dell Replacement Student Kit</MenuItem>
-                <MenuItem value={"Len Replacement Student Kit"}>Len Replacement Student Kit</MenuItem>
-                <MenuItem value={"Dell New Student Kit"}>Dell New Student Kit</MenuItem>
-                <MenuItem value={"Len New Student Kit"}>Len New Student Kit</MenuItem>
-                <MenuItem value={"ST-2000 Printer"}>ST-2000 Printer</MenuItem>
-                <MenuItem value={"ST-4000 Printer"}>ST-4000 Printer</MenuItem>
-                <MenuItem value={"ST-C2100 Printer"}>ST-C2100 Printer</MenuItem>
-                <MenuItem value={"Replacement Staff Kit"}>Replacement Staff Kit</MenuItem>
-                <MenuItem value={"New Staff Kit"}>New Staff Kit</MenuItem>
-                <MenuItem value={"Replacement SPED Windows Kit"}>Replacement SPED Windows Kit</MenuItem>
-                <MenuItem value={"New SPED Student Windows Kit"}>New SPED Student Windows Kit</MenuItem>
-                <MenuItem value={"New SPED Student Chromebook Kit"}>New SPED Student Chromebook Kit</MenuItem>
-                <MenuItem value={"Replacement SPED Chromebook Kit"}>Replacement SPED Chromebook Kit</MenuItem>
-                <MenuItem value={"CTAE Kit"}>CTAE Kit</MenuItem>
-                <MenuItem value={"Replacement Student Windows Kit"}>Replacement Student Windows Kit</MenuItem>
-                <MenuItem value={"New Student Windows Kit"}>New Student Windows Kit</MenuItem>
-                <MenuItem value={"Zoomy"}>Zoomy</MenuItem>
-                <MenuItem value={"Display"}>Display</MenuItem>
-                <MenuItem value={"Hotspot"}>Hotspot</MenuItem>
-                </Select>
-            
-                {/* <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} /> */}
-                <TextField
-                    required
-                    fullWidth
-                    id="outlined-required"
-                    label="Location"
-                    variant="filled"
-                    inputRef={locationRef}
-                    InputLabelProps={{
-                        sx: { marginTop: 3,
-                          // set the color of the label when not shrinked
-                          color: "",
-                          [`&.${inputLabelClasses.shrink}`]: {
-                            // set the color of the label when shrinked (usually when the TextField is focused)
-                            color: "orange",
-                            marginTop: -.9
-                          }
-                        }
-                      }}
+        <Stack spacing={2}>
+            <Box sx={{ 
+                margin: 4, 
+                border: '1px',
+                }}
+            >
+                <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+                    <Box p={1}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="simple-select-label"
+                                sx={{
+                                    marginTop:.8,
+                                    [`&.${inputLabelClasses.shrink}`]: {
+                                    // set the color of the label when shrinked (usually when the TextField is focused)
+                                    color: "orange",
+                                    marginTop:-.8,
+                                    }
+                                }}
+                            >Label Type</InputLabel>
+                            <Select
+                            labelId="Label-selection-label"
+                            id="Label-selection"
+                            value={labelType}
+                            label="LabelSelection"
+                            onChange={labelHandleChange}
+                            input={<BootstrapInput />}
+                            
+                            >
+                            <MenuItem value={"Dell Replacement Student Kit"}>Dell Replacement Student Kit</MenuItem>
+                            <MenuItem value={"Len Replacement Student Kit"}>Len Replacement Student Kit</MenuItem>
+                            <MenuItem value={"Dell New Student Kit"}>Dell New Student Kit</MenuItem>
+                            <MenuItem value={"Len New Student Kit"}>Len New Student Kit</MenuItem>
+                            <MenuItem value={"ST-2000 Printer"}>ST-2000 Printer</MenuItem>
+                            <MenuItem value={"ST-4000 Printer"}>ST-4000 Printer</MenuItem>
+                            <MenuItem value={"ST-C2100 Printer"}>ST-C2100 Printer</MenuItem>
+                            <MenuItem value={"Replacement Staff Kit"}>Replacement Staff Kit</MenuItem>
+                            <MenuItem value={"New Staff Kit"}>New Staff Kit</MenuItem>
+                            <MenuItem value={"Replacement SPED Windows Kit"}>Replacement SPED Windows Kit</MenuItem>
+                            <MenuItem value={"New SPED Student Windows Kit"}>New SPED Student Windows Kit</MenuItem>
+                            <MenuItem value={"New SPED Student Chromebook Kit"}>New SPED Student Chromebook Kit</MenuItem>
+                            <MenuItem value={"Replacement SPED Chromebook Kit"}>Replacement SPED Chromebook Kit</MenuItem>
+                            <MenuItem value={"CTAE Kit"}>CTAE Kit</MenuItem>
+                            <MenuItem value={"Replacement Student Windows Kit"}>Replacement Student Windows Kit</MenuItem>
+                            <MenuItem value={"New Student Windows Kit"}>New Student Windows Kit</MenuItem>
+                            <MenuItem value={"Zoomy"}>Zoomy</MenuItem>
+                            <MenuItem value={"Display"}>Display</MenuItem>
+                            <MenuItem value={"Hotspot"}>Hotspot</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box p={1}>
+                        <FormControl fullWidth size="small">
+                            {/* <input type="text" placeholder="Location" {...register("physicallocation", {required: true, maxLength: 100})} /> */}
+                            <TextField
+                                required
+                                fullWidth
+                                id="outlined-required"
+                                label="Location"
+                                variant="filled"
+                                inputRef={locationRef}
+                                inputProps={{
+                                    style:{
+                                      padding: '10px 15px',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    sx: { marginTop: -.8,
+                                    // set the color of the label when not shrinked
+                                        color: "",
+                                        [`&.${inputLabelClasses.shrink}`]: {
+                                            // set the color of the label when shrinked (usually when the TextField is focused)
+                                            color: "orange",
+                                            marginTop: -3
+                                        }
+                                    }
+                                }}
+                            />
+                            <MissingPeriphs />
+                        </FormControl>
+                    </Box>
                     
-                />
-                <MissingPeriphs />
-                {/* <input type="text" placeholder="Asset Number" {...register("assetid", {required: true, maxLength: 100})} /> */}
-                <TextField
-                    required
-                    fullWidth
-                    id="outlined-required"
-                    label="Asset ID"
-                    variant="filled"
-                    inputRef={assetIDRef}
-                    InputLabelProps={{
-                        sx: { marginTop: 3,
-                          // set the color of the label when not shrinked
-                          color: "",
-                          [`&.${inputLabelClasses.shrink}`]: {
-                            // set the color of the label when shrinked (usually when the TextField is focused)
-                            color: "orange",
-                            marginTop: -.9
-                          }
-                        }
-                      }}
-                />
-                <ContactNameComponent />
-                <Box textAlign='center'>
-                    <Button type="submit" color="primary" variant="contained" >
-                    Submit
-                    </Button>
-                 </Box>
-                </FormControl>
-        </form>
-        </Box>
-        <Box textAlign='center'>
-        <div>
-            { sendData ? <ProtectedComponent formData={sendData} /> : null }
-        </div>
-        </Box>
+                    <Box p={1}>
+                        <FormControl fullWidth size="small">
+                            <TextField
+                                required
+                                fullWidth
+                                id="outlined-required"
+                                label="Asset ID"
+                                variant="filled"
+                                inputRef={assetIDRef}
+                                inputProps={{
+                                    style:{
+                                      padding: '10px 15px',
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    sx: { marginTop: -.8,
+                                      
+                                      // set the color of the label when not shrinked
+                                      color: "",
+                                      [`&.${inputLabelClasses.shrink}`]: {
+                                        // set the color of the label when shrinked (usually when the TextField is focused)
+                                        color: "orange",
+                                        marginTop: -3
+                                      }
+                                    }
+                                }}
+                            />
+                        </FormControl>
+                    </Box>
+                    <ContactNameComponent />
+
+                    <Box textAlign='center'>
+                        <Button type="submit" color="primary" variant="contained" >
+                        Submit
+                        </Button>
+                    </Box>
+                
+                </form> 
+                <div>{ sendData ? <ProtectedComponent formData={sendData} /> : null }</div>
+            </Box>
+        </Stack>
     </>
-    
     );
     
 }

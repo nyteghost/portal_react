@@ -6,7 +6,7 @@ input[type="submit"] {
   border: none;
   margin-top: 40px;
   margin-bottom: 40px;
-  padding: 13px;
+  /* padding: 13px; */
   font-size: 20px;
   font-weight: 100;
   letter-spacing: 2px;
@@ -31,7 +31,7 @@ input[type="text"] {
   height: 100%;
   border-radius: 10px;
   border: 1px solid rgb(0, 0, 0);
-  margin-top: 17px !important;
+  /* margin-top: 17px !important; */
   font-size: 18px;
   background-color: white;
   color:black;

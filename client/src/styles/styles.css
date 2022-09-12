@@ -4,10 +4,7 @@
     box-sizing: border-box;
   }
   
-  body {
-    color: #333;
-  }
-  
+
   .App {
     font-family: sans-serif;
     width: 90vw;

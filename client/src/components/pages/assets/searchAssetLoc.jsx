@@ -59,7 +59,11 @@ const  SearchAssetLoc = (props) => {
     
     
     
-      <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
+    <Box sx={{ 
+        margin: 4, 
+        border: '1px'
+        }}
+        >
         <form onSubmit={handleSubmit(onSubmit)}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
           <TextField
@@ -69,22 +73,28 @@ const  SearchAssetLoc = (props) => {
             label="Asset Number"
             variant="filled"
             inputRef={assetIDRef}
+            inputProps={{
+              style:{
+                padding: '10px 15px',
+              }
+            }}
             InputLabelProps={{
-                sx: {
-                  // set the color of the label when not shrinked
-                  color: "",
-                  [`&.${inputLabelClasses.shrink}`]: {
-                    // set the color of the label when shrinked (usually when the TextField is focused)
-                    color: "orange",
-                    marginTop: -.9
+              sx: { marginTop: -.8,
+                // set the color of the label when not shrinked
+                color: "",
+                [`&.${inputLabelClasses.shrink}`]: {
+                  // set the color of the label when shrinked (usually when the TextField is focused)
+                  color: "orange",
+                  marginTop: -3
                   }
                 }
             }}      
           />
-          
-          <Button size="small" type="submit" color="primary" variant="round">
-            Submit
-          </Button>
+          <Box textAlign='center'>
+            <Button size="small" type="submit" color="primary" variant="round">
+              Submit
+            </Button>
+          </Box>
         </form>
       </Box>
       <div>
