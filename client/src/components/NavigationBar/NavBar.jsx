@@ -8,6 +8,7 @@ import { SignOutButton } from "./SignOutButton";
 import { useState } from 'react';
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import logo from '../img/logo.png'
+
 const list = [
   { key: "Please Select Database", value: "Please Select Database" },
   { key: "GCA", value: "GCA" },
@@ -17,9 +18,7 @@ const list = [
 
 
 export function Header() {
-  const [expanded, setExpanded] = useState(false);
   const isAuthenticated = useIsAuthenticated();
-  const [value,setValue]=useState('');
   const dbValue = localStorage.getItem("database");
   const [selected, setSelected] = useState({});
   

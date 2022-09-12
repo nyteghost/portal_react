@@ -217,7 +217,7 @@ export default function CustomizedSelects() {
         <>
         <Box sx={{ 
         margin: 4, 
-        border: '1px'
+        border: '1px',
         }}
         
         >

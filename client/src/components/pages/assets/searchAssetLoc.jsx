@@ -1,15 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import Button from '@mui/material/Button';
-import { useState} from "react";
-// import {Hello} from "../../tables/getData"
+import { useState, useRef} from "react";
 import Box from '@mui/material/Box'
 import "../../../styles/warehouse.css";
 import GetAssetLocation from "../../auth/api/asset"
 import { TextField } from '@mui/material';
 import { inputLabelClasses } from "@mui/material/InputLabel";
-import {useRef} from 'react';
-
+import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
 
 const  SearchAssetLoc = (props) => {
   const assetIDRef = useRef();
@@ -83,6 +81,7 @@ const  SearchAssetLoc = (props) => {
                 }
             }}      
           />
+          
           <Button size="small" type="submit" color="primary" variant="round">
             Submit
           </Button>
