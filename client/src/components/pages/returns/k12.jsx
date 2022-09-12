@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import K12Return from "../../auth/api/k12return"
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from '@mui/material';
+import Stack from '@mui/material/Stack'
 
 const  App = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -43,69 +44,70 @@ const  App = () => {
   
   return (
     <>
-      {/* <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ErrorMessage errors={errors} name="singleErrorInput" />
-          <input type="text" placeholder="Tracking Number" {...register("TrackingNumber", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Description" {...register("SerialNumber", {required: true, maxLength: 80})} />
-          <Button type="submit" color="primary" variant="contained">
-            Submit
-          </Button>
-        </form>
-      </Box>
-      <div>
-      { sendData ? <K12Return formData={sendData} /> : null }
-      </div>
-     */}
-
-
-      <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ErrorMessage errors={errors} name="singleErrorInput" />
-          <TextField
+      <Stack spacing={2}>
+        <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ErrorMessage errors={errors} name="singleErrorInput" />
+            <Box p={1}>
+              <TextField
                 required
                 fullWidth
                 id="outlined-required"
                 label="Tracking Number"
                 variant="filled"
                 onChange={trackingNumberHandleChange}
+                inputProps={{
+                  style:{
+                    padding: '10px 15px',
+                  }
+                }}
                 InputLabelProps={{
-                    sx: {
-                      // set the color of the label when not shrinked
-                      color: "",
-                      [`&.${inputLabelClasses.shrink}`]: {
-                        // set the color of the label when shrinked (usually when the TextField is focused)
-                        color: "orange",
-                        marginTop: -.9
+                  sx: { marginTop: -.8,
+                    // set the color of the label when not shrinked
+                    color: "",
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      // set the color of the label when shrinked (usually when the TextField is focused)
+                      color: "orange",
+                      marginTop: -3
                       }
                     }
                 }}
-          />
+              />
+            </Box>
 
-          <TextField
-            required
-            fullWidth
-            id="outlined-required"
-            label="Serial Number"
-            variant="filled"
-            onChange={serialNumberHandleChange}
-            InputLabelProps={{
-                sx: {
-                  // set the color of the label when not shrinked
-                  color: "",
-                  [`&.${inputLabelClasses.shrink}`]: {
-                    // set the color of the label when shrinked (usually when the TextField is focused)
-                    color: "orange",
-                    marginTop: -.9
+            <Box p={1}>
+              <TextField
+                required
+                fullWidth
+                id="outlined-required"
+                label="Serial Number"
+                variant="filled"
+                onChange={serialNumberHandleChange}
+                inputProps={{
+                  style:{
+                    padding: '10px 15px',
                   }
-                }
-            }}
-          />
-          <Button type="submit" color="primary" variant="contained">
-            Submit
-          </Button>
-        </form>
-      </Box>
+                }}
+                InputLabelProps={{
+                  sx: { marginTop: -.8,
+                    // set the color of the label when not shrinked
+                    color: "",
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      // set the color of the label when shrinked (usually when the TextField is focused)
+                      color: "orange",
+                      marginTop: -3
+                      }
+                    }
+                }}
+              />
+            </Box>
+
+            <Button type="submit" color="primary" variant="contained">
+              Submit
+            </Button>
+          </form>
+        </Box>
+      </Stack>
       <div>
         { sendData ? <K12Return formData={sendData} /> : null }
       </div>

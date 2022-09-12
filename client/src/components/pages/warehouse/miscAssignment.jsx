@@ -7,12 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import "../../../styles/warehouse.css";
-import InputBase from '@mui/material/InputBase';
-import { styled } from '@mui/material/styles';
 import ProtectedComponent from "../../auth/api/miscassignment"
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from '@mui/material';
 import {BootstrapInput} from "../../../styles/BootStrapInput";
+import Stack from '@mui/material/Stack'
 
 
 
@@ -81,172 +80,170 @@ export default function CustomizedSelects() {
   const ShowDriver = () => {
     if (type !== 'asapPickup') return null;
     return (
-      <TextField
-      required
-      fullWidth
-      id="outlined-required"
-      label="Driver"
-      variant="filled"
-      inputRef={driverRef}
-      InputLabelProps={{
-          sx: {
-            // set the color of the label when not shrinked
-            color: "",
-            [`&.${inputLabelClasses.shrink}`]: {
-              // set the color of the label when shrinked (usually when the TextField is focused)
-              color: "orange",
-              marginTop: -.9
+      <Box p={1}>
+        <FormControl fullWidth size="small" >
+          <TextField
+          required
+          fullWidth
+          id="outlined-required"
+          label="Driver"
+          variant="filled"
+          inputRef={driverRef}
+          inputProps={{
+            style:{
+              padding: '10px 15px',
             }
-          }
-        }}         
-    />
+          }}
+          InputLabelProps={{
+            sx: { marginTop: -.8,
+              // set the color of the label when not shrinked
+              color: "",
+              [`&.${inputLabelClasses.shrink}`]: {
+                // set the color of the label when shrinked (usually when the TextField is focused)
+                color: "orange",
+                marginTop: -3
+                }
+              }
+            }}         
+        />
+      </FormControl>
+    </Box>
     );
   };
 
   return (
     <>
-    {/* <Box sx={{ 
-      margin: 4, 
-      border: '1px'
-      }}
-      
-      >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth size="small">
-        <InputLabel 
-          
-          sx={{
-            [`&.${inputLabelClasses.shrink}`]: {
-              // set the color of the label when shrinked (usually when the TextField is focused)
-              color: "orange",
-              marginTop:2
-            }
-          }}
-          
-        id="simple-select-label">Type</InputLabel>
-        <Select
-            labelId="type-select-label"
-            id="type-select"
-            value={type}
-            label="typeSelection"
-            onChange={typeHandleChange}
-            input={<BootstrapInput />}
-        >
-            <MenuItem value={'miscAssign'}>Misc Assignment</MenuItem>
-            <MenuItem value={'asapPickup'}>ASAP Pickup</MenuItem>
-        </Select>
-        </FormControl>
-          <input type="text" placeholder="Contact" {...register("contact", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Tracking/Reason" {...register("tracking", {required: true, maxLength: 100})} />
-          <input type="text" placeholder="Asset" {...register("assetid", {required: true, maxLength: 100})} />
-        < ShowDriver />
-        <Box textAlign='center'>
-        <Button type="submit" color="primary" variant="contained" >
-            Submit
-        </Button>
-        </Box>
-      </form>
-    </Box>
-    <div>
-      { sendData ? <ProtectedComponent formData={sendData} /> : null }
-    </div> */}
   
-    <Box sx={{ 
-      margin: 4, 
-      border: '1px'
-      }}
-      
-      >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth size="small">
-        <InputLabel 
-          
-          sx={{
-            [`&.${inputLabelClasses.shrink}`]: {
-              // set the color of the label when shrinked (usually when the TextField is focused)
-              color: "orange",
-              marginTop:2
-            }
+      <Stack spacing={2}>
+        <Box sx={{ 
+          margin: 4, 
+          border: '1px'
           }}
           
-        id="simple-select-label">Type</InputLabel>
-        <Select
-            labelId="type-select-label"
-            id="type-select"
-            value={type}
-            label="typeSelection"
-            onChange={typeHandleChange}
-            input={<BootstrapInput />}
-        >
-            <MenuItem value={'miscAssign'}>Misc Assignment</MenuItem>
-            <MenuItem value={'asapPickup'}>ASAP Pickup</MenuItem>
-        </Select>
-        <TextField
-          required
-          fullWidth
-          id="outlined-required"
-          label="Contact"
-          variant="filled"
-          inputRef={contactRef}
-          InputLabelProps={{
-              sx: {
-                // set the color of the label when not shrinked
-                color: "",
-                [`&.${inputLabelClasses.shrink}`]: {
-                  // set the color of the label when shrinked (usually when the TextField is focused)
-                  color: "orange",
-                  marginTop: -.9
-                }
-              }
-            }}           
-        />
-        <TextField
-          required
-          fullWidth
-          id="outlined-required"
-          label="Tracking/Reason"
-          variant="filled"
-          inputRef={trackingRef}
-          InputLabelProps={{
-              sx: {
-                // set the color of the label when not shrinked
-                color: "",
-                [`&.${inputLabelClasses.shrink}`]: {
-                  // set the color of the label when shrinked (usually when the TextField is focused)
-                  color: "orange",
-                  marginTop: -.9
-                }
-              }
-            }}           
-        />
-        <TextField
-          required
-          fullWidth
-          id="outlined-required"
-          label="Asset"
-          variant="filled"
-          inputRef={assetIDRef}
-          InputLabelProps={{
-              sx: {
-                // set the color of the label when not shrinked
-                color: "",
-                [`&.${inputLabelClasses.shrink}`]: {
-                  // set the color of the label when shrinked (usually when the TextField is focused)
-                  color: "orange",
-                  marginTop: -.9
-                }
-              }
-            }}         
-        />
-        </FormControl>
-        < ShowDriver />  
-        <Box textAlign='center'>
-          <Button type="submit" color="primary" variant="contained" >
-                Submit
-          </Button>
+          >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box p={1}>
+              <FormControl fullWidth size="small">
+                <InputLabel 
+                  sx={{
+                    marginTop:.8,
+                    [`&.${inputLabelClasses.shrink}`]: {
+                      // set the color of the label when shrinked (usually when the TextField is focused)
+                      color: "orange",
+                      marginTop:-.8,
+                    }
+                  }}
+                  
+                id="simple-select-label">Type</InputLabel>
+                <Select
+                    labelId="type-select-label"
+                    id="type-select"
+                    value={type}
+                    label="typeSelection"
+                    onChange={typeHandleChange}
+                    input={<BootstrapInput />}
+                >
+                    <MenuItem value={'miscAssign'}>Misc Assignment</MenuItem>
+                    <MenuItem value={'asapPickup'}>ASAP Pickup</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box p={1}>
+              <FormControl fullWidth size="small" >
+                <TextField
+                  required
+                  fullWidth
+                  id="outlined-required"
+                  label="Contact"
+                  variant="filled"
+                  inputRef={contactRef}
+                  inputProps={{
+                    style:{
+                      padding: '10px 15px',
+                    }
+                  }}
+                  InputLabelProps={{
+                    sx: { marginTop: -.8,
+                      // set the color of the label when not shrinked
+                      color: "",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop: -3
+                        }
+                      }
+                    }}           
+                />
+              </FormControl>
+            </Box>
+
+            <Box p={1}>
+              <FormControl fullWidth size="small" >
+                <TextField
+                  required
+                  fullWidth
+                  id="outlined-required"
+                  label="Tracking/Reason"
+                  variant="filled"
+                  inputRef={trackingRef}
+                  inputProps={{
+                    style:{
+                      padding: '10px 15px',
+                    }
+                  }}
+                  InputLabelProps={{
+                    sx: { marginTop: -.8,
+                      // set the color of the label when not shrinked
+                      color: "",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop: -3
+                        }
+                      }
+                    }}           
+                />
+              </FormControl>
+            </Box>
+            <Box p={1}>
+              <FormControl fullWidth size="small" >
+                <TextField
+                  required
+                  fullWidth
+                  id="outlined-required"
+                  label="Asset"
+                  variant="filled"
+                  inputRef={assetIDRef}
+                  inputProps={{
+                    style:{
+                      padding: '10px 15px',
+                    }
+                  }}
+                  InputLabelProps={{
+                    sx: { marginTop: -.8,
+                      // set the color of the label when not shrinked
+                      color: "",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop: -3
+                        }
+                      }
+                    }}         
+                />
+              </FormControl>
+            </Box>
+            
+            < ShowDriver /> 
+            
+            <Box textAlign='center'>
+              <Button type="submit" color="primary" variant="contained" >
+                    Submit
+              </Button>
+            </Box>
+          </form>
         </Box>
-      </form>
-    </Box>
+      </Stack>
     <div>
       { sendData ? <ProtectedComponent formData={sendData} /> : null }
     </div>

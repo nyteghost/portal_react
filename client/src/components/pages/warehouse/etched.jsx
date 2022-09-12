@@ -39,18 +39,6 @@ const  App = () => {
   
   return (
     <>
-      {/* <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ErrorMessage errors={errors} name="singleErrorInput" />
-          <input type="text" placeholder="Asset ID" {...register("assetid", {required: true, maxLength: 100})} />
-          <Button type="submit" color="primary" variant="contained">
-            Submit
-          </Button>
-        </form>
-      </Box>
-      <div>
-      { sendData ? <Etched formData={sendData} /> : null }
-      </div> */}
       <Box textAlign='center' sx={{ '& button': { m: 2 } }} paddingTop={3} >
         <form onSubmit={handleSubmit(onSubmit)}>
           <ErrorMessage errors={errors} name="singleErrorInput" />
@@ -61,14 +49,19 @@ const  App = () => {
                   label="Asset Number"
                   variant="filled"
                   inputRef={assetIDRef}
+                  inputProps={{
+                    style:{
+                      padding: '10px 15px',
+                    }
+                  }}
                   InputLabelProps={{
-                      sx: {
-                        // set the color of the label when not shrinked
-                        color: "",
-                        [`&.${inputLabelClasses.shrink}`]: {
-                          // set the color of the label when shrinked (usually when the TextField is focused)
-                          color: "orange",
-                          marginTop: -.9
+                    sx: { marginTop: -.8,
+                      // set the color of the label when not shrinked
+                      color: "",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop: -3
                         }
                       }
                   }}      
