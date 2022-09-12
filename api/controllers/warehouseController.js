@@ -20,9 +20,9 @@ async function assignAssetToPacked(req){
   }
 };
 
-async function getProccessedForDay(){
+async function getProccessedForDay(req){
     const rows = await db.query(
-      `call dbo_uspwhopprocessedforday('Null','GCA')`
+      `call dbo_uspwhopprocessedforday('Null',${req})`
     );
     const data = helper.emptyOrRows(rows);
     return {

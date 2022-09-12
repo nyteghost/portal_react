@@ -22,7 +22,7 @@ export default function MaterialUIPickers() {
     if (!i){setData(props);
       } else if (i === props){
         setData('');
-        let i = props
+        i = props
       }  
   }
   console.log(value)

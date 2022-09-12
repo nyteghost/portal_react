@@ -1,24 +1,21 @@
-import {protectedResources, loginRequest} from "../authConfig";
-import { useMsal, useAccount } from "@azure/msal-react";
-import { useState, useEffect, useRef } from "react";
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
-// import WarehouseOpsTable from "../../tables/warehouseOpsTable"
-import OpsTable from "./opsTableAPI"
+import { useState, useEffect, useRef } from "react";
+import { useMsal, useAccount } from "@azure/msal-react";
+import {protectedResources, loginRequest} from "../authConfig";
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
+import OpsTable from "../../tables/warehouseOpsTable"
 
 
-let apiReturn;
-export async function callApi (accessToken,url,userData) {
+async function callApi (accessToken,url,dbValue) {
     const bearer = `Bearer ${accessToken}`;
     const config = {
-        method: "POST",
+        method: "GET",
         headers: {"Authorization" : bearer
         }
     }
-    
     return axios 
-    .post(url, userData ,config)
-    .then(response => apiReturn = response)
+    .get(url, dbValue ,config)
+    .then(response => response)
     .catch(function (error) {
         if (error.response) {
             // The request was made and the server responded with a status code
@@ -42,23 +39,8 @@ export async function callApi (accessToken,url,userData) {
     })
 };
 
-export function ApiVerify(api){
-    const [apiData,setAPIData] = useState();
-    // console.log(apiData)
-    useEffect(() => {
-        if(!apiData) {  
-            setAPIData(api)
-        } else if(apiData){setAPIData(api)}
-    },[api.response.data.returnData[0][0].time])
-    if (apiData !== undefined){
-        if (apiData.response.status === 200){
-            return (
-                    <div>submitted</div>
-                );
-            }} 
-};
-
-function ProtectedComponent(props) {
+function ProtectedComponentTable(props) {
+    console.log(props)
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
@@ -68,10 +50,6 @@ function ProtectedComponent(props) {
     const authRequest = {
         ...loginRequest,
     };
-    
-    props = JSON.parse(JSON.stringify(props));
-    props.formData.worker = account.name
-    props.formData.company = dbValue
 
     useEffect(() => {
         if (accounts && inProgress === "none" && !apiData) {
@@ -81,7 +59,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint, dbValue)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -94,7 +72,7 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint, dbValue)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -107,42 +85,13 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiGetWhoProccedForDay.endpoint, dbValue)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
         // console.log(props.formData)
-
-    },[props.formData.submit]);
-     
-    // console.log(apiData)
-    
-    return(
-        <div>
-            { apiData ? <ApiVerify response={apiData} /> : null }
-        </div>
-    )
-    
+    },[props]);
+    return(<OpsTable response={apiData}/>)
 };
 
-export default ProtectedComponent
-
-
-// export async function callApiWithToken(accessToken, url){
-//     // console.error('AssetID received in CallApiWithToken: ' + id)
-//     const headers = new Headers();
-//     const bearer = `Bearer ${accessToken}`;
-  
-//     headers.append("Authorization", bearer);
-  
-//     const options = {
-//         method: "GET",
-//         headers: headers
-//     };
-    
-//     return fetch(url, options)
-//         .then(response => response.json())
-//         .catch(error => console.log(error));
-//   }
-
-  
+export default ProtectedComponentTable

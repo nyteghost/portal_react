@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState, useEffect} from "react";
+import { useState, useEffect, useRef} from "react";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel';
@@ -12,10 +12,16 @@ import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from '@mui/material';
 import {BootstrapInput} from "../../../styles/BootStrapInput";
 import Stack from '@mui/material/Stack'
+import ProtectedComponentTable from "../../auth/api/opsTableAPI"
 
 
+function Stupidthing() {
 
-export default function CustomizedSelects() {
+
+  const locationRef = useRef('');
+  const assetIDRef = useRef('');
+  const depotReasonRef = useRef('');
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [operation, setOps] = useState('');
   const [inventory, setInventory] = useState('');
@@ -42,9 +48,9 @@ export default function CustomizedSelects() {
     data = JSON.parse(JSON.stringify(data));
     data.operationtype = operation
     data.assignedcontact = inventory
-    data.assetid = assetID;
-    data.physicallocation = location;
-    data.depotreas = depotReason;
+    data.assetid = assetIDRef.current.value
+    data.physicallocation = locationRef.current.value;
+    data.depotreas = depotReasonRef.current.value;
     setCount(count + 1)
     data.submit = count
     parentToChild(data);
@@ -122,14 +128,14 @@ export default function CustomizedSelects() {
               <Box p={1}>
                 <FormControl fullWidth size="small">
                   <InputLabel id="simple-select-label"
-                  sx={{
-                    marginTop:.8,
-                    [`&.${inputLabelClasses.shrink}`]: {
-                      // set the color of the label when shrinked (usually when the TextField is focused)
-                      color: "orange",
-                      marginTop:-.8,
-                    }
-                  }}
+                    sx={{
+                      marginTop:.8,
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "orange",
+                        marginTop:-.8,
+                      }
+                    }}
                   >Status</InputLabel>
                   <Select
                     labelId="Inventory-selection-label"
@@ -165,7 +171,7 @@ export default function CustomizedSelects() {
                   id="outlined-required"
                   label="Location"
                   variant="filled"
-                  onChange={locationHandleChange}
+                  inputRef={locationRef}
                   inputProps={{
                     style:{
                       padding: '10px 15px',
@@ -192,7 +198,7 @@ export default function CustomizedSelects() {
                   id="outlined-required"
                   label="Asset Number"
                   variant="filled"
-                  onChange={assetIDHandleChange}
+                  inputRef={assetIDRef}
                   inputProps={{
                     style:{
                       padding: '10px 15px',
@@ -211,7 +217,7 @@ export default function CustomizedSelects() {
                   }}
                 />
               </Box>
-              
+
               <Box p={1}>
                 { inventory === 'Depot Repair' ?
                 <TextField
@@ -220,7 +226,7 @@ export default function CustomizedSelects() {
                   id="outlined-required"
                   label="Depot Reason"
                   variant="filled"
-                  onChange={depotReasonHandleChange}
+                  inputRef={depotReasonRef}
                   inputProps={{
                     style:{
                       padding: '10px 15px',
@@ -238,7 +244,6 @@ export default function CustomizedSelects() {
                     }
                   }}
                 /> : null }
-
               </Box>
             
               <Box textAlign='center'>
@@ -249,8 +254,12 @@ export default function CustomizedSelects() {
           </form>
           <div>{ sendData ? <ProtectedComponent formData={sendData} /> : null }</div>
         </Box>
+        <Box p={1}>
+          <ProtectedComponentTable count={count}/>
+        </Box>
       </Stack>
     </>
   );
 }
 
+export default Stupidthing;
