@@ -163,7 +163,7 @@ app.post('/postConsumePeri',
     async function(req, res, next) {
         try {
             req.body;
-            res.json(await warehouseController.consumePeri(req.body));
+            res.json(await assetController.consumePeri(req.body));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);

@@ -21,7 +21,7 @@ export default function CustomizedSelects() {
 
   
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [peripheral1, setPeriph1] = useState('');
+  const [peripheral, setPeriph] = useState('');
   const [note, setNote] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
@@ -41,17 +41,19 @@ export default function CustomizedSelects() {
   
   const onSubmit = data => {
     data = JSON.parse(JSON.stringify(data));
-
     setCount(count + 1)
     data.submit = count
+    data.i = peripheral
+    data.q = countRef.current.value;
+    data.n = note;
     parentToChild(data);
     setReload(count)
  
   };
   
   
-  const peripheral1HandleChange = (event) => {
-    setPeriph1(event.target.value);
+  const peripheralHandleChange = (event) => {
+    setPeriph(event.target.value);
   };
   const noteHandleChange = (event) => {
     setNote(event.target.value);
@@ -90,22 +92,22 @@ export default function CustomizedSelects() {
                   <Select
                     labelId="peripheral1-select-label"
                     id="peripheral1-select"
-                    value={peripheral1}
+                    value={peripheral}
                     label="peripheral1Selection"
-                    onChange={peripheral1HandleChange}
+                    onChange={peripheralHandleChange}
                     input={<BootstrapInput />}
                   >
-                    <MenuItem value={'Daily Processing'}>3400 Charger (USB-C)</MenuItem>
-                    <MenuItem value={'Inventory'}>Box - 12x16x6</MenuItem>
-                    <MenuItem value={'Inventory'}>Box - 18x18x12</MenuItem>
-                    <MenuItem value={'Inventory'}>Box - 9x9x6</MenuItem>
-                    <MenuItem value={'Inventory'}>DVD Drive</MenuItem>
-                    <MenuItem value={'Inventory'}>Dell 3.5mm Charger (Sm Barrel)</MenuItem>
-                    <MenuItem value={'Inventory'}>Dell 7.4mm Charger (Lg Barrel)</MenuItem>
-                    <MenuItem value={'Inventory'}>Headset</MenuItem>
-                    <MenuItem value={'Inventory'}>Lenovo 45w USB-C Charger</MenuItem>
-                    <MenuItem value={'Inventory'}>Mouse</MenuItem>
-                    <MenuItem value={'Inventory'}>Sleeve</MenuItem>
+                    <MenuItem value={'3400 Charger (USB-C)'}>3400 Charger (USB-C)</MenuItem>
+                    <MenuItem value={'Box - 12x16x6'}>Box - 12x16x6</MenuItem>
+                    <MenuItem value={'Box - 18x18x12'}>Box - 18x18x12</MenuItem>
+                    <MenuItem value={'Box - 9x9x6'}>Box - 9x9x6</MenuItem>
+                    <MenuItem value={'DVD Drive'}>DVD Drive</MenuItem>
+                    <MenuItem value={'Dell 3.5mm Charger (Sm Barrel)'}>Dell 3.5mm Charger (Sm Barrel)</MenuItem>
+                    <MenuItem value={'Dell 7.4mm Charger (Lg Barrel)'}>Dell 7.4mm Charger (Lg Barrel)</MenuItem>
+                    <MenuItem value={'Headset'}>Headset</MenuItem>
+                    <MenuItem value={'Lenovo 45w USB-C Charger'}>Lenovo 45w USB-C Charger</MenuItem>
+                    <MenuItem value={'Mouse'}>Mouse</MenuItem>
+                    <MenuItem value={'Sleeve'}>Sleeve</MenuItem>
                   </Select>
               </FormControl> 
             </Box>
@@ -157,8 +159,8 @@ export default function CustomizedSelects() {
                   onChange={noteHandleChange}
                   input={<BootstrapInput />}
                 >
-                  <MenuItem value={'Daily Processing'}>Stock Received</MenuItem>
-                  <MenuItem value={'Inventory'}>Stock Consumed</MenuItem>
+                  <MenuItem value={'Stock Received'}>Stock Received</MenuItem>
+                  <MenuItem value={'Stock Consumed'}>Stock Consumed</MenuItem>
                 </Select>
               </FormControl> 
             </Box>

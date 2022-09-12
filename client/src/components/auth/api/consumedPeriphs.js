@@ -7,8 +7,8 @@ import WarehouseOpsTable from "../../tables/warehouseOpsTable"
 
 
 
-let apiReturn;
 export async function callApi (accessToken,url,userData) {
+    console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -18,7 +18,7 @@ export async function callApi (accessToken,url,userData) {
     
     return axios 
     .post(url, userData ,config)
-    .then(response => apiReturn = response)
+    .then(response => response)
     .catch(function (error) {
         if (error.response) {
             // The request was made and the server responded with a status code
@@ -81,7 +81,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostConsumePeri.endpoint, props.formData)
                     .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -94,7 +94,7 @@ function ProtectedComponent(props) {
                             account: account
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                            callApi(response.accessToken, protectedResources.apiPostConsumePeri.endpoint, props.formData)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -107,7 +107,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiPostWarehouseOps.endpoint, props.formData)
+                callApi(response.accessToken, protectedResources.apiPostConsumePeri.endpoint, props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
