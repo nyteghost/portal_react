@@ -86,6 +86,10 @@ export const protectedResources = {
         endpoint: "http://localhost:5000/postAssetLabel",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
+    apiPostConsumePeri:{
+        endpoint: "http://localhost:5000/postConsumePeri",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
     apiPostEtched:{
         endpoint: "http://localhost:5000/postEtched",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]

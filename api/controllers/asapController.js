@@ -28,5 +28,4 @@ async function generateASAPLabels(req){
 
 module.exports = {
     generateASAPLabels,
-    getProccessedForDay,
 };

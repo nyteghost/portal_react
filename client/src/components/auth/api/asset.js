@@ -6,31 +6,13 @@ import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-brows
 import axios from 'axios';
 import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
 
-
-// export async function callApi (accessToken, url, userData) {
-//     console.log(userData)
-//     // const headers = new Headers();
-//     const bearer = `Bearer ${accessToken}`;
-   
-//     const config = {
-//         method: "GET",
-//         headers: {"Authorization" : bearer
-//         }
-//     }
-//     return axios (url+`${userData.Company}/${userData.assetID}`, config)
-//     .then(data => data)
-//     .catch(error => console.log(error))
-// };
-
-
-
 function ProtectedComponent(props) {
     
     const [isLoading, setIsLoading] = useState(false);
+    const [apiData, setApiData] = useState(null);
 
     async function callApi (accessToken, url, userData) {
         setIsLoading(true)
-        console.log(userData)
         const bearer = `Bearer ${accessToken}`;
        
         const config = {
@@ -39,25 +21,26 @@ function ProtectedComponent(props) {
             }
         }
         let data = await axios(url+`${userData.Company}/${userData.assetID}`, config)
-    
-       if (data.status == 200){
-        setIsLoading(false)
-        console.log(data)
-        return data
-       } else {
-        return ''
-       }
+        if (data.status == 200){
+            setIsLoading(false)
+            console.log(data.data.data[0].length)
+            if (data.data.data[0].length > 0){
+                return data
+            } else {
+                return null
+            }
+        } else {
+            setIsLoading(false)
+            return null
+        }
         
     };
 
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
-    const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
       
-
-
 
     const authRequest = {
         ...loginRequest,

@@ -2,6 +2,22 @@ const db = require('../services/db');
 const helper = require('./helper');
 const config = require('../services/config');
 
+async function consumePeri(req){
+  console.log('Made peri request')
+  delete req.submit
+  let stringedJSON = JSON.stringify(req)
+  // console.log(stringedJSON)
+
+  const rows = await db.query(
+    `call dbo_uspaddconsumable(lower('${stringedJSON}'))`
+  );
+  const data = helper.emptyOrRows(rows);
+  // console.log(data)
+  return {
+    data,
+    req
+  }
+};
 
 async function getAllLoc(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
@@ -31,6 +47,7 @@ async function getSingleLoc(req){
 };
   
 module.exports = {
+  consumePeri,
   getAllLoc,
   getSingleLoc
 };

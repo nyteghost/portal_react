@@ -158,7 +158,18 @@ app.post('/postAssetLabel',
         }
     }
 );
-
+app.post('/postConsumePeri', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.body;
+            res.json(await warehouseController.consumePeri(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 app.post('/postEtched', 
     passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {

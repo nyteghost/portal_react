@@ -44,24 +44,6 @@ const  SearchAssetLoc = (props) => {
   
   return (
     <>
-      {/* <div>
-        <Box textAlign='center' sx={{ '& button': { m: 2 } }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <ErrorMessage errors={errors} name="singleErrorInput" />
-            <input type="text" placeholder="Asset Number/Serial Number" {...register("assetid", {required: true, maxLength: 80})} />
-            <Button size="small" type="submit" color="primary" variant="round">
-              Submit
-            </Button>
-          </form>
-        </Box>
-      </div>
-      
-      <div>
-        { sendAssetID ? <GetAssetLocation data={sendAssetID} /> : null }
-      </div> */}
-    
-    
-    
     <Box sx={{ 
         margin: 4, 
         border: '1px'

@@ -7,7 +7,7 @@ import { Menu } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import ProtectedComponent from "../../auth/api/warehouseops"
+import ProtectedComponent from "../../auth/api/consumedPeriphs"
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from '@mui/material';
 import {BootstrapInput} from "../../../styles/BootStrapInput";
