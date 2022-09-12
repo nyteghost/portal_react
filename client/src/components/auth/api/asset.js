@@ -4,32 +4,61 @@ import { useState, useEffect } from "react";
 import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
+import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
 
 
-export async function callApi (accessToken, url, userData) {
-    console.log(userData)
-    // const headers = new Headers();
-    const bearer = `Bearer ${accessToken}`;
+// export async function callApi (accessToken, url, userData) {
+//     console.log(userData)
+//     // const headers = new Headers();
+//     const bearer = `Bearer ${accessToken}`;
    
-    const config = {
-        method: "GET",
-        headers: {"Authorization" : bearer
-        }
-    }
-    return axios (url+`${userData.Company}/${userData.assetID}`, config)
-    .then(data => data)
-    .catch(error => console.log(error))
-};
+//     const config = {
+//         method: "GET",
+//         headers: {"Authorization" : bearer
+//         }
+//     }
+//     return axios (url+`${userData.Company}/${userData.assetID}`, config)
+//     .then(data => data)
+//     .catch(error => console.log(error))
+// };
 
 
 
 function ProtectedComponent(props) {
+    
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function callApi (accessToken, url, userData) {
+        setIsLoading(true)
+        console.log(userData)
+        const bearer = `Bearer ${accessToken}`;
+       
+        const config = {
+            method: "GET",
+            headers: {"Authorization" : bearer
+            }
+        }
+        let data = await axios(url+`${userData.Company}/${userData.assetID}`, config)
+    
+       if (data.status == 200){
+        setIsLoading(false)
+        console.log(data)
+        return data
+       } else {
+        return ''
+       }
+        
+    };
+
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
     const account = useAccount(accounts[0] || {});
     const dbValue = localStorage.getItem("database");
-    
+      
+
+
+
     const authRequest = {
         ...loginRequest,
             // account: accounts[0]
@@ -82,6 +111,7 @@ function ProtectedComponent(props) {
     },[accounts, inProgress, instance, props.formData.submit]);
     return (
         <div>
+            {isLoading ? <LoadingSpinner /> : null}
             { apiData ? <AssetLocationData assetData={apiData} /> : null }
         </div>
     );

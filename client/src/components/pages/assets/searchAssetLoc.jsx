@@ -13,6 +13,7 @@ const  SearchAssetLoc = (props) => {
   const assetIDRef = useRef();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
   const [assetID, setAssetID] = useState('');
@@ -31,11 +32,13 @@ const  SearchAssetLoc = (props) => {
   };
 
   const onSubmit = data => {
+    setIsLoading(true);
     setCount(count + 1);
     data = JSON.parse(JSON.stringify(data));
     data.submit = count;
     data.assetID = assetIDRef.current.value;
     parentToChild(data);
+    setIsLoading(false)
   }
  
   
@@ -91,15 +94,16 @@ const  SearchAssetLoc = (props) => {
             }}      
           />
           <Box textAlign='center'>
-            <Button size="small" type="submit" color="primary" variant="round">
+            <Button size="small" type="submit" color="primary" variant="round" disabled={isLoading}>
               Submit
             </Button>
           </Box>
         </form>
-      </Box>
-      <div>
+        <div>
         { sendData ? <GetAssetLocation formData={sendData} /> : null }
       </div>
+      </Box>
+
 
     </>
   );
