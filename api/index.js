@@ -6,7 +6,11 @@ const controllers = require("./controllers");
 const router = express.Router();
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 const bodyParser = require('body-parser');
-// const assetLocationsRouter = require('./routes/pl');
+const https = require('https');
+const fs = require('fs');
+require("dotenv").config({path: '../services/.env'});
+
+
 
 
 /*
@@ -29,7 +33,8 @@ const options = {
     validateIssuer: config.settings.validateIssuer,
     passReqToCallback: config.settings.passReqToCallback,
     loggingLevel: config.settings.loggingLevel,
-    scope: config.protectedRoutes.hello.scopes
+    scope: config.protectedRoutes.hello.scopes,
+
 };
 
 const bearerStrategy = new BearerStrategy(options, (token, done) => {
@@ -260,8 +265,19 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
+
+const secureOptions = {
+    key : fs.readFileSync(process.env.CERTKEY),
+    cert: fs.readFileSync(process.env.CERT),
+}
+
+https.createServer(secureOptions, app)
+.listen(port, () => {
     console.log('Listening on port ' + port);
 });
+
+// app.listen(port, () => {
+//     console.log('Listening on port ' + port);
+// });
 
 module.exports = app, router;

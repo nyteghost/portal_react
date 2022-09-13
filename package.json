@@ -18,7 +18,7 @@
     "inquirer": "^9.1.0",
     "mysql2": "^2.3.3"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://10.200.1.234:5000",
   "devDependencies": {
     "dotenv-webpack": "^8.0.1"
   }

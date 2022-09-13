@@ -23,7 +23,7 @@ function ProtectedComponent(props) {
         let data = await axios(url+`${userData.Company}/${userData.assetID}`, config)
         if (data.status == 200){
             setIsLoading(false)
-            console.log(data.data.data[0].length)
+            console.log(data.data.data)
             if (data.data.data[0].length > 0){
                 return data
             } else {

@@ -8,7 +8,6 @@ import WarehouseOpsTable from "../../tables/warehouseOpsTable"
 
 
 export async function callApi (accessToken,url,userData) {
-    console.log(userData)
     const bearer = `Bearer ${accessToken}`;
     const config = {
         method: "POST",
@@ -44,7 +43,6 @@ export async function callApi (accessToken,url,userData) {
 
 export function ApiVerify(api){
     const [apiData,setAPIData] = useState();
-    console.log(apiData)
     useEffect(() => {
         if(!apiData) {  
             setAPIData(api)

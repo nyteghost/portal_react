@@ -67,51 +67,51 @@ export const protectedResources = {
         scopes: ["User.Read"],
     },
     apiHello: {
-        endpoint: "http://localhost:5000/hello",
+        endpoint: "https://10.200.1.234:5000/hello",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"], // e.g. api://xxxxxx/access_as_user
     },
     apiGetAssetLocation:{
-        endpoint: "http://localhost:5000/getAssetLocation?assetid=",
+        endpoint: "https://10.200.1.234:5000/getAssetLocation?assetid=",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetAssetLocationProc:{
-        endpoint: "http://localhost:5000/getAssetLoc/",
+        endpoint: "https://10.200.1.234:5000/getAssetLoc/",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetWhoProccedForDay:{
-        endpoint: "http://localhost:5000/getProccessedForDay",
+        endpoint: "https://10.200.1.234:5000/getProccessedForDay",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostAssetLabel:{
-        endpoint: "http://localhost:5000/postAssetLabel",
+        endpoint: "https://10.200.1.234:5000/postAssetLabel",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostConsumePeri:{
-        endpoint: "http://localhost:5000/postConsumePeri",
+        endpoint: "https://10.200.1.234:5000/postConsumePeri",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostEtched:{
-        endpoint: "http://localhost:5000/postEtched",
+        endpoint: "https://10.200.1.234:5000/postEtched",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostK12Return:{
-        endpoint: "http://localhost:5000/postK12Return",
+        endpoint: "https://10.200.1.234:5000/postK12Return",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostMiscAssignment:{
-        endpoint: "http://localhost:5000/postMiscAssignment",
+        endpoint: "https://10.200.1.234:5000/postMiscAssignment",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostNewAssetLocation:{
-        endpoint: "http://localhost:5000/postNewAssetLocation",
+        endpoint: "https://10.200.1.234:5000/postNewAssetLocation",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostNewReturn:{
-        endpoint: "http://localhost:5000/postNewReturn",
+        endpoint: "https://10.200.1.234:5000/postNewReturn",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiPostWarehouseOps:{
-        endpoint: "http://localhost:5000/postWarehouseOps",
+        endpoint: "https://10.200.1.234:5000/postWarehouseOps",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     }
     
