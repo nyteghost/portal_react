@@ -36,6 +36,7 @@ export function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/components/pages/testPage">Test Page</Nav.Link>
             <NavDropdown title="Assets" id="basic-nav-dropdown">
               <NavDropdown.Item href="/components/pages/assets/assetLabel">Asset Label</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/assets/assetlocation">Asset Location</NavDropdown.Item>

@@ -34,7 +34,6 @@ async function getAllLoc(page = 1){
 };
 
 
-
 async function getSingleLoc(req){
     const rows = await db.query(
       `call dbo_uspassetlocationlookup (lower('{"Company":"${req.Company}","Argument":"${req.AssetID}"}'))`

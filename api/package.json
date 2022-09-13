@@ -7,6 +7,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "connectwise-rest": "^1.2.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",

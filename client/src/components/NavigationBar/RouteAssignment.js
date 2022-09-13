@@ -15,13 +15,14 @@ import MiscAssign from "../pages/warehouse/miscAssignment"
 import ASAPOutbound from "../pages/warehouse/asapoutboundlabel"
 import ConsumePeriph from "../pages/warehouse/consumePeripherals"
 import Hello  from "../pages/Hello"
-
+import TestPage from "../pages/testPage"
 function AppRouter() {
 return (
     <Router>
         {/* <Header /> */}
         <Routes>
             <Route exact path='/' element={<PageLayout />}/>
+            <Route exact path='/components/pages/testPage' element={<TestPage />}/>
             <Route path='/components/pages/Hello' element={<Hello />}/>
         {/* Assets */}
             <Route path='/components/pages/assets/assetLabel' element={<AssetLabel />}/>

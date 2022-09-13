@@ -77,6 +77,9 @@ export const protectedResources = {
     apiGetAssetLocationProc:{
         endpoint: "https://10.200.1.234:5000/getAssetLoc/",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },apiGetConnectWiseTicket:{
+        endpoint: "https://10.200.1.234:5000/getCWTicket",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetWhoProccedForDay:{
         endpoint: "https://10.200.1.234:5000/getProccessedForDay",

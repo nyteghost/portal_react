@@ -22,6 +22,7 @@ Remove < passport.authenticate('oauth-bearer', {session: false}), > to test with
 
 const asapController = require('./controllers/asapController');
 const assetController = require('./controllers/assetController');
+const connectwiseController = require('./controllers/connectwise');
 const returnController = require('./controllers/returnController.js');
 const warehouseController = require('./controllers/warehouseController');
 
@@ -112,19 +113,7 @@ app.get('/getAssetLoc/:Company/:AssetID',
     }
 );
 
-app.post('/getProccessedForDay', 
-    passport.authenticate('oauth-bearer', {session: false}),
-    async function(req, res, next) {
-        try {
-            req.body;
-            console.log(req.body)
-            res.json(await warehouseController.getProccessedForDay(req.body));
-        } catch (err) {
-            console.error(`Error while getting programming languages `, err.message);
-            next(err);
-        }
-    }
-);
+
 
 app.get('/getASAPLabel', 
     passport.authenticate('oauth-bearer', {session: false}), 
@@ -139,8 +128,38 @@ app.get('/getASAPLabel',
     }
 );
 
+app.post('/getCWTicket', 
+    // passport.authenticate('oauth-bearer', {session: false}),
+    async function(req, res, next) {
+        try {
+            req.body;
+            console.log(req.body)
+            res.json(await connectwiseController.getTicket(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
+app.post('/getProccessedForDay', 
+    passport.authenticate('oauth-bearer', {session: false}),
+    async function(req, res, next) {
+        try {
+            req.body;
+            console.log(req.body)
+            res.json(await warehouseController.getProccessedForDay(req.body));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.post('/postAssetLabel', 
     passport.authenticate('oauth-bearer', {session: false}), 
