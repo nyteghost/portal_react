@@ -27,11 +27,10 @@ function Stupidthing() {
   const [inventory, setInventory] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
-  const [location, setLocation] = useState('');
-  const [assetID, setAssetID] = useState('');
-  const [depotReason, setDepotReason] = useState('');
+  // const [location, setLocation] = useState('');
+  // const [assetID, setAssetID] = useState('');
+  // const [depotReason, setDepotReason] = useState('');
   const [disabled, setDisabled] = useState(false);
-  const [reload,setReload] = useState(0);
  
 
   const parentToChild = props => {
@@ -54,7 +53,6 @@ function Stupidthing() {
     setCount(count + 1)
     data.submit = count
     parentToChild(data);
-    setReload(count)
  
   };
   
@@ -66,15 +64,15 @@ function Stupidthing() {
     setInventory(event.target.value);
   };
 
-  const locationHandleChange = (event) => {
-    setLocation(event.target.value) 
-  };
-  const assetIDHandleChange = (event) => {
-    setAssetID(event.target.value)
-  };
-  const depotReasonHandleChange = (event) => {
-    setDepotReason(event.target.value)
-  };
+  // const locationHandleChange = (event) => {
+  //   setLocation(event.target.value) 
+  // };
+  // const assetIDHandleChange = (event) => {
+  //   setAssetID(event.target.value)
+  // };
+  // const depotReasonHandleChange = (event) => {
+  //   setDepotReason(event.target.value)
+  // };
 
   // reload = () => {
   //   //RELOAD COMPONENT

@@ -14,7 +14,6 @@ function ProtectedComponent(props) {
     async function callApi (accessToken, url, userData) {
         setIsLoading(true)
         const bearer = `Bearer ${accessToken}`;
-       
         const config = {
             method: "GET",
             headers: {"Authorization" : bearer
@@ -23,7 +22,7 @@ function ProtectedComponent(props) {
         let data = await axios(url+`${userData.Company}/${userData.assetID}`, config)
         if (data.status == 200){
             setIsLoading(false)
-            console.log(data.data.data)
+            console.log(data.data)
             if (data.data.data[0].length > 0){
                 return data
             } else {

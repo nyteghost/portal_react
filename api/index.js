@@ -98,16 +98,6 @@ app.use(
   })
 );
  
-app.get('/getAssetLocations', 
-    passport.authenticate('oauth-bearer', {session: false}), async function(req, res, next) {
-        try {
-            res.json(await assetController.getAllLoc(req.query.page));
-        } catch (err) {
-            console.error(`Error while getting programming languages `, err.message);
-            next(err);
-        }
-    }
-);
 
 app.get('/getAssetLoc/:Company/:AssetID', 
     passport.authenticate('oauth-bearer', {session: false}), 
@@ -122,12 +112,13 @@ app.get('/getAssetLoc/:Company/:AssetID',
     }
 );
 
-app.get('/getProccessedForDay', 
-    // passport.authenticate('oauth-bearer', {session: false}), 
+app.post('/getProccessedForDay', 
+    passport.authenticate('oauth-bearer', {session: false}),
     async function(req, res, next) {
         try {
-            req.query;
-            res.json(await warehouseController.getProccessedForDay(req.query.page));
+            req.body;
+            console.log(req.body)
+            res.json(await warehouseController.getProccessedForDay(req.body));
         } catch (err) {
             console.error(`Error while getting programming languages `, err.message);
             next(err);
@@ -136,7 +127,7 @@ app.get('/getProccessedForDay',
 );
 
 app.get('/getASAPLabel', 
-    // passport.authenticate('oauth-bearer', {session: false}), 
+    passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
             req.query;

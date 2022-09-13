@@ -22,7 +22,7 @@ async function assignAssetToPacked(req){
 
 async function getProccessedForDay(req){
     const rows = await db.query(
-      `call dbo_uspwhopprocessedforday('Null',${req})`
+      `call dbo_uspwhopprocessedforday('Null','${req.Company}')`
     );
     const data = helper.emptyOrRows(rows);
     return {

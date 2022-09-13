@@ -6,7 +6,7 @@ async function consumePeri(req){
   console.log('Made peri request')
   delete req.submit
   let stringedJSON = JSON.stringify(req)
-  console.log(stringedJSON)
+  // console.log(stringedJSON)
 
   const rows = await db.query(
     `call dbo_uspaddconsumable(lower('${stringedJSON}'))`

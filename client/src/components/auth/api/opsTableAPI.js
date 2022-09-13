@@ -9,12 +9,18 @@ import OpsTable from "../../tables/warehouseOpsTable"
 async function callApi (accessToken,url,dbValue) {
     const bearer = `Bearer ${accessToken}`;
     const config = {
-        method: "GET",
+        method: "POST",
         headers: {"Authorization" : bearer
         }
     }
+
+    const userData = {
+        Company: dbValue
+    }
+
+    console.log(userData)
     return axios 
-    .get(url, dbValue ,config)
+    .post(url, userData ,config)
     .then(response => response)
     .catch(function (error) {
         if (error.response) {
@@ -40,7 +46,6 @@ async function callApi (accessToken,url,dbValue) {
 };
 
 function ProtectedComponentTable(props) {
-    console.log(props)
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
     const { instance, accounts, inProgress } = useMsal();
     const [apiData, setApiData] = useState(null);
@@ -79,7 +84,7 @@ function ProtectedComponentTable(props) {
                     }
                 }
             });
-        } else if (inProgress === "none" && apiData) {
+        } else if (apiData) {
             instance.acquireTokenSilent({
                 scopes: loginRequest.scopes,
                 account: account
@@ -90,7 +95,7 @@ function ProtectedComponentTable(props) {
                     .catch(error => console.log(error))
         })};
         // console.log(props.formData)
-    },[props]);
+    },[]);
     return(<OpsTable response={apiData}/>)
 };
 
