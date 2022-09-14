@@ -1,9 +1,9 @@
 import Modal from 'react-modal';
 import {useState, useRef, forwardRef, useEffect} from 'react'
-import "../styles/warehouse.css";
+import "../../../../styles/warehouse.css";
 import Box from '@mui/material/Box'
 import ReactToPrint from 'react-to-print';
-import PrintConfig from './PrintConfig';
+import PrintConfig from '../assetLabel/PrintConfig';
 
 
 const customStyles = {

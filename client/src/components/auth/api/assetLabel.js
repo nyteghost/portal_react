@@ -3,7 +3,7 @@ import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import axios from 'axios';
-import PrintAssetLabel from "../../../features/createAssetLabel";
+import PrintAssetLabel from "../../pages/assets/assetLabel/createAssetLabel";
 
 
 

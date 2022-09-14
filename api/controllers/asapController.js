@@ -10,7 +10,7 @@ async function generateASAPLabels(req){
     const rows = await db.query(
       `call dbo_uspasaplistingsforlabels (lower('${stringedJSON}'))`
     );
-    const data = helper.emptyOrRows(rows);
+    const data = helper.emptyOrRows(rows[0]);
     console.log(data)
      return {
       data

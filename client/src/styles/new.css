@@ -21,14 +21,14 @@ h1 {
   margin: 0 auto;
 }
 
-p {
+/* p {
   color: #bf1650;
 }
 
 p::before {
   display: inline;
   content: "⚠ ";
-}
+} */
 
 input[type="text"] {
   display: flex;

@@ -1,13 +1,15 @@
 import {protectedResources, loginRequest} from "../authConfig";
 import { useMsal, useAccount } from "@azure/msal-react";
 import { useState, useEffect } from "react";
-import AssetLocationData from "../../tables/assetLocDisplay"
+// import AssetLocationData from "../../tables/assetLocDisplay"
 import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
 import axios from 'axios';
 import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
+import {Box} from "@mui/material"
+import GenerateLabels from "../../pages/asap/generatelabels"
+
 
 function ProtectedComponent(props) {
-    
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
 
@@ -20,19 +22,21 @@ function ProtectedComponent(props) {
             }
         }
         let data = await axios(url+`${userData.Company}/${userData.date}`, config)
+        console.log(data.data.data[0])
         if (data.status == 200){
             setIsLoading(false)
-            console.log(data.data)
-            if (data.data.data[0].length > 0){
-                return data
+            // console.log(data.data.data[0])
+            if(data.data.data[0].result !== null){
+            if (data.data.data[0].result.length > 0 && data.data.data[0].result.length !== null){
+                // console.log('yes')
+                return data.data.data[0]
             } else {
                 return null
             }
         } else {
             setIsLoading(false)
             return null
-        }
-        
+        }}
     };
 
     // console.info('AssetID received in CallApiWithToken: ' + props.assetID)
@@ -92,10 +96,19 @@ function ProtectedComponent(props) {
         })};
     },[accounts, inProgress, instance, props.formData.submit]);
     return (
-        <div>
-            {isLoading ? <LoadingSpinner /> : null}
-            { apiData && isLoading === false ? <AssetLocationData assetData={apiData} /> : null }
-        </div>
+        <Box sx={{ 
+            marginTop: 4, 
+            border: '1px',
+            textAlign:'center'
+            }}
+            >
+            <div>
+                {isLoading ? <LoadingSpinner /> : null}
+                {/* <h3>Iframes in React</h3> */}
+                {/* <iframe src="https://platform.twitter.com/widgets/tweet_button.html"></iframe> */}
+                { apiData && isLoading === false ? <GenerateLabels result={apiData} /> : null }
+            </div>
+        </Box>
     );
 };
 
