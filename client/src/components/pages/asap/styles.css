@@ -1,21 +1,24 @@
-@page{
-    width: 4;
-    height: 6;
-    margin: 5mm 5mm 5mm 5mm;
-    padding: 0 5mm 0 5mm;
-    text-align: center;
+@media print{
+    .PrintSection{
+        size: 4in 6in !important;
+        margin: 5mm 5mm 5mm 5mm !important;
+        padding: 5mm 5mm 5mm 5mm !important;
+        font-size: 10px !important;
+        
+        
+    }
+    .p{
+        margin: 0;
+        color: black ;
+        
+    }
+    .hr{
+        border: 2px solid black;
+    }
+    .flexed{
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0 15px 0;
+    }
 }
 
-p{
-    margin: 0;
-    color: black ;
-}
-.hr{
-    border: 2px solid black;
-}
-
-.flexed{
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0 15px 0;
-}
