@@ -1,10 +1,12 @@
 import React from "react";
 import "./LoadingSpinner.css";
+import PacmanLoader from "react-spinners/PacmanLoader";
+
 
 export default function LoadingSpinner() {
   return (
-    <div className="spinner-container">
-      <div className="loading-spinner"></div>
+    <div align="center">
+    <PacmanLoader color="#36d7b7" />
     </div>
   );
 }

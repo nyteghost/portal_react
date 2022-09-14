@@ -113,7 +113,18 @@ app.get('/getAssetLoc/:Company/:AssetID',
     }
 );
 
-
+app.get('/GetASAPLabels/:Company/:Date', 
+    // passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.params;
+            res.json(await asapController.generateASAPLabels(req.params));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.get('/getASAPLabel', 
     passport.authenticate('oauth-bearer', {session: false}), 

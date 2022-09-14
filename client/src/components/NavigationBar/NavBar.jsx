@@ -51,7 +51,7 @@ export function Header() {
               <NavDropdown.Item href="/components/pages/returns/search">Search</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Warehouse" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/components/pages/warehouse/asapoutboundlabel">ASAP Outbound Labels</NavDropdown.Item>
+              <NavDropdown.Item href="/components/pages/asap/asapoutboundlabel">ASAP Outbound Labels</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/consumePeripherals">Consume Peripherals</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/etched">Mark Etched</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/miscAssignment">MISC Assignment</NavDropdown.Item>

@@ -12,7 +12,7 @@ import AssetLabel from "../pages/assets/assetLabel"
 import Assetlocation from "../pages/assets/assetlocation"
 import SearchAssetLoc from "../pages/assets/searchAssetLoc.jsx"
 import MiscAssign from "../pages/warehouse/miscAssignment"
-import ASAPOutbound from "../pages/warehouse/asapoutboundlabel"
+import ASAPOutbound from "../pages/asap/asapoutboundlabel"
 import ConsumePeriph from "../pages/warehouse/consumePeripherals"
 import Hello  from "../pages/Hello"
 import TestPage from "../pages/testPage"
@@ -37,7 +37,7 @@ return (
             <Route path='/components/pages/warehouse/opassignment' element={<OpAssignment />}/>
             <Route path='/components/pages/warehouse/etched' element={<Etched />}/>
             <Route path='/components/pages/warehouse/miscAssignment' element={<MiscAssign />}/>
-            <Route path='/components/pages/warehouse/asapoutboundlabel' element={<ASAPOutbound />}/>
+            <Route path='/components/pages/asap/asapoutboundlabel' element={<ASAPOutbound />}/>
             <Route path='/components/pages/warehouse/consumePeripherals' element={<ConsumePeriph />}/>
         </Routes>
     </Router>   

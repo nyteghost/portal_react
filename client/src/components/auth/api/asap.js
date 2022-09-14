@@ -19,7 +19,7 @@ function ProtectedComponent(props) {
             headers: {"Authorization" : bearer
             }
         }
-        let data = await axios(url+`${userData.Company}/${userData.assetID}`, config)
+        let data = await axios(url+`${userData.Company}/${userData.date}`, config)
         if (data.status == 200){
             setIsLoading(false)
             console.log(data.data)
@@ -62,7 +62,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
+                callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
                 .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -70,10 +70,10 @@ function ProtectedComponent(props) {
                 if (error instanceof InteractionRequiredAuthError) {
                     if (account && inProgress === "none") {
                         instance.acquireTokenPopup({
-                            scopes: protectedResources.apiGetAssetLocationProc.scopes,
+                            scopes: protectedResources.apiGetASAPLabels.scopes,
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
+                            callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -86,7 +86,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiGetAssetLocationProc.endpoint,props.formData)
+                callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};

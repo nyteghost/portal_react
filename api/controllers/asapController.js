@@ -18,13 +18,13 @@ async function generateASAPLabels(req){
   };
 
 
-async function generateASAPLabels(req){
-    let record = JSON.parse(req);
-    record.date = new Date().toLocaleDateString();
-    return {
-        record
-      };
-};
+// async function generateASAPLabels(req){
+//     let record = JSON.parse(req);
+//     record.date = new Date().toLocaleDateString();
+//     return {
+//         record
+//       };
+// };
 
 module.exports = {
     generateASAPLabels,

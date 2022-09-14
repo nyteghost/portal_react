@@ -70,6 +70,10 @@ export const protectedResources = {
         endpoint: "https://10.200.1.234:5000/hello",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"], // e.g. api://xxxxxx/access_as_user
     },
+    apiGetASAPLabels:{
+        endpoint: "https://10.200.1.234:5000/GetASAPLabels/",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
     apiGetAssetLocation:{
         endpoint: "https://10.200.1.234:5000/getAssetLocation?assetid=",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
