@@ -1,12 +1,21 @@
 import React from 'react'
 import {
     Grid,
-    Card,
-    CardContent,
     Typography,
-    CardHeader
 } from '@mui/material/'
 import './shippinglabel.css'
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import ReactToPrint from 'react-to-print';
+import CustomIframe from "./asapIFrame"
+import ShippingLabel from "./shippinglabel"
+
 
 // const useStyles = makeStyles(theme => ({
 //     root: {
@@ -15,9 +24,27 @@ import './shippinglabel.css'
 //     }
 // }))
 
+
+const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
 export default function AltCard(props) {
+    const [expanded, setExpanded] = React.useState(false);
     console.log(props.result.result)
     const data = props.result.result
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
+
 
     return (
         <div >
@@ -30,76 +57,31 @@ export default function AltCard(props) {
             >
                 {data.map(elem => (
                     <Grid item xs={12} sm={6} md={3} key={data.indexOf(elem)}>
-                        <Card>
+                        <Card sx={{ maxWidth: 345,
+                                    }}>
                             <CardHeader
-                                title={`quarter : {elem.quarter}`}
-                                subheader={`earnings : {elem.earnings}`}
+                                title={`LG Name : ${elem.lg_name}`}
+                                subheader={<><Typography>Student : {elem.contact}</Typography><Typography>{elem.address}</Typography><Typography>{elem.address_2}</Typography><Typography>{elem.city}, {elem.state}. {elem.postal_code}</Typography></>}
+                                
                             />
+                            <CardActions disableSpacing>
+                                <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                >
+                                <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+
                             <CardContent>
-                                
-                            <div className="PrintSection">
-                                <section className="flexed">
-                                    <div>
-                                        <p className = 'p' >Southeastern Computer Associates</p>
-                                        <p className = 'p' >111 Sparks Drive</p>
-                                        <p className = 'p' >Suite 6008</p>
-                                        <p className = 'p' >Hiram GA 30141</p>
-                                    </div>
-                                    <div>
-                                        <p className = 'p' >ASAP Shipping Label</p>
-                                    </div>
-                                    <div>
-                                        <p className = 'p' >Date Printed:{new Date().toLocaleDateString()}</p>
-                                    </div>
-                                </section>
-                                    <br />
-                                    <section>
-                                    <p className = 'p'  style={{fontWeight: 'bold'}}>SHIP TO:</p>
-                                        <div >
-                                            <p className = 'p' >{String(elem.lg_name)}</p>
-                                            <p className = 'p' >{String(elem.phone)}</p>
-                                            <p className = 'p' >{String(elem.address)}</p>
-                                            <p className = 'p' >{String(elem.address_2)}</p>
-                                            <p className = 'p' >{String(elem.city)} {String(elem.state)} {String(elem.postal_code)}</p>
-                                        
-                                        </div>
-                                    </section>
-                                    <hr className='hr' />
-                                    <section className="flexed">
-                                        <div>
-                                        <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${elem.contact}&size=100x100&margin=0`}/>
-                                        </div>
-                                        <div style={{width: 200}}>
-                                        </div>
-                                        <div>
-                                            <p className = 'p'  style={{fontSize: 30}}>{elem.contact}</p>
-                                        </div>
-                                    </section>
-                                    <hr className='hr'/>
-                                    <section className="flexed">    
-                                        <div>
-                                            <p className = 'p'  style={{fontSize: 30}}>GCA-{elem.assetid}</p>
-                                        </div>
-                                        <div style={{width: 200}}>
-                                        </div>
-                                        <div>
-                                            <img src={ `https://api.qrserver.com/v1/create-qr-code/?data=${elem.assetid}&size=100x100&margin=0`}/>                
-                                        </div>
-                                    </section>
-                                    <hr className='hr'/>
-                                    <section className="flexed">
-                                        <div>
-                                            <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${elem.trackingid}&size=100x100&margin=0`}/>                
-                                        </div>
-                                        <div style={{width: 200}}>
-                                        </div>
-                                        <div>
-                                            <p className = 'p'  style={{fontSize: 30}}>{elem.trackingid}</p>
-                                        </div>
-                                    </section>
-                            </div>
-                                
+                                <CustomIframe>
+                                    <ShippingLabel formData={elem} />
+                                </CustomIframe>  
                             </CardContent>
+                        </Collapse>
                         </Card>
                      </Grid>
                 ))}
