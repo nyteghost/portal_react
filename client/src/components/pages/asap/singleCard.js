@@ -15,14 +15,6 @@ import IconButton from '@mui/material/IconButton';
 import ReactToPrint from 'react-to-print';
 import CustomIframe from "./asapIFrame"
 import ShippingLabel from "./shippinglabel"
-import SingleCard from "./singleCard"
-
-// const useStyles = makeStyles(theme => ({
-//     root: {
-//         flexGrow: 1,
-//         padding: theme.spacing(2)
-//     }
-// }))
 
 
 const ExpandMore = styled((props) => {
@@ -36,30 +28,28 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-export default function AltCard(props) {
+export default function SingleCard(props) {
     const [expanded, setExpanded] = React.useState(false);
-    const data = props.result.result
+    const elem = props.formData
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
 
     return (
-        <div>
-            <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-            >
-                {data.map(elem => (
-                    <Grid item xs={12} sm={6} md={3} key={data.indexOf(elem)}>
-                        <Card sx={{ maxWidth: 400,
-                                    }}>
-                            <CardContent>
-                                <SingleCard formData={elem} />
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+        <div >    
+            <Card sx={{maxHeight:190}}>
+                <CardHeader
+                    title={`LG Name : ${elem.lg_name}`}
+                    subheader={
+                    <>
+                        <Typography>Student : {elem.contact}</Typography>
+                        <Typography>{elem.address}</Typography>
+                        <Typography>{elem.address_2}</Typography>
+                        <Typography>{elem.city}, {elem.state}. {elem.postal_code}</Typography>
+                    </>}  
+                />
+                    <ShippingLabel formData={elem} />
+            </Card>
         </div>
     )
 }

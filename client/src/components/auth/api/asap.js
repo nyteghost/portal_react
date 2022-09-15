@@ -107,6 +107,7 @@ function ProtectedComponent(props) {
                 {isLoading ? <LoadingSpinner /> : null}
                 {/* <h3>Iframes in React</h3> */}
                 {/* <iframe src="https://platform.twitter.com/widgets/tweet_button.html"></iframe> */}
+                { apiData && isLoading === false ? <GenerateLabels result={apiData} /> : null }
                 { apiData && isLoading === false ? <AltCard result={apiData} /> : null }
             </div>
         </Box>

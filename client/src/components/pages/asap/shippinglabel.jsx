@@ -3,7 +3,9 @@ import './shippinglabel.css'
 import React, { useRef } from 'react';
 import ReactToPrint from 'react-to-print';
 import {Box} from "@mui/material"
-
+import { FcPrint } from "react-icons/fc";
+import Card from '@mui/material/Card';
+import Collapse from '@mui/material/Collapse';
 
 const pageStyle = `@page {
     size: 4in 6in;
@@ -74,6 +76,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                     <p className = 'p'  style={{fontSize: 30}}>{props.trackingid}</p>
                 </div>
             </section>
+            <div className="page-break"/>
         </div>
     )
 });
@@ -81,16 +84,17 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
 
 
 export const ShippingLabel = (props) => {
-    console.log(props.formData)
     const componentRef = useRef();
-
     return (
         <div>
-          <ReactToPrint
-            trigger={() => <button id="printButton">Print</button>}
-            content={() => componentRef.current}
-          />
-          <ComponentToPrint props={props.formData} ref={componentRef} />
+           
+                <ReactToPrint
+                    trigger={() => <FcPrint style={{ "minHeight": "56px", width: "30%"}} id="printButton">Print</FcPrint>}
+                    content={() => componentRef.current}
+                />
+                <ComponentToPrint props={props.formData} ref={componentRef} />
+              
+           
         </div>
       );
 }
