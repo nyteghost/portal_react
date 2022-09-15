@@ -16,6 +16,12 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
     props = props.props
 
     return(
+        <>
+        <br />
+        <br />
+        <br />
+        <br />
+
         <div ref={ref} className="PrintSection" style={{ backgroundColor: 'white',}}>
             <section className="flexed">
                 <div>
@@ -78,6 +84,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
             </section>
             <div className="page-break"/>
         </div>
+        </>
     )
 });
 
@@ -89,7 +96,7 @@ export const ShippingLabel = (props) => {
         <div>
            
                 <ReactToPrint
-                    trigger={() => <FcPrint style={{ "minHeight": "56px", width: "30%"}} id="printButton">Print</FcPrint>}
+                    trigger={() => <FcPrint style={{ "minHeight": "56px", width: "30%"}} id="printButton"/>}
                     content={() => componentRef.current}
                 />
                 <ComponentToPrint props={props.formData} ref={componentRef} />
