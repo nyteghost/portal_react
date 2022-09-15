@@ -1,10 +1,6 @@
 import Modal from 'react-modal';
-import {useState, useRef, forwardRef, useEffect} from 'react'
-import "../../../../styles/warehouse.css";
-import Box from '@mui/material/Box'
-import ReactToPrint from 'react-to-print';
-import PrintConfig from '../assetLabel/PrintConfig';
-
+import {useState} from 'react'
+import ShippingLabel from './shippinglabel'
 
 const customStyles = {
     content: {
@@ -18,7 +14,7 @@ const customStyles = {
     },
   };
 
-export default function PrintAssetLabel(props) {
+export default function ShippingLabelModal(props) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
 
@@ -54,6 +50,7 @@ export default function PrintAssetLabel(props) {
         <button id = "openModal" onClick={openModal}></button>
         {/* {setTimeout(() => {  document.getElementById("openModal").click() }, 1000)} */}
 
+
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -64,8 +61,8 @@ export default function PrintAssetLabel(props) {
           ariaHideApp={false}
         >
             {console.log(modalContent)}  
-            {modalIsOpen ? <PrintConfig props={modalContent} />: null}
-            <button onClick={closeModal}>close</button>
+            {modalIsOpen ? <ShippingLabel props={modalContent} />: null}
+            <button id= "closeModal" onClick={closeModal}>close</button>
         </Modal>
       </div>
     );

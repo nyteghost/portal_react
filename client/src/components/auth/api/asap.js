@@ -7,7 +7,8 @@ import axios from 'axios';
 import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
 import {Box} from "@mui/material"
 import GenerateLabels from "../../pages/asap/generatelabels"
-
+import ShippingLabelModal from "../../pages/asap/createModal"
+import AltCard from "../../pages/asap/createCards"
 
 function ProtectedComponent(props) {
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ function ProtectedComponent(props) {
             }
         }
         let data = await axios(url+`${userData.Company}/${userData.date}`, config)
-        console.log(data.data.data[0])
+        // console.log(data.data.data[0])
         if (data.status == 200){
             setIsLoading(false)
             // console.log(data.data.data[0])
@@ -106,7 +107,7 @@ function ProtectedComponent(props) {
                 {isLoading ? <LoadingSpinner /> : null}
                 {/* <h3>Iframes in React</h3> */}
                 {/* <iframe src="https://platform.twitter.com/widgets/tweet_button.html"></iframe> */}
-                { apiData && isLoading === false ? <GenerateLabels result={apiData} /> : null }
+                { apiData && isLoading === false ? <AltCard result={apiData} /> : null }
             </div>
         </Box>
     );

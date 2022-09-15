@@ -1,8 +1,8 @@
 @media print{
     .PrintSection{
         size: 4in 6in !important;
-        margin: 5mm 5mm 5mm 5mm !important;
-        padding: 5mm 5mm 5mm 5mm !important;
+        margin-right: 5mm !important;
+        padding: 0 5mm 0 5mm !important;
         font-size: 10px !important;
         
         

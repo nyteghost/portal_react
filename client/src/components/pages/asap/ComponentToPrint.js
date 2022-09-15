@@ -10,10 +10,10 @@ const pageStyle = `@page {
 }`
 
 const ComponentToPrint = React.forwardRef((props, ref) => {
-    console.log(props)
     props = props.props
 
     return(
+
             <div ref={ref} className="PrintSection">
                 <section className="flexed">
                         <div>
@@ -42,7 +42,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                         </div>
                     </section>
                     <hr className='hr' />
-                    <section className="flexed">
+                    <section class="flexed">
                         <div>
                         <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${props.contact}&size=100x100&margin=0`}/>
                         </div>
@@ -53,7 +53,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                         </div>
                     </section>
                     <hr className='hr'/>
-                    <section className="flexed">    
+                    <section class="flexed">    
                         <div>
                             <p className = 'p'  style={{fontSize: 30}}>GCA-{props.assetid}</p>
                         </div>
@@ -64,7 +64,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
                         </div>
                     </section>
                     <hr className='hr'/>
-                    <section className="flexed">
+                    <section class="flexed">
                         <div>
                             <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${props.trackingid}&size=100x100&margin=0`}/>                
                         </div>
@@ -81,10 +81,8 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
 
 
 export const ShippingLabel = (props) => {
-
     const componentRef = useRef();
     {setTimeout(() => {  document.getElementById("printButton").click() }, 1000)} 
-    {setTimeout(() => {  document.getElementById("closeModal").click() }, 5000)}
 
     return (
         <div>
@@ -92,7 +90,7 @@ export const ShippingLabel = (props) => {
             trigger={() => <button id="printButton">Print</button>}
             content={() => componentRef.current}
           />
-          <ComponentToPrint props={props.props.formData} ref={componentRef} />
+          <ComponentToPrint props={props.formData} ref={componentRef} />
         </div>
       );
 }
