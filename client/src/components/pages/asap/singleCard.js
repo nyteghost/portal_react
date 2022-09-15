@@ -37,7 +37,8 @@ export default function SingleCard(props) {
 
     return (
         <div >    
-            <Card sx={{maxHeight:190}}>
+            <Card sx={{maxHeight:190,
+                        minHeight:190}}>
                 <CardHeader
                     title={`LG Name : ${elem.lg_name}`}
                     subheader={
