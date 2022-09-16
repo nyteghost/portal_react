@@ -13,6 +13,7 @@ import AltCard from "../../pages/asap/createCards"
 function ProtectedComponent(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
+    const [emptyData, setEmptyData] = useState(null);
 
     async function callApi (accessToken, url, userData) {
         setIsLoading(true)
@@ -32,11 +33,13 @@ function ProtectedComponent(props) {
                 // console.log('yes')
                 return data.data.data[0]
             } else {
-                return null
+                setEmptyData('No ASAP labels for this day.')
+                
             }
         } else {
             setIsLoading(false)
-            return null
+            setEmptyData('No ASAP labels for this day.')
+           
         }}
     };
 
@@ -109,6 +112,8 @@ function ProtectedComponent(props) {
                 {/* <iframe src="https://platform.twitter.com/widgets/tweet_button.html"></iframe> */}
                 { apiData && isLoading === false ? <GenerateLabels result={apiData} /> : null }
                 { apiData && isLoading === false ? <AltCard result={apiData} /> : null }
+                {emptyData && isLoading === false ? <div>{emptyData}</div> : null }
+
             </div>
         </Box>
     );

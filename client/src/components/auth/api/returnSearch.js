@@ -5,12 +5,12 @@ import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-brows
 import axios from 'axios';
 import LoadingSpinner from "../../../features/spinner/LoadingSpinner"
 import {Box} from "@mui/material"
-
+import ReturnScanTable from "../../tables/returnByDateTable"
 
 function ProtectedComponent(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
-
+    const [emptyData, setEmptyData] = useState(null);
     async function callApi (accessToken, url, userData) {
         setIsLoading(true)
         const bearer = `Bearer ${accessToken}`;
@@ -23,17 +23,18 @@ function ProtectedComponent(props) {
         // console.log(data.data.data[0])
         if (data.status == 200){
             setIsLoading(false)
-            // console.log(data.data.data[0])
-            if(data.data.data[0].result !== null){
-            if (data.data.data[0].result.length > 0 && data.data.data[0].result.length !== null){
+            // console.log(data.data.data.length)
+            if(data.data.data.length > 0){
+            if (data.data.data !== null){
                 // console.log('yes')
-                return data.data.data[0]
+                setEmptyData(null)
+                return data.data.data
             } else {
-                return null
+                return setEmptyData('No Returns for this day.')
             }
         } else {
             setIsLoading(false)
-            return null
+            return setEmptyData('No Returns for this day.')
         }}
     };
 
@@ -102,9 +103,11 @@ function ProtectedComponent(props) {
             >
             <div>
                 {isLoading ? <LoadingSpinner /> : null}
-         
-  
+                {apiData ? <ReturnScanTable tableData={apiData} /> : null }
+                {emptyData ? <div>{emptyData}</div> : null }
+
             </div>
+            
         </Box>
     );
 };

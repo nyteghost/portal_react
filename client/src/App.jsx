@@ -3,7 +3,7 @@ import { AuthenticatedTemplate, UnauthenticatedTemplate} from "@azure/msal-react
 import {Header} from "./components/NavigationBar/NavBar"
 import AppRouter from './components/NavigationBar/RouteAssignment'
 import { InteractionType } from "@azure/msal-browser";
-
+import Alert from "./getAlert"
 
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
     <>
     <Header />
     <AuthenticatedTemplate interactionType={InteractionType.Redirect}>
-      
+      <Alert />
       <AppRouter />
 
     </AuthenticatedTemplate>
