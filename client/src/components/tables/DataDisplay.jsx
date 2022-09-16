@@ -1,8 +1,5 @@
 import "../../styles/new.css";
 import { protectedResources } from "../auth/authConfig";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, SxProps} from "@mui/material"
-import Box from '@mui/material/Box'
-
 
 
 export const ProfileData = (props) => {

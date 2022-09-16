@@ -9,3 +9,12 @@ body{
     margin-left: 8px;
     
 }
+html {
+    /* background:rgb(2, 2, 2) url('https://rare-gallery.com/resol/1600x900/4573424-h-p.-lovecraft-cthulhu.jpg' )no-repeat center center fixed ; */
+    background-position: 0 150px; 
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+}

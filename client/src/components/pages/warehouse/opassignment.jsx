@@ -22,14 +22,11 @@ function Stupidthing() {
   const assetIDRef = useRef('');
   const depotReasonRef = useRef('');
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { handleSubmit, formState: { errors } } = useForm();
   const [operation, setOps] = useState('');
   const [inventory, setInventory] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
-  // const [location, setLocation] = useState('');
-  // const [assetID, setAssetID] = useState('');
-  // const [depotReason, setDepotReason] = useState('');
   const [disabled, setDisabled] = useState(false);
  
 

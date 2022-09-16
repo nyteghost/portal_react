@@ -56,9 +56,6 @@ export function Header() {
               <NavDropdown.Item href="/components/pages/warehouse/etched">Mark Etched</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/miscAssignment">MISC Assignment</NavDropdown.Item>
               <NavDropdown.Item href="/components/pages/warehouse/opassignment">Operation Assignment</NavDropdown.Item>
-
-              
-              
             </NavDropdown>
             <DropdownButton
               id="dropdown-basic-button"
@@ -80,7 +77,6 @@ export function Header() {
           </Nav>
           <div className='signButton'>{ isAuthenticated ? <SignOutButton /> : <SignInButton /> }</div>
         </Navbar.Collapse>
-       
       </Navbar>
     </Container>
 </>

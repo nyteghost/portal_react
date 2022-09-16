@@ -26,10 +26,6 @@ export default function CustomizedSelects() {
   const [type, setType] = useState('');
   const [sendData, setData] = useState('');
   const [count, setCount] = useState(0);
-  // const [contact, setContact] = useState('');
-  // const [tracking, setTracking] = useState('');
-  // const [assetID, setAssetID] = useState('');
-  // const [driver, SetDrive] = useState('');
 
 
   const parentToChild = props => {

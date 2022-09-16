@@ -51,9 +51,7 @@ export default function AltCard(props) {
             >
                 {data.map(elem => (
                     <Grid item xs={12} sm={6} md={3} key={data.indexOf(elem)}>
-                       
-                                <SingleCard formData={elem} />
-                   
+                        <SingleCard formData={elem} />
                     </Grid>
                 ))}
             </Grid>
