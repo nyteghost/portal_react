@@ -71,7 +71,11 @@ export const protectedResources = {
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"], // e.g. api://xxxxxx/access_as_user
     },
     apiGetASAPLabels:{
-        endpoint: "https://10.200.1.234:5000/GetASAPLabels/",
+        endpoint: "https://10.200.1.234:5000/getASAPLabels/",
+        scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
+    },
+    apiGetReturnByDate:{
+        endpoint: "https://10.200.1.234:5000/getReturnByDate/",
         scopes: ["api://634f7270-5f06-490d-b181-f9b6ce926dfe/access_as_user"]
     },
     apiGetAssetLocation:{

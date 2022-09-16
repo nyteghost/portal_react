@@ -18,6 +18,21 @@ async function newReturn(req){
   }
 }
   
+async function returnsByDate(req){
+  console.log('Made ReturnByDate request')
+  delete req.submit
+  let stringedJSON = JSON.stringify(req)
+  console.log(stringedJSON)
+  const rows = await db.query(
+    `call dbo_uspreturnsprocessedbydate (${req.date}, ${req.company}`
+  );
+  const data = helper.emptyOrRows(rows[0]);
+  console.log(data)
+   return {
+    data
+  }
+};
+
 
 async function k12Return(req){
   console.log('Made new K12 Return request')
@@ -35,6 +50,7 @@ async function k12Return(req){
 }
 
   module.exports = {
+    returnsByDate,
     newReturn,
     k12Return
 }

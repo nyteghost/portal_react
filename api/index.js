@@ -113,8 +113,8 @@ app.get('/getAssetLoc/:Company/:AssetID',
     }
 );
 
-app.get('/GetASAPLabels/:Company/:Date', 
-    // passport.authenticate('oauth-bearer', {session: false}), 
+app.get('/getASAPLabels/:Company/:Date', 
+    passport.authenticate('oauth-bearer', {session: false}), 
     async function(req, res, next) {
         try {
             req.params;
@@ -126,6 +126,18 @@ app.get('/GetASAPLabels/:Company/:Date',
     }
 );
 
+app.get('/getReturnByDate/:Company/:Date', 
+    passport.authenticate('oauth-bearer', {session: false}), 
+    async function(req, res, next) {
+        try {
+            req.params;
+            res.json(await returnController.returnsByDate(req.params));
+        } catch (err) {
+            console.error(`Error while getting programming languages `, err.message);
+            next(err);
+        }
+    }
+);
 
 app.post('/getCWTicket', 
     // passport.authenticate('oauth-bearer', {session: false}),

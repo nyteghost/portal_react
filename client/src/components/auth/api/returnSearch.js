@@ -64,7 +64,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => { 
-                callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
+                callApi(response.accessToken, protectedResources.apiGetReturnByDate.endpoint,props.formData)
                 .then(response => setApiData(response));
             })
             .catch((error) => {
@@ -72,10 +72,10 @@ function ProtectedComponent(props) {
                 if (error instanceof InteractionRequiredAuthError) {
                     if (account && inProgress === "none") {
                         instance.acquireTokenPopup({
-                            scopes: protectedResources.apiGetASAPLabels.scopes,
+                            scopes: protectedResources.apiGetReturnByDate.scopes,
                         })
                         .then((response) => {
-                            callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
+                            callApi(response.accessToken, protectedResources.apiGetReturnByDate.endpoint,props.formData)
                                 .then(response => setApiData(response));
                         })
                         .catch(error => console.log(error));
@@ -88,7 +88,7 @@ function ProtectedComponent(props) {
                 account: account
             })
             .then((response) => {
-                callApi(response.accessToken, protectedResources.apiGetASAPLabels.endpoint,props.formData)
+                callApi(response.accessToken, protectedResources.apiGetReturnByDate.endpoint,props.formData)
                     .then(response => setApiData(response))
                     .catch(error => console.log(error))
         })};
