@@ -11,8 +11,8 @@ import logo from '../img/logo.png'
 
 const list = [
   { key: "Please Select Database", value: "Please Select Database" },
-  { key: "GCA", value: "GCA" },
-  { key: "Not GCA", value: "Not GCA" },
+  { key: "Database1", value: "Database1" },
+  { key: "Database2", value: "Database2" },
   { key: "", value: "" }
 ];
 
